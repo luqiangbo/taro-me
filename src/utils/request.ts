@@ -15,6 +15,7 @@ function request(all) {
         },
         ...all,
         success: function (res) {
+          console.log({ res })
           if (res.statusCode == 200) {
             if (res.data.errno == 501) {
               // 清除登录相关内容
@@ -26,10 +27,10 @@ function request(all) {
               Taro.navigateTo({
                 url: '/pages/auth/login/login',
               })
-            } else if (res.data.errno == 0) {
+            } else if (res.data.errorCode == 0) {
               resolve(res.data.data)
             } else {
-              reject(res.data.errmsg)
+              reject(res.data.errorMsg)
             }
           } else {
             reject(res.errMsg)
