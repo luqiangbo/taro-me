@@ -11,18 +11,11 @@ export default function EssayPage() {
     init()
   }, [])
 
-  const init = () => {
-    onFetchList()
-  }
-
-  const onFetchList = async () => {
-    const [err, res] = await postArticleList()
-    console.log({ err, res })
-  }
+  const init = () => {}
 
   return (
     <div className="page-404">
-      <h1>爱安卓</h1>
+      <h1>用户页面</h1>
     </div>
   )
 }

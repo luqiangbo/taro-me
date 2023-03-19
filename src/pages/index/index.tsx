@@ -1,5 +1,5 @@
-import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
+import Taro from '@tarojs/taro'
 import { Button } from '@nutui/nutui-react-taro'
 
 import './index.scss'
@@ -18,11 +18,8 @@ export default function HomePage() {
   return (
     <div className="page-home">
       <div className="nav">
-        <div className="item">21312</div>
-      </div>
-      <h1>123</h1>
-      <div>
-        <Button
+        <div
+          className="item"
           onClick={() => {
             Taro.navigateTo({
               url: '/pages/essay/index',
@@ -30,10 +27,17 @@ export default function HomePage() {
           }}
         >
           爱安卓
-        </Button>
-      </div>
-      <div>
-        <Button>处理</Button>
+        </div>
+        <div
+          className="item"
+          onClick={() => {
+            Taro.navigateTo({
+              url: '/pages/user/index',
+            })
+          }}
+        >
+          用户
+        </div>
       </div>
     </div>
   )

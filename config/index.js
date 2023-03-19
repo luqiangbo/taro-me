@@ -25,6 +25,7 @@ const config = {
   },
   sass: {
     data: `@import "@nutui/nutui-react-taro/dist/styles/variables.scss";`,
+    // resource: [path.resolve(__dirname, '..', 'src/app.scss')],
   },
   mini: {
     postcss: {
