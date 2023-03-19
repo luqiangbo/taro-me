@@ -1,36 +1,40 @@
-import { Component } from "react";
-import {
-  Button,
-  Cell,
-} from "@nutui/nutui-react-taro";
-import './index.less'
+import Taro from '@tarojs/taro'
+import { useEffect } from 'react'
+import { Button } from '@nutui/nutui-react-taro'
 
-class Index extends Component<PropsWithChildren> {
-   constructor(props: any) {
-     super(props);
-   }
+import './index.scss'
 
-   componentDidMount() {}
+definePageConfig({
+  navigationBarTitleText: '首页123',
+})
 
-   componentWillUnmount() {}
+export default function HomePage() {
+  useEffect(() => {
+    init()
+  }, [])
 
-   componentDidShow() {}
+  const init = () => {}
 
-   componentDidHide() {}
-
-   render() {
-     return (
-       <div className="nutui-react-demo">
-         <div className="index">
-          欢迎使用 NutUI React 开发 Taro 多端项目。
-         </div>
-         <div className="index">
-           <Button type="primary" className="btn">
-             NutUI React Button
-           </Button>
-         </div>
-       </div>
-     );
-   }
+  return (
+    <div className="page-home">
+      <div className="nav">
+        <div className="item">21312</div>
+      </div>
+      <h1>123</h1>
+      <div>
+        <Button
+          onClick={() => {
+            Taro.navigateTo({
+              url: '/pages/essay/index',
+            })
+          }}
+        >
+          爱安卓
+        </Button>
+      </div>
+      <div>
+        <Button>处理</Button>
+      </div>
+    </div>
+  )
 }
-export default Index
