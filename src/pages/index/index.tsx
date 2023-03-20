@@ -19,7 +19,7 @@ export default function HomePage() {
     <div className="page-home">
       <div className="nav">
         <div
-          className="item"
+          className="item flex justify-center items-center"
           onClick={() => {
             Taro.navigateTo({
               url: '/pages/essay/index',
