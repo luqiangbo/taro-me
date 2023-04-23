@@ -1,4 +1,4 @@
 import request from '@/utils/request'
-// 新闻列表
 
-export const postArticleList = (data) => request({ url: `https://www.wanandroid.com/article/list/1/json`, payload: {} })
+// 新闻列表
+export const fetchGitee123 = () => request({ url: `https://caniuse.gitee.io/123.json`, payload: {} })

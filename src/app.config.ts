@@ -11,18 +11,15 @@ export default defineAppConfig({
     selectedColor: '#2A8CE5',
     backgroundColor: '#FBFBFB',
     borderStyle: 'white',
+    // h5 报错
     list: [
       {
         pagePath: 'pages/index/index',
         text: '首页',
-        iconPath: './assets/images/new.png',
-        selectedIconPath: './assets/images/new_focus.png',
       },
       {
         pagePath: 'pages/me/index',
         text: '个人中心',
-        iconPath: './assets/images/me.png',
-        selectedIconPath: './assets/images/me_focus.png',
       },
     ],
   },

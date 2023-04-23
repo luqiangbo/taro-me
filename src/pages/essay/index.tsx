@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { VirtualList } from '@nutui/nutui-react-taro'
 
-import { postArticleList } from '@/apis/index'
-import './index.scss'
+import { fetchGitee123 } from '@/apis/index'
 
 definePageConfig({
   navigationBarTitleText: '列表页',
@@ -12,7 +11,6 @@ definePageConfig({
 export default function EssayPage() {
   const [state, setState] = useSetState({
     req: { page: 1 },
-    list: [],
     hasMore: false,
   })
   useEffect(() => {
@@ -23,15 +21,7 @@ export default function EssayPage() {
     onFetchList()
   }
 
-  const onFetchList = async () => {
-    const [err, res] = await postArticleList(state.req)
-    if (err) return
-    const list = state.req.page === 1 ? res.datas : [...state.list, ...res.datas]
-    console.log({ err, res, list })
-    setState({
-      list,
-    })
-  }
+  const onFetchList = async () => {}
 
   const ItemRender = (u) => (
     <div className="list-item" key={u.data.id}>
@@ -52,9 +42,5 @@ export default function EssayPage() {
     console.log('onScroll')
   }
 
-  return (
-    <div className="page-essay">
-      <VirtualList itemSize={100} sourceData={state.list} ItemRender={ItemRender} onScroll={onScroll} />
-    </div>
-  )
+  return <div className="page-essay">123</div>
 }

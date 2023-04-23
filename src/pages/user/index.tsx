@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { postArticleList } from '@/apis/index'
+import { fetchGitee123 } from '@/apis/index'
 
 definePageConfig({
   navigationBarTitleText: '列表页',

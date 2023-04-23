@@ -53,7 +53,7 @@ const config = {
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
-    // esnextModules: ['nutui-react'],
+    esnextModules: ['nutui-react'],
     postcss: {
       pxtransform: {
         enable: true,
@@ -72,6 +72,10 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]',
         },
       },
+    },
+    devServer: {
+      hot: true,
+      open: false,
     },
   },
   alias: {
