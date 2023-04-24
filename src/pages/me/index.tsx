@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useDidShow, useDidHide } from '@tarojs/taro'
+import { useSnapshot } from 'valtio'
 
 import { mUser } from '@/store'
 
@@ -8,6 +9,8 @@ definePageConfig({
 })
 
 export default function HomePage() {
+  const snapUser = useSnapshot(mUser)
+
   useDidShow(() => {
     console.log('useDidShow me')
     init()
@@ -18,6 +21,7 @@ export default function HomePage() {
 
   const init = () => {
     console.log('init-page-me')
+
     mUser.count++
   }
 
