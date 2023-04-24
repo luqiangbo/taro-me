@@ -2,14 +2,17 @@ import { useEffect, useState } from 'react'
 import Taro from '@tarojs/taro'
 import { Button, Icon, Rate, Pagination, Cell } from '@nutui/nutui-react-taro'
 import { useSetState } from 'ahooks'
+import { useSnapshot } from 'valtio'
 
 import { fetchGitee123 } from '@/apis/index'
+import { mUser } from '@/store'
 
 definePageConfig({
   navigationBarTitleText: '首页123',
 })
 
 export default function HomePage() {
+  const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
     list: [],
   })
@@ -19,6 +22,7 @@ export default function HomePage() {
   }, [])
 
   const init = () => {
+    console.log('init-index')
     onFetchGitee123()
   }
 
@@ -35,6 +39,10 @@ export default function HomePage() {
 
   return (
     <div className="page-home">
+      <div>
+        123
+        <h1>{snapUser.count}</h1>
+      </div>
       <Rate modelValue={3} />
       <Pagination modelValue={currentPage1} totalItems="25" itemsPerPage="5" onChange={pageChange1} />
       <div className="nav">

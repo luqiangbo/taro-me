@@ -1,6 +1,7 @@
-import { Component } from 'react'
 import { ConfigProvider, Sticky, Tabbar, TabbarItem } from '@nutui/nutui-react-taro'
 import en from '@nutui/nutui-react-taro/dist/locales/en-US'
+import { useSnapshot } from 'valtio'
+import { mUser } from '@/store'
 
 import './style/app.css'
 import './assets/font/iconfont.css'
@@ -13,15 +14,13 @@ const darkTheme = {
   nutuiBrandLinkColor: '#396acc',
 }
 
-class App extends Component {
-  render() {
-    return (
-      <ConfigProvider theme={darkTheme} locale={en}>
-        <div>
-          <div>{this.props.children}</div>
-        </div>
-      </ConfigProvider>
-    )
-  }
+export default function Main(props) {
+  mUser.hash = Date.now()
+  return (
+    <ConfigProvider theme={darkTheme} locale={en}>
+      <div>
+        <div>{props.children}</div>
+      </div>
+    </ConfigProvider>
+  )
 }
-export default App
