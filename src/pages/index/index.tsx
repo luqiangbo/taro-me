@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Taro from '@tarojs/taro'
-import { Button, Icon, Rate, Pagination, Cell } from '@nutui/nutui-react-taro'
+import { Button, Icon, Rate, Pagination, Cell, Avatar } from '@nutui/nutui-react-taro'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 
@@ -40,6 +40,7 @@ export default function HomePage() {
   return (
     <div className="page-home">
       <div>
+        <Avatar size="large" icon="http://cooog.test.upcdn.net/tt/img300k.png" />
         123
         <h1>{snapUser.count}</h1>
       </div>
