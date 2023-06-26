@@ -1,0 +1,17 @@
+.page-home {
+  padding-bottom: 200px;
+  .page-home-banner {
+    width: 100%;
+    image {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+  .catgory-main {
+    display: flex;
+    .catgory-item {
+      width: 20%;
+      text-align: center;
+    }
+  }
+}

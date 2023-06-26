@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
+import { Tabs } from '@nutui/nutui-react-taro'
 
 import CAll from '@/components/all_comp'
+import { tabsList } from './data'
 
 definePageConfig({
   navigationBarTitleText: '分类',
@@ -9,8 +11,7 @@ definePageConfig({
 
 export default function EssayPage() {
   const [state, setState] = useSetState({
-    req: { page: 1 },
-    hasMore: false,
+    tabsIndex: 0,
   })
   useEffect(() => {
     init()
@@ -22,29 +23,28 @@ export default function EssayPage() {
 
   const onFetchList = async () => {}
 
-  const ItemRender = (u) => (
-    <div className="list-item" key={u.data.id}>
-      <div className="main">
-        <div>头像</div>
-        <div>
-          <div>{u.data.title}</div>
-          <div>
-            <div>{u.data.niceDate}</div>
-            <div>{u.data.superChapterName}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-
-  const onScroll = () => {
-    console.log('onScroll')
-  }
-
   return (
-    <div className="page-essay">
+    <div className="page-category">
       <CAll />
-      123
+      <Tabs
+        // style={{ height: 'calc(100vh - 50px)' }}
+        style={{ height: '100vh' }}
+        value={state.tabsIndex}
+        onChange={(value) => {
+          setState({
+            tabsIndex: value,
+          })
+        }}
+        direction="vertical"
+      >
+        {tabsList.map((u) => (
+          <Tabs.TabPane key={u.key} title={u.value}>
+            {u.list.map((h) => (
+              <div key={h.key}>{h.value}</div>
+            ))}
+          </Tabs.TabPane>
+        ))}
+      </Tabs>
     </div>
   )
 }

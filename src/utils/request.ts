@@ -33,6 +33,7 @@ function request(all) {
         },
         fail: function (err) {
           mCommon.toastOpen = false
+          mCommon.toast(err.errMsg)
           console.log('request', { err })
           reject(err)
         },

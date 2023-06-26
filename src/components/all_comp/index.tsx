@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
-import { Toast, Tabbar, TabbarItem } from '@nutui/nutui-react-taro'
+import { Toast, Tabbar } from '@nutui/nutui-react-taro'
+import { Cart, Category, Find, Home, My } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import { mCommon } from '@/store'
@@ -11,27 +12,29 @@ export default function EssayPage() {
   const [state, setState] = useSetState({
     tabbarList: [
       {
-        key: 'home',
+        key: 'index',
         value: '首页',
-        icon: 'home',
+        icon: <Home width={18} height={18} />,
       },
       {
         key: 'category',
         value: '分类',
-        icon: 'category',
+        icon: <Category width={18} height={18} />,
       },
       {
         key: 'cart',
         value: '购物车',
-        icon: 'cart',
+        icon: <Cart width={18} height={18} />,
       },
       {
         key: 'my',
         value: '我的',
-        icon: 'my',
+        icon: <My width={18} height={18} />,
       },
     ],
     activeIndex: '',
+    activeColor: '#1989fa',
+    inactiveColor: '#7d7e80',
   })
   useEffect(() => {
     init()
@@ -53,18 +56,21 @@ export default function EssayPage() {
       />
       <div className="all-comp-tabbar">
         <Tabbar
-          bottom={true}
-          activeVisible={snapCommon.tabbarActiveIndex}
-          onSwitch={(child, idx) => {
+          fixed
+          value={snapCommon.tabbarActiveIndex}
+          inactiveColor={state.inactiveColor}
+          activeColor={state.activeColor}
+          onSwitch={(idx) => {
+            console.log({ idx })
             mCommon.tabbarActiveIndex = idx
-            const url = `/pages/${child.key}/index`
+            const url = `/pages/${state.tabbarList[idx].key}/index`
             Taro.switchTab({
               url,
             })
           }}
         >
           {state.tabbarList.map((u) => (
-            <TabbarItem key={u.key} tabTitle={u.value} icon={u.icon} />
+            <Tabbar.Item key={u.key} title={u.value} icon={u.icon} />
           ))}
         </Tabbar>
       </div>
