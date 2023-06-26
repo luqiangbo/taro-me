@@ -9,7 +9,7 @@ import { fetchProductList } from '@/apis/index'
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '首页123',
+  navigationBarTitleText: '首页',
 })
 
 export default function HomePage() {

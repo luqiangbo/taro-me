@@ -12,4 +12,5 @@ export const mCommon = proxy({
     }
     mCommon.toastOpen = true
   },
+  tabbarActiveIndex: 0,
 })

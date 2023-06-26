@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  pages: ['pages/index/index', 'pages/essay/index', 'pages/me/index', 'pages/user/index'],
+  pages: ['pages/index/index', 'pages/category/index', 'pages/my/index', 'pages/cart/index'],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
@@ -7,6 +7,7 @@ export default defineAppConfig({
     navigationBarTextStyle: 'black',
   },
   tabBar: {
+    custom: true,
     color: '#626567',
     selectedColor: '#2A8CE5',
     backgroundColor: '#FBFBFB',
@@ -18,8 +19,16 @@ export default defineAppConfig({
         text: '首页',
       },
       {
-        pagePath: 'pages/me/index',
-        text: '个人中心',
+        pagePath: 'pages/category/index',
+        text: '分类',
+      },
+      {
+        pagePath: 'pages/cart/index',
+        text: '购物车',
+      },
+      {
+        pagePath: 'pages/my/index',
+        text: '我的',
       },
     ],
   },

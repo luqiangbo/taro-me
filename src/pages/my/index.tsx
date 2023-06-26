@@ -2,10 +2,12 @@ import { useEffect } from 'react'
 import { useDidShow, useDidHide } from '@tarojs/taro'
 import { useSnapshot } from 'valtio'
 
+import CAll from '@/components/all_comp'
+
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '个人中心页面',
+  navigationBarTitleText: '我的',
 })
 
 export default function HomePage() {
@@ -27,6 +29,7 @@ export default function HomePage() {
 
   return (
     <div className="page-404">
+      <CAll />
       <h1>个人中心</h1>
     </div>
   )

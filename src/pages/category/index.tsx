@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 
+import CAll from '@/components/all_comp'
+
 definePageConfig({
-  navigationBarTitleText: '列表页',
+  navigationBarTitleText: '分类',
 })
 
 export default function EssayPage() {
@@ -39,5 +41,10 @@ export default function EssayPage() {
     console.log('onScroll')
   }
 
-  return <div className="page-essay">123</div>
+  return (
+    <div className="page-essay">
+      <CAll />
+      123
+    </div>
+  )
 }
