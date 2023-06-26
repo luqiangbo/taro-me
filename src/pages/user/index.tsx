@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 
-import { fetchGitee123 } from '@/apis/index'
-
 definePageConfig({
   navigationBarTitleText: '列表页',
 })

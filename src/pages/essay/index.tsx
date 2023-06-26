@@ -1,8 +1,5 @@
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
-import { VirtualList } from '@nutui/nutui-react-taro'
-
-import { fetchGitee123 } from '@/apis/index'
 
 definePageConfig({
   navigationBarTitleText: '列表页',
