@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Taro from '@tarojs/taro'
 import { Swiper, SwiperItem } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSetState } from 'ahooks'
@@ -9,7 +8,6 @@ import CAll from '@/components/all_comp'
 import { fetchProductList } from '@/apis/index'
 import { mUser } from '@/store'
 import { catgoryList, bannerList } from './data'
-import './index.scss'
 
 definePageConfig({
   navigationBarTitleText: '首页',
@@ -54,8 +52,8 @@ export default function HomePage() {
         </Swiper>
       </div>
       <div className="page-home-news">
-        <div>最新消息</div>
-        <div>活动来拉, 7月活动来拉</div>
+        <div className="left">最新消息</div>
+        <div className="right">活动来拉, 7月活动来拉</div>
       </div>
       <div className="catgory-main">
         {catgoryList.map((u) => (

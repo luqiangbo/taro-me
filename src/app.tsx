@@ -10,6 +10,7 @@ import { mUser } from '@/store'
 import './style/app.css'
 import './style/theme2.css'
 import './assets/font/iconfont.css'
+import './style/all.scss'
 
 export default function Main(props) {
   const snapUser = useSnapshot(mUser)
