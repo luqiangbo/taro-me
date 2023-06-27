@@ -8,7 +8,7 @@ import { useSnapshot } from 'valtio'
 import CAll from '@/components/all_comp'
 import { fetchProductList } from '@/apis/index'
 import { mUser } from '@/store'
-import { catgoryList } from './data'
+import { catgoryList, bannerList } from './data'
 import './index.scss'
 
 definePageConfig({
@@ -19,21 +19,7 @@ export default function HomePage() {
   const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
     productList: [],
-    bannerList: [
-      { key: '1', value: 'https://storage.360buyimg.com/jdc-article/NutUItaro34.jpg' },
-      {
-        key: '2',
-        value: 'https://storage.360buyimg.com/jdc-article/NutUItaro2.jpg',
-      },
-      {
-        key: '3',
-        value: 'https://storage.360buyimg.com/jdc-article/NutUItaro2.jpg',
-      },
-      {
-        key: '4',
-        value: 'https://storage.360buyimg.com/jdc-article/fristfabu.jpg',
-      },
-    ],
+    bannerList: [],
     height: 200,
   })
 
@@ -57,8 +43,8 @@ export default function HomePage() {
     <div className="page-home">
       <CAll />
       <div className="page-home-banner">
-        <Swiper defaultValue={0} height={220} loop previousMargin="20px" nextMargin="20px">
-          {state.bannerList.map((u) => {
+        <Swiper defaultValue={0} height={220} loop>
+          {bannerList.map((u) => {
             return (
               <SwiperItem key={u.key}>
                 <img src={u.value} />
@@ -67,7 +53,7 @@ export default function HomePage() {
           })}
         </Swiper>
       </div>
-      <div>
+      <div className="page-home-news">
         <div>最新消息</div>
         <div>活动来拉, 7月活动来拉</div>
       </div>

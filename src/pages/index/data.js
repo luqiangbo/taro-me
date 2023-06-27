@@ -25,3 +25,19 @@ export const catgoryList = [
     url: 'https://img11.360buyimg.com/imagetools/jfs/t1/137646/13/7132/1648/5f4c748bE43da8ddd/a3f06d51dcae7b60.png',
   },
 ]
+
+export const bannerList = [
+  { key: '1', value: 'https://qiniu.commok.com/pcigo/202306271625392.webp' },
+  {
+    key: '2',
+    value: 'https://qiniu.commok.com/pcigo/202306271625822.webp',
+  },
+  {
+    key: '3',
+    value: 'https://qiniu.commok.com/pcigo/202306271625920.webp',
+  },
+  {
+    key: '4',
+    value: 'https://qiniu.commok.com/pcigo/202306271627031.jpg',
+  },
+]

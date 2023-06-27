@@ -1,11 +1,16 @@
 .page-home {
-  padding-bottom: 200px;
+  padding: 20px 20px 200px 20px;
+  background-color: #999;
   .page-home-banner {
     width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
     image {
       display: inline-block;
       width: 100%;
     }
+  }
+  .page-home-news {
   }
   .catgory-main {
     display: flex;
