@@ -27,17 +27,17 @@ export const catgoryList = [
 ]
 
 export const bannerList = [
-  { key: '1', value: 'https://qiniu.commok.com/pcigo/202306271625392.webp' },
+  { key: '1', value: 'https://qiniu.commok.com/pcigo/202306291623820.png' },
   {
     key: '2',
-    value: 'https://qiniu.commok.com/pcigo/202306271625822.webp',
+    value: 'https://qiniu.commok.com/pcigo/202306291623756.png',
   },
   {
     key: '3',
-    value: 'https://qiniu.commok.com/pcigo/202306271625920.webp',
+    value: 'https://qiniu.commok.com/pcigo/202306291623102.jpg',
   },
   {
     key: '4',
-    value: 'https://qiniu.commok.com/pcigo/202306271627031.jpg',
+    value: 'https://qiniu.commok.com/pcigo/202306291623978.jpg',
   },
 ]
