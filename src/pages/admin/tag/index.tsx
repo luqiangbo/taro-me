@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 
 import CAll from '@/components/all_comp'
-import CTabber from '@/components/tabbar_comp'
 
 definePageConfig({
-  navigationBarTitleText: '购物车',
+  navigationBarTitleText: '标签管理',
 })
 
 export default function EssayPage() {
@@ -17,10 +16,7 @@ export default function EssayPage() {
   return (
     <div className="page-404">
       <CAll />
-      <CTabber />
-      <div>
-        <h1>用户页面</h1>
-      </div>
+      <h1>标签管理页面</h1>
     </div>
   )
 }

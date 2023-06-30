@@ -18,6 +18,7 @@ module.exports = {
     placeholderColor: false,
     placeholderOpacity: false,
     transitionProperty: false,
+    preflight: false,
   },
   exclude: [/([0-9]{1,}[.][0-9]*)$/],
   theme: {
@@ -38,6 +39,15 @@ module.exports = {
     maxHeight: {
       full: '100%',
       screen: '100vh',
+    },
+    extend: {
+      width: {
+        v20: '20vmin',
+      },
+      height: {
+        v20: '20vmin',
+        v40: '40vmin',
+      },
     },
   },
 }

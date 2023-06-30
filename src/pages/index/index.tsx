@@ -5,6 +5,7 @@ import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
+import CTabber from '@/components/tabbar_comp'
 import { fetchProductList } from '@/apis/index'
 import { mUser } from '@/store'
 import { catgoryList, bannerList } from './data'
@@ -40,6 +41,7 @@ export default function HomePage() {
   return (
     <div className="page-home">
       <CAll />
+      <CTabber />
       <div className="page-home-header">
         <div className="bg"></div>
         <div className="page-home-search">
@@ -57,26 +59,22 @@ export default function HomePage() {
           </Swiper>
         </div>
       </div>
-
-      <div className="page-home-news flex items-center">
-        <div className="left">
-          <IconFont name="notice" color="#01cb88" size="16" className="mr-2" />
-        </div>
-        <div className="right">活动来拉, 7月活动来拉</div>
-      </div>
-      <div className="catgory-main">
-        {catgoryList.map((u) => (
-          <div key={u.key} className="catgory-item">
-            <IconFont name={u.url} size="40" />
-            <div>{u.value}</div>
+      <div className="p-2">
+        <div className="flex items-center bg-white p-3 rounded-lg mb-2">
+          <div className="left m-1">
+            <IconFont name="notice" color="#01cb88" size="16" className="mr-2" />
           </div>
-        ))}
+          <div className="right">活动来拉, 7月活动来拉</div>
+        </div>
+        <div className="flex py-3 bg-white rounded-lg">
+          {catgoryList.map((u) => (
+            <div key={u.key} className="w-v20 text-center ">
+              <IconFont name={u.url} size="40" />
+              <div>{u.value}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
     </div>
   )
 }

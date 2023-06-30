@@ -3,6 +3,7 @@ import { useSetState } from 'ahooks'
 import { Tabs } from '@nutui/nutui-react-taro'
 
 import CAll from '@/components/all_comp'
+import CTabber from '@/components/tabbar_comp'
 import { tabsList } from './data'
 
 definePageConfig({
@@ -26,25 +27,28 @@ export default function EssayPage() {
   return (
     <div className="page-category">
       <CAll />
-      <Tabs
-        // style={{ height: 'calc(100vh - 50px)' }}
-        style={{ height: '100vh' }}
-        value={state.tabsIndex}
-        onChange={(value) => {
-          setState({
-            tabsIndex: value,
-          })
-        }}
-        direction="vertical"
-      >
-        {tabsList.map((u) => (
-          <Tabs.TabPane key={u.key} title={u.value}>
-            {u.list.map((h) => (
-              <div key={h.key}>{h.value}</div>
-            ))}
-          </Tabs.TabPane>
-        ))}
-      </Tabs>
+      <CTabber />
+      <div>
+        <Tabs
+          // style={{ height: 'calc(100vh - 50px)' }}
+          style={{ height: '100vh' }}
+          value={state.tabsIndex}
+          onChange={(value) => {
+            setState({
+              tabsIndex: value,
+            })
+          }}
+          direction="vertical"
+        >
+          {tabsList.map((u) => (
+            <Tabs.TabPane key={u.key} title={u.value}>
+              {u.list.map((h) => (
+                <div key={h.key}>{h.value}</div>
+              ))}
+            </Tabs.TabPane>
+          ))}
+        </Tabs>
+      </div>
     </div>
   )
 }

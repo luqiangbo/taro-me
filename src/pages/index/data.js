@@ -1,28 +1,28 @@
 export const catgoryList = [
   {
     key: 1,
-    value: '发卡1',
-    url: 'https://img11.360buyimg.com/imagetools/jfs/t1/137646/13/7132/1648/5f4c748bE43da8ddd/a3f06d51dcae7b60.png',
+    value: '发卡',
+    url: 'https://qiniu.commok.com/pcigo/202306301904685.png',
   },
   {
     key: 2,
-    value: '发卡2',
-    url: 'https://img11.360buyimg.com/imagetools/jfs/t1/137646/13/7132/1648/5f4c748bE43da8ddd/a3f06d51dcae7b60.png',
+    value: '镜子',
+    url: 'https://qiniu.commok.com/pcigo/202306301904097.png',
   },
   {
     key: 3,
-    value: '发卡3',
-    url: 'https://img11.360buyimg.com/imagetools/jfs/t1/137646/13/7132/1648/5f4c748bE43da8ddd/a3f06d51dcae7b60.png',
+    value: '玩具',
+    url: 'https://qiniu.commok.com/pcigo/202306301904879.jpg',
   },
   {
     key: 4,
-    value: '发卡4',
-    url: 'https://img11.360buyimg.com/imagetools/jfs/t1/137646/13/7132/1648/5f4c748bE43da8ddd/a3f06d51dcae7b60.png',
+    value: '饰品',
+    url: 'https://qiniu.commok.com/pcigo/202306301904685.png',
   },
   {
     key: 5,
-    value: '发卡5',
-    url: 'https://img11.360buyimg.com/imagetools/jfs/t1/137646/13/7132/1648/5f4c748bE43da8ddd/a3f06d51dcae7b60.png',
+    value: '书籍',
+    url: 'https://qiniu.commok.com/pcigo/202306301904870.jpg',
   },
 ]
 

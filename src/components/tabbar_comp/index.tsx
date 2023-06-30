@@ -7,7 +7,7 @@ import { useSnapshot } from 'valtio'
 
 import { mCommon } from '@/store'
 
-export default function AllComp() {
+export default function TabbarComp() {
   const snapCommon = useSnapshot(mCommon)
   const [state, setState] = useSetState({
     tabbarList: [
@@ -43,16 +43,25 @@ export default function AllComp() {
   const init = () => {}
 
   return (
-    <div className="all-comp">
-      <Toast
-        size="small"
-        msg={snapCommon.toastMsg}
-        visible={snapCommon.toastOpen}
-        type={snapCommon.toastType}
-        onClose={() => {
-          mCommon.toastOpen = false
+    <div className="all-comp-tabbar">
+      <Tabbar
+        fixed
+        value={snapCommon.tabbarActiveIndex}
+        inactiveColor={state.inactiveColor}
+        activeColor={state.activeColor}
+        onSwitch={(idx) => {
+          console.log({ idx })
+          mCommon.tabbarActiveIndex = idx
+          const url = `/pages/${state.tabbarList[idx].key}/index`
+          Taro.switchTab({
+            url,
+          })
         }}
-      />
+      >
+        {state.tabbarList.map((u) => (
+          <Tabbar.Item key={u.key} title={u.value} icon={u.icon} />
+        ))}
+      </Tabbar>
     </div>
   )
 }
