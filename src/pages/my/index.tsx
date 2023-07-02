@@ -28,7 +28,7 @@ export default function MyPage() {
   }
 
   return (
-    <div className="page-my">
+    <div className="page-c page-my">
       <CAll />
       <CTabber />
       <div className="bg-lime-300 h-v40 flex justify-between px-2 py-3 text-white items-end mb-2">

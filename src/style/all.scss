@@ -3,15 +3,24 @@ $colorAux: #ffb62d;
 $colorBg: #f5f5f5;
 $br: 20px;
 
-.page-my {
+.page-c {
   background-color: $colorBg;
   min-height: 100vh;
+}
+.all-search {
+  padding: 20px 0;
+  .nut-input {
+    height: 38px;
+    border-radius: 100px;
+    overflow: hidden;
+    input {
+      color: #808080 !important;
+    }
+  }
 }
 
 .page-home {
   padding: 0 0 200px 0;
-  background-color: $colorBg;
-  min-height: 100vh;
   .page-home-header {
     position: relative;
     padding: 20px 10px 20px 10px;
@@ -34,17 +43,7 @@ $br: 20px;
       );
     }
   }
-  .page-home-search {
-    padding: 20px 0;
-    .nut-input {
-      height: 38px;
-      border-radius: 100px;
-      overflow: hidden;
-      input {
-        color: #c1c1c1 !important;
-      }
-    }
-  }
+
   .page-home-banner {
     width: 100%;
     overflow: hidden;

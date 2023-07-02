@@ -32,19 +32,20 @@ export default function HomePage() {
   }
 
   const onfetchProductList = async () => {
-    const [err, res] = await fetchProductList()
+    const req = {}
+    const [err, res] = await fetchProductList(req)
     if (err) return
     console.log({ res })
     setState({ productList: res })
   }
 
   return (
-    <div className="page-home">
+    <div className="page-c page-home">
       <CAll />
       <CTabber />
       <div className="page-home-header">
         <div className="bg"></div>
-        <div className="page-home-search">
+        <div className="all-search">
           <Input placeholder="搜索您想要的内容~" />
         </div>
         <div className="page-home-banner">

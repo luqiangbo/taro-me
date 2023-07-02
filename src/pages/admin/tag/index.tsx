@@ -14,7 +14,7 @@ export default function EssayPage() {
   const init = () => {}
 
   return (
-    <div className="page-404">
+    <div className="page-c page-a-tag">
       <CAll />
       <h1>标签管理页面</h1>
     </div>

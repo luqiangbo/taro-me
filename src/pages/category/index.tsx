@@ -25,7 +25,7 @@ export default function EssayPage() {
   const onFetchList = async () => {}
 
   return (
-    <div className="page-category">
+    <div className="page-c page-category">
       <CAll />
       <CTabber />
       <div>
