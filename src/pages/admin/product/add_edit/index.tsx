@@ -1,6 +1,6 @@
 //  新增 编辑
-import Taro from '@tarojs/taro'
-import { useState, useEffect } from 'react'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
+import { useEffect } from 'react'
 import { Button, Cell, Sticky } from '@nutui/nutui-react-taro'
 import { Plus } from '@nutui/icons-react-taro'
 
@@ -16,7 +16,10 @@ export default function AddEditPage(props) {
     init()
   }, [])
 
-  const init = () => {}
+  const init = () => {
+    const router = getCurrentInstance().router
+    console.log({ router })
+  }
 
   return (
     <div className="page-c page-a-product-ae">
