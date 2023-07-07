@@ -1,8 +1,7 @@
 //  新增 编辑
-import Taro, { getCurrentInstance } from '@tarojs/taro'
+import { getCurrentInstance } from '@tarojs/taro'
 import { useEffect } from 'react'
-import { Button, Cell, Sticky } from '@nutui/nutui-react-taro'
-import { Plus } from '@nutui/icons-react-taro'
+import { Form, Button, Input, Uploader } from '@nutui/nutui-react-taro'
 
 import CAll from '@/components/all_comp'
 
@@ -11,7 +10,6 @@ definePageConfig({
 })
 
 export default function AddEditPage(props) {
-  console.log({ props })
   useEffect(() => {
     init()
   }, [])
@@ -24,9 +22,42 @@ export default function AddEditPage(props) {
   return (
     <div className="page-c page-a-product-ae">
       <CAll />
-      <div className="product-main ">
-        <h1>添加商品页</h1>
-        <div>添加</div>
+      <div className="product-main p-2">
+        <Form labelPosition="right">
+          <Form.Item required label="产品名">
+            <Input
+              className="nut-input-text"
+              placeholder="请输入"
+              type="text"
+              onChange={(val) => {
+                console.log({ val })
+              }}
+            />
+          </Form.Item>
+          <Form.Item required label="详情">
+            <Input
+              className="nut-input-text"
+              placeholder="请输入"
+              type="text"
+              onChange={(val) => {
+                console.log({ val })
+              }}
+            />
+          </Form.Item>
+          <Form.Item required label="商品图">
+            <Uploader />
+          </Form.Item>
+        </Form>
+        <Button
+          nativeType="submit"
+          block
+          type="primary"
+          onClick={() => {
+            console.log({})
+          }}
+        >
+          提交
+        </Button>
       </div>
     </div>
   )
