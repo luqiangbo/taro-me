@@ -2,5 +2,7 @@ import request from '@/utils/request'
 
 const baseUrl = 'http://localhost:7001/mm'
 
+export const urlUpload = `${baseUrl}/base/upload`
+
 // 商品列表
 export const fetchProductList = (data) => request({ url: `${baseUrl}/spu/list`, data })
