@@ -17,7 +17,7 @@ export default function AdminProductPage() {
   const snapUser = useSnapshot(mUser)
 
   const [state, setState] = useSetState({
-    spuList: [],
+    mainList: [],
     total: 0,
     reqList: {
       current: 1,
@@ -42,7 +42,7 @@ export default function AdminProductPage() {
     const [err, res] = await fetchSpuList(req)
     if (err) return
     setState({
-      spuList: res.list,
+      mainList: res.list,
       total: res.total,
       hasMore: true,
     })
@@ -69,7 +69,7 @@ export default function AdminProductPage() {
               console.log('onRefresh')
             }}
           >
-            {state.spuList.map((u) => (
+            {state.mainList.map((u) => (
               <div key={u.id} className="rounded-lg bg-white mb-2">
                 {u.name}
               </div>

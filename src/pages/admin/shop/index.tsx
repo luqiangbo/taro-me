@@ -1,16 +1,16 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Input, Card, Price, Tag, InfiniteLoading } from '@nutui/nutui-react-taro'
+import { Input, InfiniteLoading } from '@nutui/nutui-react-taro'
 import { Plus } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import qs from 'qs'
 
 import CAll from '@/components/all_comp'
-import { fetchCategoryList } from '@/apis/index'
+import { fetchShopList } from '@/apis/index'
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '商品管理',
+  navigationBarTitleText: '店铺管理',
 })
 
 export default function AdminProductPage() {
@@ -31,15 +31,15 @@ export default function AdminProductPage() {
   })
 
   const init = () => {
-    onFetchCategoryList()
+    onFetchShopList()
   }
 
-  const onFetchCategoryList = async () => {
+  const onFetchShopList = async () => {
     const req = {
-      shopId: snapUser.shop.value,
+      userId: snapUser.userId,
       ...state.reqList,
     }
-    const [err, res] = await fetchCategoryList(req)
+    const [err, res] = await fetchShopList(req)
     if (err) return
     setState({
       mainList: res.list,
@@ -71,7 +71,7 @@ export default function AdminProductPage() {
           >
             {state.mainList.map((u) => (
               <div key={u.id} className="rounded-lg bg-white mb-2">
-                {u.value}
+                {u.name}
               </div>
             ))}
           </InfiniteLoading>
@@ -80,7 +80,7 @@ export default function AdminProductPage() {
           className="fixed right-2 bottom-2 w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center"
           onClick={() => {
             Taro.navigateTo({
-              url: `/pages/admin/category/add_edit/index?${qs.stringify({ type: 'add' })}`,
+              url: `/pages/admin/shop/add_edit/index?${qs.stringify({ type: 'add' })}`,
             })
           }}
         >

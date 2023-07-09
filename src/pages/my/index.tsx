@@ -44,11 +44,14 @@ export default function MyPage() {
     const [err, res] = await fetchShopList(req)
     if (err) return
     const shopList = res.list.map((u) => ({ value: u.id, text: u.name }))
-    console.log({ shopList })
+    const shop = snapUser.shop
+    console.log({ shopList, shop: shop, isss: _.isEmpty(shop) })
+
     setState({
       shopList,
     })
-    if (_.isEmpty(mUser.shop)) {
+    if (_.isEmpty(shop)) {
+      console.log('23213')
       mUser.shop = shopList[0]
     }
   }
@@ -79,7 +82,7 @@ export default function MyPage() {
           }}
         />
         <Picker
-          defaultValue={snapUser.shop.value}
+          defaultValue={_.get(snapUser, 'shop.value', '')}
           visible={state.isOpenShop}
           options={state.shopList}
           onConfirm={(list, values) => {

@@ -7,6 +7,9 @@ export const urlUpload = `${baseUrl}/base/upload`
 // 店铺列表
 export const fetchShopList = (data) => request({ url: `${baseUrl}/shop/list`, data })
 
+// 添加店铺
+export const fetchShopAdd = (data) => request({ url: `${baseUrl}/shop/add`, data })
+
 // 分类列表
 export const fetchCategoryList = (data) => request({ url: `${baseUrl}/category/list`, data })
 

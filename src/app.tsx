@@ -15,7 +15,7 @@ import './style/all.scss'
 export default function Main(props) {
   const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
-    locale: en,
+    locale: zh,
   })
   useEffect(() => {
     const time = Date.now()
