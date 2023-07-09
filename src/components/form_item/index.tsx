@@ -4,20 +4,15 @@ import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Form, Button, Input, Avatar } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
+import _ from 'lodash-es'
 
 import { mCommon } from '@/store'
 import { urlUpload } from '@/apis'
 
 export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
-  const [state, setState] = useSetState({
-    res: {},
-    fileList: [
-      'https://qiniu.commok.com/mm-test/image/png/1c6a0301-91b4-48f7-b6d5-7f62215aec7e.png',
-      'https://qiniu.commok.com/test202305222246011.png',
-    ],
-    value: '',
-  })
+  const fileList = ['https://qiniu.commok.com/mm-test/image/png/1c6a0301-91b4-48f7-b6d5-7f62215aec7e.png']
+  const [state, setState] = useSetState({})
 
   useEffect(() => {
     init()
@@ -27,11 +22,39 @@ export default function FormComp(props) {
     console.log({ props })
   }
 
-  const onSubmit = (data) => {
-    console.log({ data })
+  const onSubmit = () => {
+    const { formList } = props
+    let ruleErr = false
+    for (const u of formList) {
+      // console.log({ u })
+      if (u.required) {
+        if (u.type === 'input') {
+          if (_.isEmpty(_.get(state, u.key, ''))) {
+            Taro.showToast({
+              title: `请添加${u.label}`,
+              icon: 'none',
+            })
+            ruleErr = true
+            return
+          }
+        } else if (u.type === 'uploader') {
+          if (_.get(state, u.key, []).length === 0) {
+            Taro.showToast({
+              title: `请添加${u.label}`,
+              icon: 'none',
+            })
+            ruleErr = true
+            return
+          }
+        }
+      }
+    }
+    if (!ruleErr) {
+      props.onSubmit(state)
+    }
   }
 
-  const onUpload = ({ type, maxSize }) => {
+  const onUpload = ({ key, type, maxSize }) => {
     if (type === 'image') {
       Taro.showActionSheet({
         itemList: ['从相册上传'],
@@ -74,13 +97,10 @@ export default function FormComp(props) {
                           title: '上传成功',
                           icon: 'none',
                         })
-                        const fileList = state.fileList
-
+                        const fileList = _.get(state, key, [])
                         fileList.push(data.data)
-                        console.log({ fileList })
-
                         setState({
-                          fileList,
+                          [key]: fileList,
                         })
                         return
                       },
@@ -108,15 +128,14 @@ export default function FormComp(props) {
         {props.formList.map((u) => {
           if (u.type === 'input') {
             return (
-              <Form.Item key={u.key} required={u.required} label={u.label}>
+              <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
                 <Input
-                  placeholder={u.placeholder}
                   type="text"
+                  placeholder={u.placeholder}
+                  value={state[u.key]}
                   onChange={(val) => {
                     setState({
-                      res: {
-                        [u.key]: val,
-                      },
+                      [u.key]: val,
                     })
                   }}
                 />
@@ -126,16 +145,19 @@ export default function FormComp(props) {
             return (
               <Form.Item key={u.key} required={u.required} label={u.label}>
                 <div className="flex">
-                  {state.fileList.map((h, i) => (
-                    <div key={h} className="w-20 h-20 rounded overflow-hidden bg-slate-200 mr-2 relative">
-                      <Avatar size="80" src={h} />
+                  {_.get(state, u.key, []).map((h, i) => (
+                    <div
+                      key={h}
+                      className="w-20 h-20 rounded overflow-hidden bg-slate-200 border border-gray-300 mr-2 relative"
+                    >
+                      <IconFont size="80" name={h} />
                       <div
                         className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
                         onClick={() => {
-                          const { fileList } = state
-                          fileList.splice(i)
+                          const list = _.get(state, u.key, [])
+                          list.splice(i, 1)
                           setState({
-                            fileList,
+                            [u.key]: list,
                           })
                         }}
                       >
@@ -143,11 +165,11 @@ export default function FormComp(props) {
                       </div>
                     </div>
                   ))}
-                  {state.fileList.length < (u.maxLength || 1) ? (
+                  {_.get(state, u.key, []).length < (u.maxLength || 1) ? (
                     <div
                       className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
                       onClick={() => {
-                        onUpload({ type: 'image', maxSize: u.maxSize || 200 })
+                        onUpload({ key: u.key, type: 'image', maxSize: u.maxSize || 200 })
                       }}
                     >
                       <IconFont name="image" />
@@ -160,9 +182,11 @@ export default function FormComp(props) {
           }
         })}
       </Form>
-      <Button block type="primary" onClick={() => {}}>
-        提交
-      </Button>
+      <div className="pt-3">
+        <Button block type="primary" onClick={onSubmit}>
+          提交
+        </Button>
+      </div>
     </div>
   )
 }

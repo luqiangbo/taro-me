@@ -18,13 +18,23 @@ export default function AddEditPage(props) {
         label: '名字',
         placeholder: '请输入',
         type: 'input',
-        value: '123',
+        value: '',
         disabled: false,
         required: true,
         rules: [],
       },
       {
-        key: 'image',
+        key: 'describe',
+        label: '介绍',
+        placeholder: '请输入',
+        type: 'input',
+        value: '',
+        disabled: false,
+        required: true,
+        rules: [],
+      },
+      {
+        key: 'imgsMain',
         label: '商品图',
         type: 'uploader',
         disabled: false,
@@ -50,7 +60,12 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-product-ae">
       <CAll />
       <div className="product-main p-2">
-        <CForm formList={state.formList} />
+        <CForm
+          formList={state.formList}
+          onSubmit={(data) => {
+            console.log({ data })
+          }}
+        />
       </div>
     </div>
   )

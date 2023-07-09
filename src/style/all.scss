@@ -3,6 +3,15 @@ $colorAux: #ffb62d;
 $colorBg: #f5f5f5;
 $br: 20px;
 
+.nut-cell {
+  display: block !important;
+  border-bottom: 1px solid #f5f5f5;
+  .nut-form-item__label {
+    text-align: left !important;
+    margin-bottom: 5px !important;
+  }
+}
+
 .page-c {
   background-color: $colorBg;
   min-height: 100vh;
@@ -65,13 +74,5 @@ $br: 20px;
       width: 20%;
       text-align: center;
     }
-  }
-}
-
-.nut-cell {
-  display: block !important;
-  border-bottom: 1px solid #f5f5f5;
-  .nut-form-item__label {
-    text-align: left !important;
   }
 }
