@@ -21,3 +21,18 @@ export const fetchSpuList = (data) => request({ url: `${baseUrl}/spu/list`, data
 
 // 添加商品
 export const fetchSpuAdd = (data) => request({ url: `${baseUrl}/spu/add`, data })
+
+// 标签列表
+export const fetchTagList = (data) => request({ url: `${baseUrl}/tag/list`, data })
+
+// 添加标签
+export const fetchTagAdd = (data) => request({ url: `${baseUrl}/tag/add`, data })
+
+// 标签列表
+export const fetchAddressList = (data) => request({ url: `${baseUrl}/address/list`, data })
+
+// 添加标签
+export const fetchAddressAdd = (data) => request({ url: `${baseUrl}/address/add`, data })
+
+// 地址
+export const fetchAddressDivision = (data) => request({ url: `${baseUrl}/address/division`, data })

@@ -6,14 +6,14 @@ import { useSnapshot } from 'valtio'
 import qs from 'qs'
 
 import CAll from '@/components/all_comp'
-import { fetchCategoryList } from '@/apis/index'
+import { fetchAddressList } from '@/apis/index'
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '分类管理',
+  navigationBarTitleText: '地址管理',
 })
 
-export default function AdminProductPage() {
+export default function AdminTagPage() {
   const snapUser = useSnapshot(mUser)
 
   const [state, setState] = useSetState({
@@ -31,15 +31,15 @@ export default function AdminProductPage() {
   })
 
   const init = () => {
-    onFetchCategoryList()
+    onFetchAddressList()
   }
 
-  const onFetchCategoryList = async () => {
+  const onFetchAddressList = async () => {
     const req = {
-      shopId: snapUser.shop.value,
+      customId: snapUser.customId,
       ...state.reqList,
     }
-    const [err, res] = await fetchCategoryList(req)
+    const [err, res] = await fetchAddressList(req)
     if (err) return
     setState({
       mainList: res.list,
@@ -80,7 +80,7 @@ export default function AdminProductPage() {
           className="fixed right-2 bottom-2 w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center"
           onClick={() => {
             Taro.navigateTo({
-              url: `/pages/admin/category/add_edit/index?${qs.stringify({ type: 'add' })}`,
+              url: `/pages/admin/address/add_edit/index?${qs.stringify({ type: 'add' })}`,
             })
           }}
         >

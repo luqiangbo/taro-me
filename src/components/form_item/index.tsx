@@ -2,24 +2,40 @@ import Taro from '@tarojs/taro'
 import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Form, Button, Input, Avatar } from '@nutui/nutui-react-taro'
+import { Form, Button, Input, Cascader } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import _ from 'lodash-es'
 
 import { mCommon } from '@/store'
-import { urlUpload } from '@/apis'
+import { urlUpload, fetchAddressDivision } from '@/apis'
 
 export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
   const fileList = ['https://qiniu.commok.com/mm-test/image/png/1c6a0301-91b4-48f7-b6d5-7f62215aec7e.png']
-  const [state, setState] = useSetState({})
+  const [state, setState] = useSetState({
+    isOpenAddrsss: false,
+    addressList: [],
+  })
 
   useEffect(() => {
     init()
   }, [])
 
   const init = () => {
+    onFetchAddressDivision()
     console.log({ props })
+  }
+
+  const onFetchAddressDivision = async () => {
+    const req = {
+      type: 'province',
+      code: '86',
+    }
+    const [err, res] = await fetchAddressDivision(req)
+    if (err) return
+    setState({
+      addressList: res.map((u) => ({ value: u.code, text: u.name })),
+    })
   }
 
   const onSubmit = () => {
@@ -143,7 +159,7 @@ export default function FormComp(props) {
             )
           } else if (u.type === 'uploader') {
             return (
-              <Form.Item key={u.key} required={u.required} label={u.label}>
+              <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
                 <div className="flex">
                   {_.get(state, u.key, []).map((h, i) => (
                     <div
@@ -179,9 +195,46 @@ export default function FormComp(props) {
                 </div>
               </Form.Item>
             )
+          } else if (u.type === 'address') {
+            return (
+              <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
+                <div
+                  onClick={() => {
+                    setState({
+                      isOpenAddrsss: true,
+                    })
+                  }}
+                >
+                  选择地址
+                </div>
+              </Form.Item>
+            )
           }
         })}
       </Form>
+      <div>
+        <Cascader
+          visible={state.isOpenAddrsss}
+          title="地址选择"
+          closeable
+          lazy
+          onClose={() => {
+            setState({
+              isOpenAddrsss: false,
+            })
+          }}
+          onChange={(v) => {
+            console.log({ v })
+          }}
+          onPathChange={(vv) => {
+            console.log({ vv })
+          }}
+          options={state.addressList}
+          onLoad={(vvv) => {
+            console.log({ vvv })
+          }}
+        />
+      </div>
       <div className="pt-3">
         <Button block type="primary" onClick={onSubmit}>
           提交

@@ -1,6 +1,10 @@
 export default defineAppConfig({
   pages: [
     'pages/my/index',
+    'pages/admin/address/index',
+    'pages/admin/address/add_edit/index',
+    'pages/admin/tag/index',
+    'pages/admin/tag/add_edit/index',
     'pages/admin/shop/index',
     'pages/admin/shop/add_edit/index',
     'pages/admin/category/index',
@@ -10,7 +14,6 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/category/index',
     'pages/cart/index',
-    'pages/admin/tag/index',
   ],
   window: {
     backgroundTextStyle: 'light',
