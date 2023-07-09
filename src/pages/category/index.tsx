@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Tabs } from '@nutui/nutui-react-taro'
 
@@ -14,9 +14,9 @@ export default function EssayPage() {
   const [state, setState] = useSetState({
     tabsIndex: 0,
   })
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {
     onFetchList()

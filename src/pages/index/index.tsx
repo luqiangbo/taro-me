@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Swiper, SwiperItem, Input } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
@@ -6,7 +6,7 @@ import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CTabber from '@/components/tabbar_comp'
-import { fetchProductList } from '@/apis/index'
+import { fetchSpuList } from '@/apis/index'
 import { mUser } from '@/store'
 import { catgoryList, bannerList } from './data'
 
@@ -17,26 +17,26 @@ definePageConfig({
 export default function HomePage() {
   const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
-    productList: [],
+    spuList: [],
     bannerList: [],
     height: 200,
   })
 
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {
     console.log('init-index')
-    onfetchProductList()
+    onFetchSpuList()
   }
 
-  const onfetchProductList = async () => {
+  const onFetchSpuList = async () => {
     const req = {}
-    const [err, res] = await fetchProductList(req)
+    const [err, res] = await fetchSpuList(req)
     if (err) return
     console.log({ res })
-    setState({ productList: res })
+    setState({ spuList: res })
   }
 
   return (

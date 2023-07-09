@@ -1,5 +1,4 @@
-import Taro from '@tarojs/taro'
-import { useEffect } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Input, Card, Price, Tag, InfiniteLoading } from '@nutui/nutui-react-taro'
 import { Plus } from '@nutui/icons-react-taro'
@@ -7,8 +6,7 @@ import { useSnapshot } from 'valtio'
 import qs from 'qs'
 
 import CAll from '@/components/all_comp'
-import {} from './data'
-import { fetchProductList } from '@/apis/index'
+import { fetchSpuList } from '@/apis/index'
 import { mUser } from '@/store'
 
 definePageConfig({
@@ -19,7 +17,7 @@ export default function AdminProductPage() {
   const snapUser = useSnapshot(mUser)
 
   const [state, setState] = useSetState({
-    productList: [],
+    spuList: [],
     total: 0,
     reqList: {
       current: 1,
@@ -28,34 +26,32 @@ export default function AdminProductPage() {
     hasMore: true,
   })
 
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {
-    onFetchProductList()
+    onFetchSpuList()
   }
 
-  const onFetchProductList = async () => {
-    const shopId = snapUser.shopId
-    console.log({ shopId })
+  const onFetchSpuList = async () => {
     const req = {
-      shopId,
+      shopId: snapUser.shop.value,
       ...state.reqList,
     }
-    const [err, res] = await fetchProductList(req)
+    const [err, res] = await fetchSpuList(req)
     if (err) return
     setState({
-      productList: res.list,
+      spuList: res.list,
       total: res.total,
       hasMore: true,
     })
   }
 
   return (
-    <div className="page-c page-a-product">
+    <div className="page-c page-a-spu">
       <CAll />
-      <div className="product-main p-2" id="scrollDemo" style={{ height: '90vh' }}>
+      <div className="spu-main p-2" id="scrollDemo" style={{ height: '90vh' }}>
         <div className="all-search">
           <Input placeholder="搜索您想要的内容~" />
         </div>
@@ -73,26 +69,18 @@ export default function AdminProductPage() {
               console.log('onRefresh')
             }}
           >
-            {state.productList.map((u) => (
+            {state.spuList.map((u) => (
               <div key={u.id} className="rounded-lg bg-white mb-2">
-                <Card
-                  src={u.imgsMain[0]}
-                  title={u.name}
-                  price={u.price}
-                  vipPrice={u.price}
-                  shopDescription={u.name}
-                  delivery={'delivery'}
-                  shopName={'shopName'}
-                ></Card>
+                {u.name}
               </div>
             ))}
           </InfiniteLoading>
         </div>
         <div
-          className="fixed right-2 bottom-2 w-20 h-20 rounded-full bg-green-600 text-white flex items-center justify-center"
+          className="fixed right-2 bottom-2 w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center"
           onClick={() => {
             Taro.navigateTo({
-              url: `/pages/admin/product/add_edit/index?${qs.stringify({ type: 'add' })}`,
+              url: `/pages/admin/spu/add_edit/index?${qs.stringify({ type: 'add' })}`,
             })
           }}
         >

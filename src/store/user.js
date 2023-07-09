@@ -5,7 +5,8 @@ export const mUser = proxyWithPersist(
     hash: null,
     count: 0,
     token: '123',
-    shopId: '381830a6-e94d-43ed-a0d7-6dea1c7bcdda',
+    userId: '40e181cd-4196-44f4-a563-e47c2a6913d4',
+    shop: {},
   },
   {
     key: 'mUser',

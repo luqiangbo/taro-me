@@ -1,8 +1,10 @@
 export default defineAppConfig({
   pages: [
-    'pages/admin/product/index',
-    'pages/admin/product/add_edit/index',
     'pages/my/index',
+    'pages/admin/category/index',
+    'pages/admin/category/add_edit/index',
+    'pages/admin/spu/index',
+    'pages/admin/spu/add_edit/index',
     'pages/index/index',
     'pages/category/index',
     'pages/cart/index',

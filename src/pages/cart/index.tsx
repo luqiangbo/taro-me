@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 
 import CAll from '@/components/all_comp'
 import CTabber from '@/components/tabbar_comp'
@@ -8,9 +8,9 @@ definePageConfig({
 })
 
 export default function EssayPage() {
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {}
 
