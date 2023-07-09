@@ -31,6 +31,8 @@ export default function AddEditPage(props) {
         required: true,
         rules: [],
         list: [],
+        maxLength: 1,
+        maxSize: 200,
       },
     ],
   })

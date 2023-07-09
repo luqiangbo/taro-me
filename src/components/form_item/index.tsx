@@ -3,7 +3,7 @@ import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Form, Button, Input, Avatar } from '@nutui/nutui-react-taro'
-import { Image } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 
 import { mCommon } from '@/store'
 import { urlUpload } from '@/apis'
@@ -12,7 +12,10 @@ export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
   const [state, setState] = useSetState({
     res: {},
-    fileList: [],
+    fileList: [
+      'https://qiniu.commok.com/mm-test/image/png/1c6a0301-91b4-48f7-b6d5-7f62215aec7e.png',
+      'https://qiniu.commok.com/test202305222246011.png',
+    ],
     value: '',
   })
 
@@ -28,7 +31,7 @@ export default function FormComp(props) {
     console.log({ data })
   }
 
-  const onUpload = (type) => {
+  const onUpload = ({ type, maxSize }) => {
     if (type === 'image') {
       Taro.showActionSheet({
         itemList: ['从相册上传'],
@@ -46,8 +49,8 @@ export default function FormComp(props) {
                   success(fileInfo) {
                     console.log({ fileInfo })
                     const fileSize = fileInfo.size
-                    const maxSize = 200 * 1024 // 200k
-                    if (fileSize > maxSize) {
+                    const max = maxSize * 1024 // 200k
+                    if (fileSize > max) {
                       Taro.showToast({
                         title: '文件大小超过限制',
                         icon: 'none',
@@ -78,6 +81,13 @@ export default function FormComp(props) {
 
                         setState({
                           fileList,
+                        })
+                        return
+                      },
+                      fail(err) {
+                        Taro.showToast({
+                          title: err.errMsg,
+                          icon: 'none',
                         })
                         return
                       },
@@ -116,20 +126,34 @@ export default function FormComp(props) {
             return (
               <Form.Item key={u.key} required={u.required} label={u.label}>
                 <div className="flex">
-                  {state.fileList.map((u, i) => (
-                    <div key={u} className="w-20 h-20 rounded overflow-hidden bg-slate-200 mr-2">
-                      <image size="100" src={u} />
+                  {state.fileList.map((h, i) => (
+                    <div key={h} className="w-20 h-20 rounded overflow-hidden bg-slate-200 mr-2 relative">
+                      <Avatar size="80" src={h} />
+                      <div
+                        className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
+                        onClick={() => {
+                          const { fileList } = state
+                          fileList.splice(i)
+                          setState({
+                            fileList,
+                          })
+                        }}
+                      >
+                        <IconFont name="del" size="22" color="#fa2c19" />
+                      </div>
                     </div>
                   ))}
-                  <div
-                    className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
-                    onClick={() => {
-                      onUpload('image')
-                    }}
-                  >
-                    <Image />
-                    <div> 上传图片</div>
-                  </div>
+                  {state.fileList.length < (u.maxLength || 1) ? (
+                    <div
+                      className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
+                      onClick={() => {
+                        onUpload({ type: 'image', maxSize: u.maxSize || 200 })
+                      }}
+                    >
+                      <IconFont name="image" />
+                      <div> 上传图片</div>
+                    </div>
+                  ) : null}
                 </div>
               </Form.Item>
             )
