@@ -20,6 +20,16 @@ $br: 20px;
   min-height: 100vh;
   padding-bottom: 200px;
 }
+.page-category {
+  background-color: $colorBg;
+  min-height: 100vh;
+  .nut-tabpane {
+    padding-bottom: 60px;
+  }
+  .nut-tabs__titles--scrollable {
+    padding-bottom: 60px !important;
+  }
+}
 .all-search {
   padding: 20px 0;
   .nut-input {

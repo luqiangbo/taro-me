@@ -31,7 +31,9 @@ export default function MyPage() {
   })
 
   const init = () => {
-    console.log('init-page-me')
+    const ens = Taro.getStorageSync('mUser')
+    console.log('init-page-me', { ens })
+
     onFetchShopList()
   }
 
@@ -44,15 +46,16 @@ export default function MyPage() {
     const [err, res] = await fetchShopList(req)
     if (err) return
     const shopList = res.list.map((u) => ({ value: u.id, text: u.name }))
-    const shop = snapUser.shop
-    console.log({ shopList, shop: shop, isss: isEmpty(shop) })
+    const shopId = snapUser.shopId
+    console.log({ shopList, shop: shopId, isss: isEmpty(shopId) })
 
     setState({
       shopList,
     })
-    if (isEmpty(shop)) {
+    if (isEmpty(shopId)) {
       console.log('23213')
-      mUser.shop = shopList[0]
+      mUser.shopId = shopList[0].value
+      mUser.shopName = shopList[0].text
     }
   }
 
@@ -73,21 +76,23 @@ export default function MyPage() {
       <div className="p-2 rounded-lg">
         <Cell
           title="当前店铺"
-          extra={get(mUser, 'shop.text', ' ')}
+          extra={get(mUser, 'shopName', ' ')}
           align="center"
           onClick={() => {
+            console.log({ snapUser })
             setState({
               isOpenShop: true,
             })
           }}
         />
         <Picker
-          defaultValue={get(snapUser, 'shop.value', '')}
+          defaultValue={[get(snapUser, 'shopId', '')]}
           visible={state.isOpenShop}
           options={state.shopList}
           onConfirm={(list, values) => {
             console.log({ list, values })
-            mUser.shop = list[0]
+            mUser.shopId = list[0].value
+            mUser.shopName = list[0].text
           }}
           onClose={() => {
             setState({

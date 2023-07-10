@@ -9,9 +9,10 @@ const mState = proxy({ mUser, mCommon })
 // 持久化函数
 export function proxyWithPersist(val, opts) {
   const local = Taro.getStorageSync(opts.key)
-  const state = proxy(local ? JSON.parse(local) : val)
+  const state = proxy(local ? local : val)
   subscribe(state, () => {
-    Taro.setStorageSync(opts.key, JSON.stringify(snapshot(state)))
+    console.log('store', { state: { ...snapshot(state) } })
+    Taro.setStorageSync(opts.key, { ...snapshot(state) })
   })
   return state
 }

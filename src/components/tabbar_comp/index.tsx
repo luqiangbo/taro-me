@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { Toast, Tabbar } from '@nutui/nutui-react-taro'
-import { Cart, Category, Find, Home, My } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import { mCommon } from '@/store'
@@ -14,22 +14,22 @@ export default function TabbarComp() {
       {
         key: 'index',
         value: '首页',
-        icon: <Home width={18} height={18} />,
+        icon: <IconFont width={18} height={18} name="home" />,
       },
       {
         key: 'category',
         value: '分类',
-        icon: <Category width={18} height={18} />,
+        icon: <IconFont width={18} height={18} name="category" />,
       },
       {
         key: 'cart',
         value: '购物车',
-        icon: <Cart width={18} height={18} />,
+        icon: <IconFont width={18} height={18} name="cart" />,
       },
       {
         key: 'my',
         value: '我的',
-        icon: <My width={18} height={18} />,
+        icon: <IconFont width={18} height={18} name="my" />,
       },
     ],
     activeIndex: '',
@@ -41,6 +41,10 @@ export default function TabbarComp() {
   }, [])
 
   const init = () => {}
+
+  const onColor = () => {
+    return '#1677ff'
+  }
 
   return (
     <div className="all-comp-tabbar">
