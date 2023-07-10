@@ -1,19 +1,21 @@
 export default defineAppConfig({
-  pages: [
-    'pages/my/index',
-    'pages/admin/address/index',
-    'pages/admin/address/add_edit/index',
-    'pages/admin/tag/index',
-    'pages/admin/tag/add_edit/index',
-    'pages/admin/shop/index',
-    'pages/admin/shop/add_edit/index',
-    'pages/admin/category/index',
-    'pages/admin/category/add_edit/index',
-    'pages/admin/spu/index',
-    'pages/admin/spu/add_edit/index',
-    'pages/index/index',
-    'pages/category/index',
-    'pages/cart/index',
+  pages: ['pages/my/index', 'pages/index/index', 'pages/category/index', 'pages/cart/index'],
+  subPackages: [
+    {
+      root: 'pages/admin',
+      pages: [
+        'address/index',
+        'address/add_edit/index',
+        'tag/index',
+        'tag/add_edit/index',
+        'shop/index',
+        'shop/add_edit/index',
+        'category/index',
+        'category/add_edit/index',
+        'spu/index',
+        'spu/add_edit/index',
+      ],
+    },
   ],
   window: {
     backgroundTextStyle: 'light',

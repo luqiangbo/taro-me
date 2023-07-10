@@ -4,7 +4,7 @@ import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Form, Button, Input, Cascader } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
-import _ from 'lodash-es'
+import { isEmpty, get } from 'lodash-es'
 
 import { mCommon } from '@/store'
 import { urlUpload, fetchAddressDivision } from '@/apis'
@@ -45,7 +45,7 @@ export default function FormComp(props) {
       // console.log({ u })
       if (u.required) {
         if (u.type === 'input') {
-          if (_.isEmpty(_.get(state, u.key, ''))) {
+          if (isEmpty(get(state, u.key, ''))) {
             Taro.showToast({
               title: `请添加${u.label}`,
               icon: 'none',
@@ -54,7 +54,7 @@ export default function FormComp(props) {
             return
           }
         } else if (u.type === 'uploader') {
-          if (_.get(state, u.key, []).length === 0) {
+          if (get(state, u.key, []).length === 0) {
             Taro.showToast({
               title: `请添加${u.label}`,
               icon: 'none',
@@ -113,7 +113,7 @@ export default function FormComp(props) {
                           title: '上传成功',
                           icon: 'none',
                         })
-                        const fileList = _.get(state, key, [])
+                        const fileList = get(state, key, [])
                         fileList.push(data.data)
                         setState({
                           [key]: fileList,
@@ -161,7 +161,7 @@ export default function FormComp(props) {
             return (
               <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
                 <div className="flex">
-                  {_.get(state, u.key, []).map((h, i) => (
+                  {get(state, u.key, []).map((h, i) => (
                     <div
                       key={h}
                       className="w-20 h-20 rounded overflow-hidden bg-slate-200 border border-gray-300 mr-2 relative"
@@ -170,7 +170,7 @@ export default function FormComp(props) {
                       <div
                         className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
                         onClick={() => {
-                          const list = _.get(state, u.key, [])
+                          const list = get(state, u.key, [])
                           list.splice(i, 1)
                           setState({
                             [u.key]: list,
@@ -181,7 +181,7 @@ export default function FormComp(props) {
                       </div>
                     </div>
                   ))}
-                  {_.get(state, u.key, []).length < (u.maxLength || 1) ? (
+                  {get(state, u.key, []).length < (u.maxLength || 1) ? (
                     <div
                       className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
                       onClick={() => {

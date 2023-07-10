@@ -3,7 +3,7 @@ import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Avatar, Picker, Cell } from '@nutui/nutui-react-taro'
 import { Right } from '@nutui/icons-react-taro'
-import _ from 'lodash-es'
+import { isEmpty, get } from 'lodash-es'
 
 import CAll from '@/components/all_comp'
 import CTabber from '@/components/tabbar_comp'
@@ -45,12 +45,12 @@ export default function MyPage() {
     if (err) return
     const shopList = res.list.map((u) => ({ value: u.id, text: u.name }))
     const shop = snapUser.shop
-    console.log({ shopList, shop: shop, isss: _.isEmpty(shop) })
+    console.log({ shopList, shop: shop, isss: isEmpty(shop) })
 
     setState({
       shopList,
     })
-    if (_.isEmpty(shop)) {
+    if (isEmpty(shop)) {
       console.log('23213')
       mUser.shop = shopList[0]
     }
@@ -73,7 +73,7 @@ export default function MyPage() {
       <div className="p-2 rounded-lg">
         <Cell
           title="当前店铺"
-          extra={_.get(mUser, 'shop.text', ' ')}
+          extra={get(mUser, 'shop.text', ' ')}
           align="center"
           onClick={() => {
             setState({
@@ -82,7 +82,7 @@ export default function MyPage() {
           }}
         />
         <Picker
-          defaultValue={_.get(snapUser, 'shop.value', '')}
+          defaultValue={get(snapUser, 'shop.value', '')}
           visible={state.isOpenShop}
           options={state.shopList}
           onConfirm={(list, values) => {
