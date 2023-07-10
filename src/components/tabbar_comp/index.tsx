@@ -54,7 +54,6 @@ export default function TabbarComp() {
         inactiveColor={state.inactiveColor}
         activeColor={state.activeColor}
         onSwitch={(idx) => {
-          console.log({ idx })
           mCommon.tabbarActiveIndex = idx
           const url = `/pages/${state.tabbarList[idx].key}/index`
           Taro.switchTab({
