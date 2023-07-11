@@ -38,6 +38,9 @@ const config = {
     // resource: [path.resolve(__dirname, '..', 'src/app.scss')],
   },
   mini: {
+    miniCssExtractPluginOption: {
+      ignoreOrder: true,
+    },
     postcss: {
       pxtransform: {
         enable: true,
