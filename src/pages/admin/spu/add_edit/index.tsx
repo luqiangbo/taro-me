@@ -70,7 +70,7 @@ export default function AddEditPage(props) {
 
   const onSubmit = (data) => {
     const req = {
-      shopId: snapUser.shop.value,
+      shopId: snapUser.shop?.id,
       categoryId: '63c85046-247b-4d9a-aaff-697f298934c8',
       ...data,
     }

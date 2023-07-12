@@ -1,9 +1,9 @@
 :root,
 page {
-  --nutui-brand-color: #1677ff;
-  --nutui-brand-color-start: #1677ff;
-  --nutui-brand-color-end: #1677ff;
-  --nutui-brand-link-color: #396acc;
+  --nutui-brand-color: #c5a47a;
+  --nutui-brand-color-start: #c5a47a;
+  --nutui-brand-color-end: #c5a47a;
+  --nutui-brand-link-color: #c5a47a;
   --nutui-brand-text-color: #ffffff;
   --nutui-gray-0: #000000;
   /* // 主要内容用色，常用语常规标题内容、细文浏览、常规按钮文字以及图表引导。 */

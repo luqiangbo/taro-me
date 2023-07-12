@@ -15,6 +15,7 @@ export default function FormComp(props) {
   const [state, setState] = useSetState({
     isOpenAddrsss: false,
     addressList: [],
+    initialValues: {},
   })
 
   useEffect(() => {
@@ -22,8 +23,14 @@ export default function FormComp(props) {
   }, [])
 
   const init = () => {
+    console.log('from-item init', { props })
+
     onFetchAddressDivision()
-    console.log({ props })
+    props.formList.forEach((u) => {
+      setState({
+        [u.key]: u.value,
+      })
+    })
   }
 
   const onFetchAddressDivision = async () => {
@@ -150,9 +157,9 @@ export default function FormComp(props) {
                   placeholder={u.placeholder}
                   value={state[u.key]}
                   onChange={(val) => {
-                    setState({
-                      [u.key]: val,
-                    })
+                    // setState({
+                    //   [u.key]: val,
+                    // })
                   }}
                 />
               </Form.Item>

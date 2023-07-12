@@ -4,6 +4,7 @@ export default defineAppConfig({
     {
       root: 'pages/admin',
       pages: [
+        'custom/add_edit/index',
         'address/index',
         'address/add_edit/index',
         'tag/index',

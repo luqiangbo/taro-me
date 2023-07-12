@@ -8,6 +8,7 @@ import qs from 'qs'
 import CAll from '@/components/all_comp'
 import { fetchCategoryList } from '@/apis/index'
 import { mUser } from '@/store'
+import CGoAdd from '@/components/go_add_comp'
 
 definePageConfig({
   navigationBarTitleText: '分类管理',
@@ -36,7 +37,7 @@ export default function AdminProductPage() {
 
   const onFetchCategoryList = async () => {
     const req = {
-      shopId: snapUser.shop.value,
+      shopId: snapUser.shop?.id,
       ...state.reqList,
     }
     const [err, res] = await fetchCategoryList(req)
@@ -76,16 +77,7 @@ export default function AdminProductPage() {
             ))}
           </InfiniteLoading>
         </div>
-        <div
-          className="fixed right-2 bottom-2 w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center"
-          onClick={() => {
-            Taro.navigateTo({
-              url: `/pages/admin/category/add_edit/index?${qs.stringify({ type: 'add' })}`,
-            })
-          }}
-        >
-          <Plus color="white" /> 添加
-        </div>
+        <CGoAdd />
       </div>
     </div>
   )

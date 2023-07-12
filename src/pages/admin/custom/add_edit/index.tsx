@@ -11,7 +11,7 @@ import { fetchTagAdd } from '@/apis'
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '添加/编辑 标签',
+  navigationBarTitleText: '编辑资料',
 })
 
 export default function AddEditPage(props) {
@@ -20,14 +20,24 @@ export default function AddEditPage(props) {
   const [state, setState] = useSetState({
     formList: [
       {
-        key: 'value',
-        label: '名字',
+        key: 'nickName',
+        label: '昵称',
         placeholder: '请输入',
         type: 'input',
         value: '',
         disabled: false,
         required: true,
+      },
+      {
+        key: 'image',
+        label: '头像',
+        type: 'uploader',
+        disabled: false,
+        required: true,
         rules: [],
+        list: [],
+        maxLength: 1,
+        maxSize: 200,
       },
     ],
     type: '',
@@ -39,17 +49,19 @@ export default function AddEditPage(props) {
 
   const init = () => {
     const router = getCurrentInstance().router
-    const { type } = router?.params
-    if (type) {
-      setState({
-        type,
-      })
-    }
+    const params = router?.params
+    console.log({ params })
+    const { formList } = state
+    formList[0].value = params.nickName
+    formList[1].list = [params.image]
+    setState({
+      formList: formList,
+    })
   }
 
   const onSubmit = (data) => {
     const req = {
-      shopId: snapUser.shop.value,
+      shopId: snapUser.shop?.id,
       ...data,
     }
     onFetchTagAdd(req)

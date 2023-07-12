@@ -49,7 +49,7 @@ export default function AddEditPage(props) {
 
   const onSubmit = (data) => {
     const req = {
-      shopId: snapUser.shop.value,
+      shopId: snapUser.shop?.id,
       ...data,
     }
     onFetchTagAdd(req)

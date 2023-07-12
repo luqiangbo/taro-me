@@ -60,7 +60,7 @@ export default function AddEditPage(props) {
 
   const onSubmit = (data) => {
     const req = {
-      userId: snapUser.userId,
+      userId: snapUser.user?.id,
       ...data,
       avatarUrl: data.avatarUrl[0],
     }

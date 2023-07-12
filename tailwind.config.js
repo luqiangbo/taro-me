@@ -48,6 +48,9 @@ module.exports = {
         v20: '20vmin',
         v40: '40vmin',
       },
+      backgroundColor: {
+        main: '#c5a47a',
+      },
     },
   },
 }

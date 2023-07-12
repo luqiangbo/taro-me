@@ -2,9 +2,10 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Avatar, Picker, Cell } from '@nutui/nutui-react-taro'
+import { Avatar, Picker, Cell, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
-import { isEmpty, get } from 'lodash-es'
+import { isEmpty, get, find } from 'lodash-es'
+import qs from 'qs'
 
 import { mUser } from '@/store'
 import { fetchShopList } from '@/apis'
@@ -21,28 +22,24 @@ export default function CLoginAfter() {
   }, [])
 
   const init = () => {
+    console.log('after init')
     onFetchShopList()
   }
 
   const onFetchShopList = async () => {
     const req = {
-      userId: snapUser.userId,
+      userId: snapUser.user?.id,
       current: 1,
       pageSize: 10,
     }
     const [err, res] = await fetchShopList(req)
     if (err) return
-    const shopList = res.list.map((u) => ({ value: u.id, text: u.name }))
-    const shopId = snapUser.shopId
-    console.log({ shopList, shop: shopId, isss: isEmpty(shopId) })
-
+    const shopList = res.list.map((u) => ({ ...u, value: u.id, text: u.name }))
     setState({
       shopList,
     })
-    if (isEmpty(shopId)) {
-      console.log('23213')
-      mUser.shopId = shopList[0].value
-      mUser.shopName = shopList[0].text
+    if (isEmpty(snapUser.shop)) {
+      mUser.shop = shopList[0]
     }
   }
 
@@ -83,13 +80,28 @@ export default function CLoginAfter() {
             <Avatar color="#fff" background="#FA2C19" src={mUser.custom.image}>
               N
             </Avatar>
-            <div className="text-sm ml-2">{mUser.custom.nickName}</div>
+            <div className="text-sm mx-2">{mUser.custom.nickName}</div>
+            <Tag background="#c5a47a">{snapUser.user?.openId ? '管理员' : 'Vip'}</Tag>
           </div>
-          <IconFont size={20} name="setting" color="#ccc" />
+          <IconFont
+            size={20}
+            name="setting"
+            color="#ccc"
+            onClick={() => {
+              Taro.navigateTo({
+                url: `/pages/admin/custom/add_edit/index?${qs.stringify({
+                  type: 'edit',
+                  id: mUser.custom?.id,
+                  nickName: mUser.custom?.nickName,
+                  image: mUser.custom?.image,
+                })}`,
+              })
+            }}
+          />
         </div>
         <Cell
           title="当前店铺"
-          extra={get(mUser, 'shopName', ' ')}
+          extra={snapUser.shop?.name}
           align="center"
           onClick={() => {
             console.log({ snapUser })
@@ -99,13 +111,13 @@ export default function CLoginAfter() {
           }}
         />
         <Picker
-          defaultValue={[get(snapUser, 'shopId', '')]}
+          defaultValue={[snapUser.shop?.id]}
           visible={state.isOpenShop}
           options={state.shopList}
           onConfirm={(list, values) => {
-            console.log({ list, values })
-            mUser.shopId = list[0].value
-            mUser.shopName = list[0].text
+            const id = list[0].value
+            const sole = find(state.shopList, { id })
+            mUser.shop = sole
           }}
           onClose={() => {
             setState({
@@ -113,8 +125,8 @@ export default function CLoginAfter() {
             })
           }}
         />
+        {snapUser.user?.openId ? onRenderLit(adminList) : null}
         {onRenderLit(basicList)}
-        {onRenderLit(adminList)}
       </div>
     </div>
   )

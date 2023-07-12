@@ -6,6 +6,7 @@ import { useSnapshot } from 'valtio'
 import qs from 'qs'
 
 import CAll from '@/components/all_comp'
+import CGoAdd from '@/components/go_add_comp'
 import { fetchAddressList } from '@/apis/index'
 import { mUser } from '@/store'
 
@@ -36,7 +37,7 @@ export default function AdminTagPage() {
 
   const onFetchAddressList = async () => {
     const req = {
-      customId: snapUser.customId,
+      customId: snapUser.custom.id,
       ...state.reqList,
     }
     const [err, res] = await fetchAddressList(req)
@@ -76,16 +77,7 @@ export default function AdminTagPage() {
             ))}
           </InfiniteLoading>
         </div>
-        <div
-          className="fixed right-2 bottom-2 w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center"
-          onClick={() => {
-            Taro.navigateTo({
-              url: `/pages/admin/address/add_edit/index?${qs.stringify({ type: 'add' })}`,
-            })
-          }}
-        >
-          <Plus color="white" /> 添加
-        </div>
+        <CGoAdd />
       </div>
     </div>
   )

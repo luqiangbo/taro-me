@@ -30,7 +30,8 @@ export default function CLoginBefore() {
   const onFetchCustomLogin = async (code) => {
     const [err, res] = await fetchCustomLogin({ code })
     if (err) return
-    mUser.custom = res
+    mUser.custom = res.custom
+    mUser.user = res.user
   }
 
   return (

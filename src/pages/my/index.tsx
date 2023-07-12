@@ -31,7 +31,7 @@ export default function MyPage() {
     <div className="page-c page-my">
       <CAll />
       <CTabber />
-      {snapUser.custom.id ? <CLoginAfter /> : <CLoginBefore />}
+      {snapUser.custom?.id ? <CLoginAfter /> : <CLoginBefore />}
     </div>
   )
 }

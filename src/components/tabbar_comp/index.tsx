@@ -33,7 +33,7 @@ export default function TabbarComp() {
       },
     ],
     activeIndex: '',
-    activeColor: '#1989fa',
+    activeColor: '#c5a47a',
     inactiveColor: '#7d7e80',
   })
   useEffect(() => {
