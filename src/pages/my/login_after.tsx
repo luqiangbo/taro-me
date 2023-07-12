@@ -1,0 +1,121 @@
+import Taro from '@tarojs/taro'
+import { useEffect } from 'react'
+import { useSetState } from 'ahooks'
+import { useSnapshot } from 'valtio'
+import { Avatar, Picker, Cell } from '@nutui/nutui-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
+import { isEmpty, get } from 'lodash-es'
+
+import { mUser } from '@/store'
+import { fetchShopList } from '@/apis'
+import { adminList, basicList } from './data'
+
+export default function CLoginAfter() {
+  const snapUser = useSnapshot(mUser)
+  const [state, setState] = useSetState({
+    shopList: [],
+    isOpenShop: false,
+  })
+  useEffect(() => {
+    init()
+  }, [])
+
+  const init = () => {
+    onFetchShopList()
+  }
+
+  const onFetchShopList = async () => {
+    const req = {
+      userId: snapUser.userId,
+      current: 1,
+      pageSize: 10,
+    }
+    const [err, res] = await fetchShopList(req)
+    if (err) return
+    const shopList = res.list.map((u) => ({ value: u.id, text: u.name }))
+    const shopId = snapUser.shopId
+    console.log({ shopList, shop: shopId, isss: isEmpty(shopId) })
+
+    setState({
+      shopList,
+    })
+    if (isEmpty(shopId)) {
+      console.log('23213')
+      mUser.shopId = shopList[0].value
+      mUser.shopName = shopList[0].text
+    }
+  }
+
+  const onRenderLit = (list) => (
+    <div className="px-1 rounded-lg bg-white mb-4">
+      {list.map((u) => (
+        <div
+          key={u.key}
+          className="flex justify-between items-center items-centet py-2"
+          style={{ borderBottom: '1px solid #eee' }}
+          onClick={() => {
+            if (u.type === 'router') {
+              Taro.navigateTo({
+                url: `/pages/admin/${u.key}/index`,
+              })
+            }
+          }}
+        >
+          <div className="flex items-center">
+            <IconFont name={u.icon} color="#666" size={12} className="mr-1" />
+            <div className="text-sm">{u.value}</div>
+          </div>
+          <IconFont name="right" color="#ccc" size={12} />
+        </div>
+      ))}
+    </div>
+  )
+
+  return (
+    <div className="c-login-after">
+      <div className="flex justify-center">
+        <IconFont size={150} name="https://qiniu.commok.com/pcigo/undraw_happy_music_g6wc.png" />
+      </div>
+
+      <div className="p-2">
+        <div className="flex justify-between items-center px-2 py-3 bg-white text-gray-400 mb-2 rounded-lg">
+          <div className="flex items-center">
+            <Avatar color="#fff" background="#FA2C19" src={mUser.custom.image}>
+              N
+            </Avatar>
+            <div className="text-sm ml-2">{mUser.custom.nickName}</div>
+          </div>
+          <IconFont size={20} name="setting" color="#ccc" />
+        </div>
+        <Cell
+          title="当前店铺"
+          extra={get(mUser, 'shopName', ' ')}
+          align="center"
+          onClick={() => {
+            console.log({ snapUser })
+            setState({
+              isOpenShop: true,
+            })
+          }}
+        />
+        <Picker
+          defaultValue={[get(snapUser, 'shopId', '')]}
+          visible={state.isOpenShop}
+          options={state.shopList}
+          onConfirm={(list, values) => {
+            console.log({ list, values })
+            mUser.shopId = list[0].value
+            mUser.shopName = list[0].text
+          }}
+          onClose={() => {
+            setState({
+              isOpenShop: false,
+            })
+          }}
+        />
+        {onRenderLit(basicList)}
+        {onRenderLit(adminList)}
+      </div>
+    </div>
+  )
+}

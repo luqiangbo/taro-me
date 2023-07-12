@@ -4,11 +4,14 @@ const baseUrl = 'http://localhost:7001/mm'
 
 export const urlUpload = `${baseUrl}/base/upload`
 
-// 微信登录
+// openid
 export const fetchBaseJscode2session = (data) => request({ url: `${baseUrl}/base/jscode2session`, data })
 
 // 解密
 export const fetchBaseDecrypt = (data) => request({ url: `${baseUrl}/base/decrypt`, data })
+
+// 登录
+export const fetchCustomLogin = (data) => request({ url: `${baseUrl}/custom/login`, data })
 
 // 店铺列表
 export const fetchShopList = (data) => request({ url: `${baseUrl}/shop/list`, data })
