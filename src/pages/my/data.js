@@ -6,8 +6,8 @@ export const adminList = [
   { key: 'address', value: '地址管理', icon: 'find', type: 'router' },
 ]
 export const basicList = [
-  { key: 'privacyAgreementDescription', value: '隐私协议说明', icon: 'link', type: 'router' },
-  { key: 'aboutPrograms', value: '关于程序', icon: 'link', type: 'router' },
-  { key: 'clearCache', value: '清除缓存', icon: 'link', type: 'func' },
-  { key: 'logOut', value: '退出登录', icon: 'footprint', type: 'func' },
+  { key: 'agreement', value: '隐私协议说明', icon: 'link', type: 'router' },
+  { key: 'about', value: '关于程序', icon: 'link', type: 'router' },
+  // { key: 'clear', value: '清除缓存', icon: 'link', type: 'func' },
+  { key: 'logout', value: '退出登录', icon: 'footprint', type: 'func' },
 ]

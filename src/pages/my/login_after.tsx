@@ -55,6 +55,11 @@ export default function CLoginAfter() {
               Taro.navigateTo({
                 url: `/pages/admin/${u.key}/index`,
               })
+            } else if (u.type === 'func') {
+              if (u.key === 'logout') {
+                mUser.custom = {}
+                mUser.user = {}
+              }
             }
           }}
         >

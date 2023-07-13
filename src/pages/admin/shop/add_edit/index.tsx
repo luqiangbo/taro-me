@@ -11,7 +11,7 @@ import { fetchShopAdd } from '@/apis'
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '添加/编辑 分类',
+  navigationBarTitleText: '添加/编辑 店铺',
 })
 
 export default function AddEditPage(props) {
@@ -24,23 +24,22 @@ export default function AddEditPage(props) {
         label: '店铺名字',
         placeholder: '请输入',
         type: 'input',
-        value: '',
         disabled: false,
         required: true,
         rules: [],
       },
       {
-        key: 'avatarUrl',
+        key: 'image',
         label: '店铺logo',
         type: 'uploader',
         disabled: false,
         required: true,
         rules: [],
-        list: [],
         maxLength: 1,
         maxSize: 200,
       },
     ],
+    resValue: {},
     type: '',
   })
 
@@ -62,7 +61,7 @@ export default function AddEditPage(props) {
     const req = {
       userId: snapUser.user?.id,
       ...data,
-      avatarUrl: data.avatarUrl[0],
+      image: data.image[0],
     }
     onFetchShopAdd(req)
   }
@@ -79,7 +78,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
       </div>
     </div>
   )

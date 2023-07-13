@@ -30,6 +30,7 @@ export default function AddEditPage(props) {
         rules: [],
       },
     ],
+    resValue: {},
     type: '',
   })
 
@@ -67,7 +68,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
       </div>
     </div>
   )

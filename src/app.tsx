@@ -33,7 +33,7 @@ export default function Main(props) {
   }, [])
 
   return (
-    <ConfigProvider locale={state.locale}>
+    <ConfigProvider locale={zh}>
       <div className="page-all">{props.children}</div>
     </ConfigProvider>
   )

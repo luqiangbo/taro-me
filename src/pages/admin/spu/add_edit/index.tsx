@@ -24,33 +24,32 @@ export default function AddEditPage(props) {
         label: '名字',
         placeholder: '请输入',
         type: 'input',
-        value: '',
-        disabled: false,
         required: true,
-        rules: [],
       },
       {
         key: 'describe',
-        label: '介绍',
+        label: '简介',
         placeholder: '请输入',
         type: 'input',
-        value: '',
-        disabled: false,
         required: true,
-        rules: [],
+      },
+      {
+        key: 'category',
+        label: '分类',
+        placeholder: '请输入',
+        type: 'radio',
+        required: true,
       },
       {
         key: 'imgsMain',
         label: '商品图',
         type: 'uploader',
-        disabled: false,
         required: true,
-        rules: [],
-        list: [],
         maxLength: 1,
         maxSize: 200,
       },
     ],
+    resValue: {},
     type: '',
   })
 
@@ -89,7 +88,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
       </div>
     </div>
   )
