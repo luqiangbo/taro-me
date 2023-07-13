@@ -77,10 +77,14 @@ export default function CLoginAfter() {
       <div className="p-2">
         <div className="flex justify-between items-center px-2 py-3 bg-white text-gray-400 mb-2 rounded-lg">
           <div className="flex items-center">
-            <Avatar color="#fff" background="#FA2C19" src={mUser.custom.image}>
-              N
-            </Avatar>
-            <div className="text-sm mx-2">{mUser.custom.nickName}</div>
+            <div className="navtion-image">
+              {mUser.custom.image ? (
+                <IconFont size={45} name={mUser.custom.image} />
+              ) : (
+                mUser.custom.nickName.substring(0, 1)
+              )}
+            </div>
+            <div className="text-sm mx-2">{mUser.custom.nickName.substring(0, 11)}</div>
             <Tag background="#c5a47a">{snapUser.user?.openId ? '管理员' : 'Vip'}</Tag>
           </div>
           <IconFont

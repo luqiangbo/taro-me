@@ -15,11 +15,22 @@ $br: 20px;
   display: block !important;
 }
 
+/////
 .page-c {
   background-color: $colorBg;
   min-height: 100vh;
   padding-bottom: 200px;
 }
+.navtion-image {
+  height: 100px;
+  width: 100px;
+  line-height: 100px;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 8px solid #f5f5f5;
+  text-align: center;
+}
+
 .page-category {
   background-color: $colorBg;
   min-height: 100vh;
@@ -88,6 +99,18 @@ $br: 20px;
     .catgory-item {
       width: 20%;
       text-align: center;
+    }
+  }
+}
+
+.comp-form {
+  .comp-form-item {
+    background-color: #fff;
+    border-bottom: 2px solid #f5f5f5;
+    padding: 20px 5px 5px 5px;
+    .comp-form-item-label {
+      margin-bottom: 10px;
+      display: flex;
     }
   }
 }

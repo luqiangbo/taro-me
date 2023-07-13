@@ -7,8 +7,9 @@ import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchTagAdd } from '@/apis'
+import { fetchCustomUpdate } from '@/apis'
 import { mUser } from '@/store'
+import { decodedObj } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '编辑资料',
@@ -24,7 +25,6 @@ export default function AddEditPage(props) {
         label: '昵称',
         placeholder: '请输入',
         type: 'input',
-        value: '',
         disabled: false,
         required: true,
       },
@@ -35,11 +35,12 @@ export default function AddEditPage(props) {
         disabled: false,
         required: true,
         rules: [],
-        list: [],
         maxLength: 1,
         maxSize: 200,
       },
     ],
+    resValue: {},
+    params: {},
     type: '',
   })
 
@@ -49,29 +50,32 @@ export default function AddEditPage(props) {
 
   const init = () => {
     const router = getCurrentInstance().router
-    const params = router?.params
+    const params = decodedObj(router?.params)
     console.log({ params })
-    const { formList } = state
-    formList[0].value = params.nickName
-    formList[1].list = [params.image]
     setState({
-      formList: formList,
+      params,
+      resValue: {
+        nickName: params.nickName,
+        image: params.image ? [params.image] : [],
+      },
     })
   }
 
   const onSubmit = (data) => {
     const req = {
-      shopId: snapUser.shop?.id,
+      id: state.params.id,
       ...data,
+      image: data.image[0],
     }
-    onFetchTagAdd(req)
+    onFetchCustomUpdate(req)
   }
 
-  const onFetchTagAdd = async (req) => {
-    const [err, res] = await fetchTagAdd(req)
+  const onFetchCustomUpdate = async (req) => {
+    const [err, res] = await fetchCustomUpdate(req)
     if (err) {
       return
     }
+    mUser.custom = res
     Taro.navigateBack()
   }
 
@@ -79,7 +83,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
       </div>
     </div>
   )

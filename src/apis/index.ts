@@ -13,6 +13,12 @@ export const fetchBaseDecrypt = (data) => request({ url: `${baseUrl}/base/decryp
 // 登录
 export const fetchCustomLogin = (data) => request({ url: `${baseUrl}/custom/login`, data })
 
+// 更新
+export const fetchCustomUpdate = (data) => request({ url: `${baseUrl}/custom/update`, data })
+
+// 查询
+export const fetchCustomFind = (data) => request({ url: `${baseUrl}/custom/find`, data })
+
 // 店铺列表
 export const fetchShopList = (data) => request({ url: `${baseUrl}/shop/list`, data })
 

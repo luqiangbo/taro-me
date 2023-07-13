@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Form, Button, Input, Cascader } from '@nutui/nutui-react-taro'
+import { Button, Input, Cascader } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, get } from 'lodash-es'
 
@@ -11,26 +11,24 @@ import { urlUpload, fetchAddressDivision } from '@/apis'
 
 export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
-  const fileList = ['https://qiniu.commok.com/mm-test/image/png/1c6a0301-91b4-48f7-b6d5-7f62215aec7e.png']
   const [state, setState] = useSetState({
     isOpenAddrsss: false,
     addressList: [],
-    initialValues: {},
+    resValue: {},
   })
 
   useEffect(() => {
     init()
   }, [])
 
-  const init = () => {
-    console.log('from-item init', { props })
-
-    onFetchAddressDivision()
-    props.formList.forEach((u) => {
-      setState({
-        [u.key]: u.value,
-      })
+  useEffect(() => {
+    setState({
+      resValue: props.resValue,
     })
+  }, [JSON.stringify(props)])
+
+  const init = () => {
+    onFetchAddressDivision()
   }
 
   const onFetchAddressDivision = async () => {
@@ -48,11 +46,11 @@ export default function FormComp(props) {
   const onSubmit = () => {
     const { formList } = props
     let ruleErr = false
+    console.log('onSubmit', { resValue: state.resValue })
     for (const u of formList) {
-      // console.log({ u })
       if (u.required) {
         if (u.type === 'input') {
-          if (isEmpty(get(state, u.key, ''))) {
+          if (isEmpty(get(state.resValue, u.key, ''))) {
             Taro.showToast({
               title: `请添加${u.label}`,
               icon: 'none',
@@ -61,7 +59,7 @@ export default function FormComp(props) {
             return
           }
         } else if (u.type === 'uploader') {
-          if (get(state, u.key, []).length === 0) {
+          if (get(state.resValue, u.key, []).length === 0) {
             Taro.showToast({
               title: `请添加${u.label}`,
               icon: 'none',
@@ -73,7 +71,7 @@ export default function FormComp(props) {
       }
     }
     if (!ruleErr) {
-      props.onSubmit(state)
+      props.onSubmit(state.resValue)
     }
   }
 
@@ -123,7 +121,10 @@ export default function FormComp(props) {
                         const fileList = get(state, key, [])
                         fileList.push(data.data)
                         setState({
-                          [key]: fileList,
+                          resValue: {
+                            ...state.resValue,
+                            [key]: fileList,
+                          },
                         })
                         return
                       },
@@ -146,79 +147,92 @@ export default function FormComp(props) {
   }
 
   return (
-    <div className="all-comp-form">
-      <Form labelPosition="right">
-        {props.formList.map((u) => {
-          if (u.type === 'input') {
-            return (
-              <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
-                <Input
-                  type="text"
-                  placeholder={u.placeholder}
-                  value={state[u.key]}
-                  onChange={(val) => {
-                    // setState({
-                    //   [u.key]: val,
-                    // })
-                  }}
-                />
-              </Form.Item>
-            )
-          } else if (u.type === 'uploader') {
-            return (
-              <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
-                <div className="flex">
-                  {get(state, u.key, []).map((h, i) => (
+    <div className="comp-form">
+      {props.formList.map((u) => {
+        if (u.type === 'input') {
+          return (
+            <div key={u.key} className="comp-form-item">
+              <div className="comp-form-item-label">
+                <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
+              </div>
+              <Input
+                type="text"
+                placeholder={u.placeholder}
+                value={state.resValue[u.key]}
+                onChange={(val) => {
+                  setState({
+                    resValue: {
+                      ...state.resValue,
+                      [u.key]: val,
+                    },
+                  })
+                }}
+              />
+            </div>
+          )
+        } else if (u.type === 'uploader') {
+          return (
+            <div key={u.key} className="comp-form-item">
+              <div className="comp-form-item-label ">
+                <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
+              </div>
+              <div className="flex">
+                {get(state.resValue, u.key, []).map((h, i) => (
+                  <div
+                    key={h}
+                    className="w-20 h-20 rounded overflow-hidden bg-slate-200 border border-gray-300 mr-2 relative"
+                  >
+                    <IconFont size="80" name={h} />
                     <div
-                      key={h}
-                      className="w-20 h-20 rounded overflow-hidden bg-slate-200 border border-gray-300 mr-2 relative"
-                    >
-                      <IconFont size="80" name={h} />
-                      <div
-                        className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
-                        onClick={() => {
-                          const list = get(state, u.key, [])
-                          list.splice(i, 1)
-                          setState({
-                            [u.key]: list,
-                          })
-                        }}
-                      >
-                        <IconFont name="del" size="22" color="#fa2c19" />
-                      </div>
-                    </div>
-                  ))}
-                  {get(state, u.key, []).length < (u.maxLength || 1) ? (
-                    <div
-                      className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
+                      className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
                       onClick={() => {
-                        onUpload({ key: u.key, type: 'image', maxSize: u.maxSize || 200 })
+                        const list = get(state, u.key, [])
+                        list.splice(i, 1)
+                        setState({
+                          resValue: {
+                            ...state.resValue,
+                            [u.key]: list,
+                          },
+                        })
                       }}
                     >
-                      <IconFont name="image" />
-                      <div> 上传图片</div>
+                      <IconFont name="del" size="22" color="#fa2c19" />
                     </div>
-                  ) : null}
-                </div>
-              </Form.Item>
-            )
-          } else if (u.type === 'address') {
-            return (
-              <Form.Item key={u.key} required={u.required} label={u.label} name={u.key}>
-                <div
-                  onClick={() => {
-                    setState({
-                      isOpenAddrsss: true,
-                    })
-                  }}
-                >
-                  选择地址
-                </div>
-              </Form.Item>
-            )
-          }
-        })}
-      </Form>
+                  </div>
+                ))}
+                {get(state.resValue, u.key, []).length < (u.maxLength || 1) ? (
+                  <div
+                    className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
+                    onClick={() => {
+                      onUpload({ key: u.key, type: 'image', maxSize: u.maxSize || 200 })
+                    }}
+                  >
+                    <IconFont name="image" />
+                    <div> 上传图片</div>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          )
+        } else if (u.type === 'address') {
+          return (
+            <div key={u.key} className="comp-form-item">
+              <div className="comp-form-item-label">
+                <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
+              </div>
+              <div
+                onClick={() => {
+                  setState({
+                    isOpenAddrsss: true,
+                  })
+                }}
+              >
+                选择地址
+              </div>
+            </div>
+          )
+        }
+      })}
       <div>
         <Cascader
           visible={state.isOpenAddrsss}
@@ -238,7 +252,7 @@ export default function FormComp(props) {
           }}
           options={state.addressList}
           onLoad={(vvv) => {
-            console.log({ vvv })
+            console.log('地址选择', { vvv })
           }}
         />
       </div>
