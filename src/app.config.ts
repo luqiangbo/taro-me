@@ -11,6 +11,7 @@ export default defineAppConfig({
         'tag/add_edit/index',
         'shop/index',
         'shop/add_edit/index',
+        'shop/open/index',
         'category/index',
         'category/add_edit/index',
         'spu/index',

@@ -22,6 +22,9 @@ export const fetchCustomFind = (data) => request({ url: `${baseUrl}/custom/find`
 // 店铺列表
 export const fetchShopList = (data) => request({ url: `${baseUrl}/shop/list`, data })
 
+// 店铺列表
+export const fetchShopOpenList = (data) => request({ url: `${baseUrl}/shop/open/list`, data })
+
 // 添加店铺
 export const fetchShopAdd = (data) => request({ url: `${baseUrl}/shop/add`, data })
 

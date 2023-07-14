@@ -3,12 +3,13 @@ import { useSetState } from 'ahooks'
 import { Swiper, SwiperItem, Input } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
+import { find } from 'lodash-es'
 
 import CAll from '@/components/all_comp'
 import CTitle from '@/components/title_comp'
 import CTabber from '@/components/tabbar_comp'
-import { fetchSpuList } from '@/apis/index'
-import { mUser } from '@/store'
+import { fetchShopOpenList } from '@/apis/index'
+import { mUser, mCommon } from '@/store'
 import { catgoryList, bannerList } from './data'
 
 definePageConfig({
@@ -18,7 +19,6 @@ definePageConfig({
 export default function HomePage() {
   const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
-    spuList: [],
     bannerList: [],
     height: 200,
   })
@@ -29,20 +29,42 @@ export default function HomePage() {
 
   const init = () => {
     console.log('init-index')
-    onFetchSpuList()
+    onFetchShopOpenList()
   }
 
-  const onFetchSpuList = async () => {
-    const req = {}
-    const [err, res] = await fetchSpuList(req)
+  const onFetchShopOpenList = async () => {
+    const req = {
+      current: 1,
+      pageSize: 10,
+    }
+    const [err, res] = await fetchShopOpenList(req)
     if (err) return
     console.log({ res })
-    setState({ spuList: res })
+    mCommon.shopOpenList = res.list
+    mUser.shopOpen = res.list[0]
+    if (snapUser.shopOpen) {
+      const sole = find(res.list, { id: snapUser.shopOpen.id })
+      if (sole) {
+        mUser.shopOpen = sole
+      }
+    }
   }
 
   return (
     <div className="page-c page-home">
-      <CTitle>首页</CTitle>
+      <CTitle>
+        <div
+          className="flex items-center"
+          onClick={() => {
+            Taro.navigateTo({
+              url: `/pages/admin/shop/open/index`,
+            })
+          }}
+        >
+          <IconFont name="shop" className="mr-1" />
+          {snapUser.shopOpen?.name}
+        </div>
+      </CTitle>
       <CAll />
       <CTabber />
       <div className="page-home-header">
