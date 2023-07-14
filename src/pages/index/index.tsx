@@ -5,13 +5,14 @@ import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
+import CTitle from '@/components/title_comp'
 import CTabber from '@/components/tabbar_comp'
 import { fetchSpuList } from '@/apis/index'
 import { mUser } from '@/store'
 import { catgoryList, bannerList } from './data'
 
 definePageConfig({
-  navigationBarTitleText: '首页',
+  navigationStyle: 'custom', // custom:隐藏标题栏  default
 })
 
 export default function HomePage() {
@@ -41,6 +42,7 @@ export default function HomePage() {
 
   return (
     <div className="page-c page-home">
+      <CTitle>首页</CTitle>
       <CAll />
       <CTabber />
       <div className="page-home-header">
@@ -76,6 +78,9 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+      <div className="h-40">123</div>
+      <div className="h-40">123</div>
+      <div className="h-40">123</div>
     </div>
   )
 }

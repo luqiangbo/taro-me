@@ -18,6 +18,7 @@ export default function Main(props) {
     locale: zh,
   })
   useEffect(() => {
+    console.log('app init')
     const time = Date.now()
     mUser.hash = time
     let ens = time % 2 === 0

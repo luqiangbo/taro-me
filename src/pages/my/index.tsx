@@ -8,12 +8,11 @@ import CLoginBefore from './login_before'
 import CLoginAfter from './login_after'
 
 definePageConfig({
-  navigationBarTitleText: '我的',
+  navigationStyle: 'custom', // custom:隐藏标题栏  default
 })
 
 export default function MyPage() {
   const snapUser = useSnapshot(mUser)
-
   useDidShow(() => {
     console.log('useDidShow me')
     init()
@@ -24,7 +23,6 @@ export default function MyPage() {
 
   const init = () => {
     const ens = Taro.getStorageSync('mUser')
-    console.log('init-page-me', { ens })
   }
 
   return (

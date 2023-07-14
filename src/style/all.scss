@@ -21,6 +21,15 @@ $br: 20px;
   min-height: 100vh;
   padding-bottom: 200px;
 }
+.title-comp-main {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
 .navtion-image {
   height: 100px;
   width: 100px;
