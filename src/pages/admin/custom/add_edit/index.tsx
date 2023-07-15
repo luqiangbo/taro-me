@@ -1,6 +1,5 @@
 //  新增 编辑
 import Taro from '@tarojs/taro'
-import { getCurrentInstance } from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
@@ -9,7 +8,7 @@ import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
 import { fetchCustomUpdate } from '@/apis'
 import { mUser } from '@/store'
-import { decodedObj } from '@/utils'
+import { getParams } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '编辑资料',
@@ -49,8 +48,7 @@ export default function AddEditPage(props) {
   }, [])
 
   const init = () => {
-    const router = getCurrentInstance().router
-    const params = decodedObj(router?.params)
+    const params = getParams()
     console.log({ params })
     setState({
       params,

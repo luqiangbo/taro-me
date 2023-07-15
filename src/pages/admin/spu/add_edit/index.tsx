@@ -7,8 +7,10 @@ import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchSpuAdd } from '@/apis'
+import { fetchSpuAdd, fetchCategoryList } from '@/apis'
 import { mUser } from '@/store'
+import { getParams } from '@/utils'
+import { find } from 'lodash-es'
 
 definePageConfig({
   navigationBarTitleText: '添加/编辑 商品',
@@ -34,14 +36,15 @@ export default function AddEditPage(props) {
         required: true,
       },
       {
-        key: 'category',
+        key: 'categoryId',
         label: '分类',
         placeholder: '请输入',
         type: 'radio',
         required: true,
+        list: [],
       },
       {
-        key: 'imgsMain',
+        key: 'imageMain',
         label: '商品图',
         type: 'uploader',
         required: true,
@@ -58,19 +61,31 @@ export default function AddEditPage(props) {
   }, [])
 
   const init = () => {
-    const router = getCurrentInstance().router
-    const { type } = router?.params
-    if (type) {
-      setState({
-        type,
-      })
+    const params = getParams()
+
+    console.log({ params })
+    onFetchCategoryList()
+  }
+
+  const onFetchCategoryList = async () => {
+    const req = {
+      current: 1,
+      pageSize: 100,
+      shopId: snapUser.shop?.id,
     }
+    const [err, res] = await fetchCategoryList(req)
+    if (err) return
+    const { formList } = state
+    const sole = find(formList, { key: 'categoryId' })
+    sole.list = res.list
+    setState({
+      formList: formList,
+    })
   }
 
   const onSubmit = (data) => {
     const req = {
       shopId: snapUser.shop?.id,
-      categoryId: '63c85046-247b-4d9a-aaff-697f298934c8',
       ...data,
     }
     onFetchSpuAdd(req)

@@ -20,7 +20,7 @@ export default function AdminProductPage() {
   const [state, setState] = useSetState({
     mainList: [],
     total: 0,
-    reqList: {
+    req: {
       current: 1,
       pageSize: 10,
     },
@@ -38,7 +38,7 @@ export default function AdminProductPage() {
   const onFetchCategoryList = async () => {
     const req = {
       shopId: snapUser.shop?.id,
-      ...state.reqList,
+      ...state.req,
     }
     const [err, res] = await fetchCategoryList(req)
     if (err) return

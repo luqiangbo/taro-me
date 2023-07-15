@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Button, Input, Cascader } from '@nutui/nutui-react-taro'
+import { Button, Input, Cascader, Radio } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, get } from 'lodash-es'
 
@@ -49,7 +49,7 @@ export default function FormComp(props) {
     console.log('onSubmit', { resValue: state.resValue })
     for (const u of formList) {
       if (u.required) {
-        if (u.type === 'input') {
+        if (['input', 'radio'].indexOf(u.type) !== -1) {
           if (isEmpty(get(state.resValue, u.key, ''))) {
             Taro.showToast({
               title: `请添加${u.label}`,
@@ -170,7 +170,8 @@ export default function FormComp(props) {
               />
             </div>
           )
-        } else if (u.type === 'uploader') {
+        }
+        if (u.type === 'uploader') {
           return (
             <div key={u.key} className="comp-form-item">
               <div className="comp-form-item-label ">
@@ -214,7 +215,39 @@ export default function FormComp(props) {
               </div>
             </div>
           )
-        } else if (u.type === 'address') {
+        }
+        if (u.type === 'radio') {
+          return (
+            <div key={u.key} className="comp-form-item">
+              <div className="comp-form-item-label ">
+                <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
+              </div>
+
+              <Radio.Group
+                direction="vertical"
+                value={state.resValue[u.key]}
+                onChange={(value) => {
+                  setState({
+                    resValue: {
+                      ...state.resValue,
+                      [u.key]: value,
+                    },
+                  })
+                }}
+              >
+                {u.list.map((u) => (
+                  <div className="bg-white rounded mb-2">
+                    <Radio key={u.id} value={u.id} className="p-2">
+                      {u.name}
+                    </Radio>
+                  </div>
+                ))}
+              </Radio.Group>
+            </div>
+          )
+        }
+
+        if (u.type === 'address') {
           return (
             <div key={u.key} className="comp-form-item">
               <div className="comp-form-item-label">
