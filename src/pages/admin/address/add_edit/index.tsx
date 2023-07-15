@@ -21,33 +21,31 @@ export default function AddEditPage(props) {
     formList: [
       {
         key: 'receiver',
-        label: '收件人',
+        label: '收件人姓名',
         placeholder: '请输入',
         type: 'input',
-        value: '',
-        disabled: false,
         required: true,
-        rules: [],
       },
       {
         key: 'phone',
         label: '手机号',
         placeholder: '请输入',
         type: 'input',
-        value: '',
-        disabled: false,
         required: true,
-        rules: [],
       },
       {
-        key: 'address',
+        key: 'pcas',
         label: '地址',
         placeholder: '请输入',
         type: 'address',
-        value: '',
-        disabled: false,
         required: true,
-        rules: [],
+      },
+      {
+        key: 'detail',
+        label: '详细地址',
+        placeholder: '请输入',
+        type: 'input',
+        required: true,
       },
     ],
     resValue: {},
@@ -71,7 +69,13 @@ export default function AddEditPage(props) {
   const onSubmit = (data) => {
     const req = {
       customId: snapUser.custom?.id,
-      ...data,
+      province: data.pcas[0],
+      city: data.pcas[1],
+      area: data.pcas[2],
+      street: data.pcas[3],
+      receiver: data.receiver,
+      phone: data.phone,
+      detail: data.detail,
     }
     onFetchAddressAdd(req)
   }

@@ -4,16 +4,17 @@ import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Button, Input, Cascader, Radio } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
-import { isEmpty, get } from 'lodash-es'
+import { isEmpty, get, find } from 'lodash-es'
 
 import { mCommon } from '@/store'
-import { urlUpload, fetchAddressDivision } from '@/apis'
+import { urlUpload, fetchAddressPcas } from '@/apis'
 
 export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
   const [state, setState] = useSetState({
     isOpenAddrsss: false,
     addressList: [],
+    addressText: '',
     resValue: {},
   })
 
@@ -28,18 +29,30 @@ export default function FormComp(props) {
   }, [JSON.stringify(props)])
 
   const init = () => {
-    onFetchAddressDivision()
+    const sole = find(props.formList, { type: 'address' })
+    if (sole) {
+      onFetchAddressPcas()
+    }
   }
 
-  const onFetchAddressDivision = async () => {
-    const req = {
-      type: 'province',
-      code: '86',
-    }
-    const [err, res] = await fetchAddressDivision(req)
+  const onFetchAddressPcas = async () => {
+    const [err, res] = await fetchAddressPcas()
     if (err) return
     setState({
-      addressList: res.map((u) => ({ value: u.code, text: u.name })),
+      addressList: res,
+      resValue: {},
+    })
+  }
+
+  const onGetAddress = (list) => {
+    const { addressList } = state
+    const sole1 = find(addressList, { code: list[0] })
+    const sole2 = find(sole1.children, { code: list[1] })
+    const sole3 = find(sole2.children, { code: list[2] })
+    const sole4 = find(sole3.children, { code: list[3] })
+
+    setState({
+      addressText: `${sole1.name}-${sole2.name}-${sole3.name}-${sole4.name}`,
     })
   }
 
@@ -177,7 +190,7 @@ export default function FormComp(props) {
               <div className="comp-form-item-label ">
                 <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
               </div>
-              <div className="flex">
+              <div className="flex comp-form-item-upload">
                 {get(state.resValue, u.key, []).map((h, i) => (
                   <div
                     key={h}
@@ -254,41 +267,49 @@ export default function FormComp(props) {
                 <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
               </div>
               <div
+                className="comp-form-item-input"
                 onClick={() => {
                   setState({
                     isOpenAddrsss: true,
                   })
                 }}
               >
-                选择地址
+                {state.addressText || '请选择地址'}
+              </div>
+              <div>
+                <Cascader
+                  closeable
+                  title="地址选择"
+                  optionKey={{
+                    textKey: 'name',
+                    valueKey: 'code',
+                    childrenKey: 'children',
+                  }}
+                  visible={state.isOpenAddrsss}
+                  options={state.addressList}
+                  onClose={() => {
+                    setState({
+                      isOpenAddrsss: false,
+                    })
+                  }}
+                  onChange={(v) => {
+                    if (state.isOpenAddrsss) {
+                      onGetAddress(v)
+                      setState({
+                        resValue: {
+                          ...state.resValue,
+                          [u.key]: v,
+                        },
+                      })
+                    }
+                  }}
+                />
               </div>
             </div>
           )
         }
       })}
-      <div>
-        <Cascader
-          visible={state.isOpenAddrsss}
-          title="地址选择"
-          closeable
-          lazy
-          onClose={() => {
-            setState({
-              isOpenAddrsss: false,
-            })
-          }}
-          onChange={(v) => {
-            console.log({ v })
-          }}
-          onPathChange={(vv) => {
-            console.log({ vv })
-          }}
-          options={state.addressList}
-          onLoad={(vvv) => {
-            console.log('地址选择', { vvv })
-          }}
-        />
-      </div>
+
       <div className="pt-3">
         <Button block type="primary" onClick={onSubmit}>
           提交

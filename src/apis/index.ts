@@ -54,3 +54,6 @@ export const fetchAddressAdd = (data) => request({ url: `${baseUrl}/address/add`
 
 // 地址
 export const fetchAddressDivision = (data) => request({ url: `${baseUrl}/address/division`, data })
+
+// 地址
+export const fetchAddressPcas = () => request({ url: `${baseUrl}/address/pcas` })

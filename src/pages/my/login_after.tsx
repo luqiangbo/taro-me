@@ -108,33 +108,38 @@ export default function CLoginAfter() {
             }}
           />
         </div>
-        <Cell
-          title="当前店铺"
-          extra={snapUser.shop?.name}
-          align="center"
-          onClick={() => {
-            console.log({ snapUser })
-            setState({
-              isOpenShop: true,
-            })
-          }}
-        />
-        <Picker
-          defaultValue={[snapUser.shop?.id]}
-          visible={state.isOpenShop}
-          options={state.shopList}
-          onConfirm={(list, values) => {
-            const id = list[0].value
-            const sole = find(state.shopList, { id })
-            mUser.shop = sole
-          }}
-          onClose={() => {
-            setState({
-              isOpenShop: false,
-            })
-          }}
-        />
-        {snapUser.user?.openId ? onRenderLit(adminList) : null}
+
+        {snapUser.user?.openId ? (
+          <div className="bg-white">
+            <Cell
+              title="编辑当前店铺"
+              extra={snapUser.shop?.name}
+              align="center"
+              onClick={() => {
+                console.log({ snapUser })
+                setState({
+                  isOpenShop: true,
+                })
+              }}
+            />
+            <Picker
+              defaultValue={[snapUser.shop?.id]}
+              visible={state.isOpenShop}
+              options={state.shopList}
+              onConfirm={(list, values) => {
+                const id = list[0].value
+                const sole = find(state.shopList, { id })
+                mUser.shop = sole
+              }}
+              onClose={() => {
+                setState({
+                  isOpenShop: false,
+                })
+              }}
+            />
+            {onRenderLit(adminList)}
+          </div>
+        ) : null}
         {onRenderLit(basicList)}
       </div>
     </div>
