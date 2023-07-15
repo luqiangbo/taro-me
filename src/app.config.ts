@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  pages: ['pages/my/index', 'pages/index/index', 'pages/category/index', 'pages/cart/index'],
+  pages: ['pages/my/index', 'pages/category/index', 'pages/index/index', 'pages/cart/index'],
   subPackages: [
     {
       root: 'pages/admin',
@@ -16,6 +16,8 @@ export default defineAppConfig({
         'category/add_edit/index',
         'spu/index',
         'spu/add_edit/index',
+        'sku/index',
+        'sku/add_edit/index',
       ],
     },
   ],

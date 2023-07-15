@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Avatar, Picker, Cell, Tag } from '@nutui/nutui-react-taro'
+import { Button, Picker, Cell, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, get, find } from 'lodash-es'
 import qs from 'qs'
@@ -110,18 +110,24 @@ export default function CLoginAfter() {
         </div>
 
         {snapUser.user?.openId ? (
-          <div className="bg-white">
-            <Cell
-              title="编辑当前店铺"
-              extra={snapUser.shop?.name}
-              align="center"
-              onClick={() => {
-                console.log({ snapUser })
-                setState({
-                  isOpenShop: true,
-                })
-              }}
-            />
+          <div className="bg-white overflow-hidden rounded-lg mb-5">
+            <div className="px-2 pt-2">
+              <Button
+                block
+                type="primary"
+                color="#7232dd"
+                fill="outline"
+                onClick={() => {
+                  console.log({ snapUser })
+                  setState({
+                    isOpenShop: true,
+                  })
+                }}
+              >
+                <div>当前店铺 :{snapUser.shop?.name}</div>
+              </Button>
+            </div>
+
             <Picker
               defaultValue={[snapUser.shop?.id]}
               visible={state.isOpenShop}

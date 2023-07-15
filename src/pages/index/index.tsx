@@ -91,14 +91,6 @@ export default function HomePage() {
           </div>
           <div className="right">活动来拉, 7月活动来拉</div>
         </div>
-        <div className="flex py-3 bg-white rounded-lg">
-          {catgoryList.map((u) => (
-            <div key={u.key} className="w-v20 text-center ">
-              <IconFont name={u.url} size="40" />
-              <div>{u.value}</div>
-            </div>
-          ))}
-        </div>
       </div>
       <div className="h-40">123</div>
       <div className="h-40">123</div>

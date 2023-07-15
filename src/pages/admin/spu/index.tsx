@@ -1,7 +1,7 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Input, Card, Price, Tag, InfiniteLoading } from '@nutui/nutui-react-taro'
-import { Plus } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import qs from 'qs'
 
@@ -72,7 +72,34 @@ export default function AdminProductPage() {
           >
             {state.mainList.map((u) => (
               <div key={u.id} className="rounded-lg bg-white mb-2">
-                {u.name}
+                <div className="">
+                  <div>
+                    <IconFont size="60" name={u.imageMain[0]} />
+                  </div>
+                  <div>{u.name}</div>
+                </div>
+                <div className="flex">
+                  <div>
+                    <IconFont size="30" name="del" />
+                    删除
+                  </div>
+                  <div
+                    onClick={() => {
+                      Taro.navigateTo({
+                        url: `/pages/admin/sku/index?${qs.stringify({
+                          id: u.id,
+                        })}`,
+                      })
+                    }}
+                  >
+                    <IconFont size="30" name="plus" />
+                    添加型号规格
+                  </div>
+                  <div>
+                    <IconFont size="30" name="edit" />
+                    编辑
+                  </div>
+                </div>
               </div>
             ))}
           </InfiniteLoading>

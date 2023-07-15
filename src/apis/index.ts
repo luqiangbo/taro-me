@@ -40,6 +40,12 @@ export const fetchSpuList = (data) => request({ url: `${baseUrl}/spu/list`, data
 // 添加商品
 export const fetchSpuAdd = (data) => request({ url: `${baseUrl}/spu/add`, data })
 
+// 商品规格列表
+export const fetchSkuList = (data) => request({ url: `${baseUrl}/sku/list`, data })
+
+// 商品规格添加
+export const fetchSkuAdd = (data) => request({ url: `${baseUrl}/sku/add`, data })
+
 // 标签列表
 export const fetchTagList = (data) => request({ url: `${baseUrl}/tag/list`, data })
 

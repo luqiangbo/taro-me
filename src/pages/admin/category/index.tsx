@@ -22,7 +22,7 @@ export default function AdminProductPage() {
     total: 0,
     req: {
       current: 1,
-      pageSize: 10,
+      pageSize: 100,
     },
     hasMore: true,
   })
@@ -72,7 +72,7 @@ export default function AdminProductPage() {
           >
             {state.mainList.map((u) => (
               <div key={u.id} className="rounded-lg bg-white mb-2">
-                {u.value}
+                {u.name}
               </div>
             ))}
           </InfiniteLoading>

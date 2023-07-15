@@ -3,7 +3,9 @@ import { useEffect } from 'react'
 import { IconFont } from '@nutui/icons-react-taro'
 import qs from 'qs'
 
-export default function GoAddComp() {
+import { getParams } from '@/utils'
+
+export default function GoAddComp(props) {
   useEffect(() => {
     init()
   }, [])
@@ -17,7 +19,7 @@ export default function GoAddComp() {
         const router = getCurrentInstance().router
         const routerMain = router.path.split('/')[3]
         Taro.navigateTo({
-          url: `/pages/admin/${routerMain}/add_edit/index?${qs.stringify({ type: 'add' })}`,
+          url: `/pages/admin/${routerMain}/add_edit/index?${qs.stringify({ type: 'add', ...props.qs })}`,
         })
       }}
     >

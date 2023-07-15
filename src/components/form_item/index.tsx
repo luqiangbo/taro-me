@@ -169,7 +169,7 @@ export default function FormComp(props) {
                 <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
               </div>
               <Input
-                type="text"
+                type={u.inputType || 'text'}
                 placeholder={u.placeholder}
                 value={state.resValue[u.key]}
                 onChange={(val) => {
