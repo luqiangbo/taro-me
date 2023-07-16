@@ -1,15 +1,19 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@babel/runtime':
     specifier: ^7.7.7
     version: 7.7.7
   '@nutui/icons-react-taro':
-    specifier: 0.0.1-0
-    version: 0.0.1-0
+    specifier: 0.0.1
+    version: 0.0.1
   '@nutui/nutui-react-taro':
-    specifier: 2.0.2
-    version: 2.0.2(react-dom@18.2.0)(react@18.2.0)
+    specifier: 2.0.4
+    version: 2.0.4(react-dom@18.2.0)(react@18.2.0)
   '@tarojs/components':
     specifier: 3.6.4
     version: 3.6.4(@types/react@18.0.0)(react@18.2.0)
@@ -2808,8 +2812,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@nutui/icons-react-taro@0.0.1-0:
-    resolution: {integrity: sha512-tOD28wXfkiNIB43sQbTDn2mPsr63jtc6b5bY/6YYroJoLgr4Xj9ekpSg+cDC+9Ugpp+JkTszPskwpZWMxhOrHA==}
+  /@nutui/icons-react-taro@0.0.1:
+    resolution: {integrity: sha512-uHUaVnh9yfkUdbYLEfoxArFedP7pti+sOrnBTDknemsJKqK/jnQ9xnIKpO2l+1CgGWpbAkipQVBDUM7CXKuWaA==}
     dependencies:
       classnames: 2.3.2
     dev: false
@@ -2820,8 +2824,8 @@ packages:
       classnames: 2.3.2
     dev: false
 
-  /@nutui/nutui-react-taro@2.0.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-o9j7ChDPomzCJvuYjMHpPiCKbQlgc1lQEcJwNLRw7YYG2NJ9u1MfvhxRoU1JLPLf8CFvX1h9IjzdJqJarWo9Dg==}
+  /@nutui/nutui-react-taro@2.0.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-t6LZfvgbabjBtTOz7w8KDN6xFK7fsBwTOQLhfjAjcj56vMOqA/QwIqbOEymZgIHrcmeQEJEnMwVkRGAnpbcLuw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
