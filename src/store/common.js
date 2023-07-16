@@ -12,6 +12,6 @@ export const mCommon = proxy({
     }
     mCommon.toastOpen = true
   },
-  tabbarActiveIndex: 3,
+  tabbarActiveIndex: 0,
   shopOpenList: [],
 })

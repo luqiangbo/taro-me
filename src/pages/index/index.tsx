@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Swiper, SwiperItem, Input } from '@nutui/nutui-react-taro'
+import { Swiper, SwiperItem, Input, Image } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { find } from 'lodash-es'
@@ -10,7 +10,7 @@ import CTitle from '@/components/title_comp'
 import CTabber from '@/components/tabbar_comp'
 import { fetchShopOpenList } from '@/apis/index'
 import { mUser, mCommon } from '@/store'
-import { catgoryList, bannerList } from './data'
+import { bannerList } from './data'
 
 definePageConfig({
   navigationStyle: 'custom', // custom:隐藏标题栏  default
@@ -77,7 +77,7 @@ export default function HomePage() {
             {bannerList.map((u) => {
               return (
                 <SwiperItem key={u.key}>
-                  <img src={u.value} />
+                  <Image src={u.value} mode="widthFix" />
                 </SwiperItem>
               )
             })}
