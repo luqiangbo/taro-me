@@ -8,6 +8,7 @@ export const mUser = proxyWithPersist(
     user: {},
     custom: {},
     shop: {},
+    cart: [],
   },
   {
     key: 'mUser',

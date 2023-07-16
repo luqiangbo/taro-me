@@ -14,8 +14,24 @@ $br: 20px;
 .nut-form-item {
   display: block !important;
 }
-
+.nut-input {
+  background-color: #f5f5f5;
+  overflow: hidden;
+  border-radius: 5px;
+}
 /////
+.all-comp-tabbar {
+  width: 100%;
+  z-index: 1000;
+  position: relative;
+}
+.button-add {
+  background: rgb(255, 147, 74);
+  background: linear-gradient(135deg, rgba(255, 147, 74, 1) 0%, rgba(255, 122, 71, 1) 35%, rgba(253, 22, 66, 1) 100%);
+}
+.border-com {
+  border: 4px solid #f5f5f5;
+}
 .page-c {
   background-color: $colorBg;
   min-height: 100vh;
@@ -93,10 +109,6 @@ $br: 20px;
     overflow: hidden;
     border-radius: $br;
     margin-bottom: 20px;
-    image {
-      display: inline-block;
-      width: 100%;
-    }
   }
   .page-home-news {
     background-color: #fff;
@@ -142,10 +154,5 @@ $br: 20px;
       font-size: 26px;
       color: #80808f;
     }
-  }
-  .nut-input {
-    background-color: #f5f5f5;
-    overflow: hidden;
-    border-radius: 5px;
   }
 }

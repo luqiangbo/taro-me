@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  pages: ['pages/my/index', 'pages/category/index', 'pages/index/index', 'pages/cart/index'],
+  pages: ['pages/index/index', 'pages/category/index', 'pages/my/index', 'pages/cart/index'],
   subPackages: [
     {
       root: 'pages/admin',
