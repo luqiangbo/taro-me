@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 
-const baseUrl = 'http://localhost:7001/mm'
+// const baseUrl = 'http://localhost:7001/mm'
+const baseUrl = 'https://api-mm-dev.commok.com/mm'
 
 export const urlUpload = `${baseUrl}/base/upload`
 
