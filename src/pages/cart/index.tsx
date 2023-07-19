@@ -26,8 +26,8 @@ export default function EssayPage() {
       <div className="p-3">
         {mUser.cart.length
           ? mUser.cart.map((u) => (
-              <div key={u.id} className="mb-2 h-20 flex overflow-hidden rounded-lg bg-white">
-                <div className="h-20 w-20 bg-gray-400 overflow-hidden rounded-lg ">
+              <div key={u.id} className="mb-2 v-v18 flex overflow-hidden rounded-lg bg-white">
+                <div className="h-v13 w-v13 bg-gray-400 overflow-hidden rounded-lg ">
                   <Image src={u.imageMain[0]} mode="widthFix" />
                 </div>
                 <div className="flex-1 pl-1 flex flex-col justify-between relative">

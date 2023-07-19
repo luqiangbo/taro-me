@@ -8,6 +8,7 @@ import CAll from '@/components/all_comp'
 import CTabber from '@/components/tabbar_comp'
 import { fetchCategoryList, fetchSpuList } from '@/apis'
 import { mUser } from '@/store'
+import { IconFont } from '@nutui/icons-react-taro'
 
 definePageConfig({
   navigationBarTitleText: '分类',
@@ -66,7 +67,6 @@ export default function EssayPage() {
     let quantity = 0
     const skuList = cloneDeep(snapUser.cart)
     const soleList = filter(skuList, (u) => u.spuId === spuId)
-    console.log({ soleList })
     if (soleList.length) {
       quantity = sumBy(soleList, (u) => u.quantity)
     }
@@ -120,8 +120,8 @@ export default function EssayPage() {
           {state.categoryList.map((u) => (
             <Tabs.TabPane key={u.id} title={u.name}>
               {state.spuList.map((h) => (
-                <div key={h.id} className="mb-2 h-24 flex overflow-hidden rounded-lg">
-                  <div className="h-24 w-24 bg-gray-400 overflow-hidden rounded-lg ">
+                <div key={h.id} className="mb-2 flex overflow-hidden rounded-lg px-1">
+                  <div className="w-v20 h-v20  bg-gray-400 overflow-hidden rounded-lg ">
                     <Image src={h.imageMain[0]} mode="widthFix" />
                   </div>
                   <div className="flex-1 pl-1 flex flex-col justify-between relative">
@@ -129,20 +129,17 @@ export default function EssayPage() {
                       <div>{h.name}</div>
                       <div>{u.tilte}</div>
                     </div>
-                    <div className="flex justify-between overflow-hidden rounded ">
-                      <div className="bg-red-200 text-center text-red-600 w-16">
-                        <div>价格</div>
-                        <div>
-                          <Price price={123.1} size="small"></Price>
-                        </div>
+                    <div className="h-v12 flex justify-between items-end overflow-hidden rounded ">
+                      <div>
+                        <Price price={123.1} size="normal" thousands></Price>
                       </div>
                       <div
-                        className="flex-1 text-white button-add flex justify-center items-center"
+                        className="w-v12 h-v12 rounded-full button-add flex justify-center items-center "
                         onClick={() => {
                           onOpenAddCart(h)
                         }}
                       >
-                        立即抢购
+                        <IconFont name="cart" color="#fff"></IconFont>
                       </div>
                     </div>
                     <div className="absolute" style={{ right: '5px', bottom: '30px', zIndex: '10' }}>
@@ -156,7 +153,7 @@ export default function EssayPage() {
         </Tabs>
         <Popup
           visible={state.isOpenSpu}
-          style={{ height: '50%' }}
+          className="h-v100"
           position="bottom"
           round
           onClose={() => {
@@ -168,7 +165,7 @@ export default function EssayPage() {
           {state.spuDetail?.id ? (
             <div className="px-5 pt-5 overflow-y-auto relative h-full">
               <div className="flex">
-                <div className="h-24 w-24 bg-gray-400 rounded-lg overflow-hidden">
+                <div className="w-v12 h-v12 bg-gray-400 rounded-lg overflow-hidden">
                   <Image src={get(state.skuActive, 'imageMain[0]', '')} mode="widthFix" />
                 </div>
                 <div className="flex-1 pl-3">

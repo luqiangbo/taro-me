@@ -12,8 +12,8 @@ dependencies:
     specifier: 0.0.1
     version: 0.0.1
   '@nutui/nutui-react-taro':
-    specifier: 2.0.4
-    version: 2.0.4(react-dom@18.2.0)(react@18.2.0)
+    specifier: 2.0.5
+    version: 2.0.5(react-dom@18.2.0)(react@18.2.0)
   '@tarojs/components':
     specifier: 3.6.4
     version: 3.6.4(@types/react@18.0.0)(react@18.2.0)
@@ -2824,8 +2824,8 @@ packages:
       classnames: 2.3.2
     dev: false
 
-  /@nutui/nutui-react-taro@2.0.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-t6LZfvgbabjBtTOz7w8KDN6xFK7fsBwTOQLhfjAjcj56vMOqA/QwIqbOEymZgIHrcmeQEJEnMwVkRGAnpbcLuw==}
+  /@nutui/nutui-react-taro@2.0.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-3OurosdHx+8ddkAzASA5r9jzwukyEus6R3plZfGHdGjJ2WbhCxFaDUgWTnwCHWSVultVdZZg8WDG3WAUseiy4w==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -2836,6 +2836,7 @@ packages:
       '@use-gesture/react': 10.2.20(react@18.2.0)
       async-validator: 4.2.5
       classnames: 2.3.2
+      lodash.isequal: 4.5.0
       lodash.kebabcase: 4.1.1
       react: 18.2.0
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
@@ -8740,6 +8741,10 @@ packages:
 
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+
+  /lodash.isequal@4.5.0:
+    resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    dev: false
 
   /lodash.kebabcase@4.1.1:
     resolution: {integrity: sha512-N8XRTIMMqqDgSy4VLKPnJ/+hpGZN+PHQiJnSenYqPaVV/NCqEogTnAdZLQiGKhxX+JCs8waWq2t1XHWKOmlY8g==}
