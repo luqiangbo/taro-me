@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Input, Card, Price, Tag, InfiniteLoading } from '@nutui/nutui-react-taro'
+import { Input, Row, Col, Button, Image } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import qs from 'qs'
@@ -59,24 +59,26 @@ export default function AdminSkuPage() {
         </div>
         <div style={{ height: '100%' }}>
           {state.mainList.map((u) => (
-            <div key={u.id} className="rounded-lg bg-white mb-2">
-              <div className="">
-                <div>
-                  <IconFont size="60" name={u.imageMain[0]} />
+            <div key={u.id} className="rounded-lg bg-white p-2 mb-2">
+              <div className="flex mb-2">
+                <div className="h-v13 w-v13 bg-gray-400 overflow-hidden rounded-lg ">
+                  <Image src={u.imageMain[0]} mode="widthFix" />
                 </div>
                 <div>{u.name}</div>
               </div>
-              <div className="flex">
-                <div>
-                  <IconFont size="30" name="del" />
-                  删除
-                </div>
+              <Row>
+                <Col span="12">
+                  <Button block shape="square" type="default">
+                    删除
+                  </Button>
+                </Col>
 
-                <div>
-                  <IconFont size="30" name="edit" />
-                  编辑
-                </div>
-              </div>
+                <Col span="12">
+                  <Button block shape="square" type="default">
+                    编辑
+                  </Button>
+                </Col>
+              </Row>
             </div>
           ))}
         </div>

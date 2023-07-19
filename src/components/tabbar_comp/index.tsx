@@ -5,10 +5,11 @@ import { Toast, Tabbar } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
-import { mCommon } from '@/store'
+import { mCommon, mUser } from '@/store'
 
 export default function TabbarComp() {
   const snapCommon = useSnapshot(mCommon)
+  const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
     tabbarList: [
       {
@@ -42,8 +43,12 @@ export default function TabbarComp() {
 
   const init = () => {}
 
-  const onColor = () => {
-    return '#1677ff'
+  const onGetQuantity = () => {
+    let res = 0
+    snapUser.cart.forEach((u) => {
+      res = res + u.quantity
+    })
+    return res
   }
 
   return (
@@ -62,7 +67,7 @@ export default function TabbarComp() {
         }}
       >
         {state.tabbarList.map((u) => (
-          <Tabbar.Item key={u.key} title={u.value} icon={u.icon} />
+          <Tabbar.Item key={u.key} title={u.value} icon={u.icon} value={u.key === 'cart' ? onGetQuantity() : null} />
         ))}
       </Tabbar>
     </div>
