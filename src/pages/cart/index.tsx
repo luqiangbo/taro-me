@@ -68,18 +68,17 @@ export default function EssayPage() {
             : '无'}
         </Checkbox.Group>
       </div>
-      <div
-        className="fixed left-0 w-full bg-white flex justify-between items-center p-2"
-        style={{ bottom: '50px', height: '70px' }}
-      >
-        <div>
-          <Checkbox> 全选</Checkbox>
-        </div>
-        <div className="flex items-center">
-          <div className="mr-2">总价</div>
-          <Button className="w-v20" color="linear-gradient(to right, #5bae6f, #249543)">
-            结算
-          </Button>
+      <div className="safe-area fixed left-0 w-full  bg-white" style={{ bottom: '50px' }}>
+        <div className="flex justify-between items-center p-2 h-v15">
+          <div>
+            <Checkbox> 全选</Checkbox>
+          </div>
+          <div className="flex items-center">
+            <div className="mr-2">总价</div>
+            <Button className="w-v20" color="linear-gradient(to right, #5bae6f, #249543)">
+              结算
+            </Button>
+          </div>
         </div>
       </div>
     </div>

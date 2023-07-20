@@ -21,7 +21,7 @@ export default function AddEditPage(props) {
     formList: [
       {
         key: 'name',
-        label: '店铺名字',
+        label: '店铺名称',
         placeholder: '请输入',
         type: 'input',
         required: true,
@@ -32,7 +32,7 @@ export default function AddEditPage(props) {
         type: 'uploader',
         disabled: false,
         maxLength: 1,
-        maxSize: 200,
+        maxSize: 10 * 1024,
       },
     ],
     resValue: {},

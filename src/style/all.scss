@@ -25,6 +25,10 @@ $br: 20px;
   z-index: 1000;
   position: relative;
 }
+.safe-area {
+  padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
+}
 .button-add {
   background: rgb(255, 147, 74);
   background: linear-gradient(135deg, rgba(255, 147, 74, 1) 0%, rgba(255, 122, 71, 1) 35%, rgba(253, 22, 66, 1) 100%);

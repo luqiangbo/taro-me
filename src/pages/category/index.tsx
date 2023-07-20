@@ -163,7 +163,7 @@ export default function EssayPage() {
           }}
         >
           {state.spuDetail?.id ? (
-            <div className="px-5 pt-5 overflow-y-auto relative h-full">
+            <div className="px-5 pt-5 pb-10 overflow-y-auto relative h-full">
               <div className="flex">
                 <div className="w-v12 h-v12 bg-gray-400 rounded-lg overflow-hidden">
                   <Image src={get(state.skuActive, 'imageMain[0]', '')} mode="widthFix" />
@@ -214,7 +214,7 @@ export default function EssayPage() {
                   />
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 w-full p-4">
+              <div className="safe-area absolute bottom-4 left-0 w-full px-4">
                 <Button block type="primary" onClick={onAddCart}>
                   加入购物车
                 </Button>

@@ -21,7 +21,7 @@ export default function AddEditPage(props) {
     formList: [
       {
         key: 'receiver',
-        label: '收件人姓名',
+        label: '收件人名称',
         placeholder: '请输入',
         type: 'input',
         required: true,

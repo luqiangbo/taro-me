@@ -86,12 +86,13 @@ export default function HomePage() {
       </div>
       <div className="p-2">
         <div className="flex items-center bg-white p-3 rounded-lg mb-2">
-          <div className="left m-1">
-            <IconFont name="notice" color="#01cb88" size="16" className="mr-2" />
+          <div className="w-v12 h-v12 mr-1">
+            <Image mode="widthFix" src={'https://qiniu.commok.com/pcigo/202307201605751.svg'} />
           </div>
           <div className="right">活动来拉, 7月活动来拉</div>
         </div>
       </div>
+
       <div className="h-40">123</div>
       <div className="h-40">123</div>
       <div className="h-40">123</div>

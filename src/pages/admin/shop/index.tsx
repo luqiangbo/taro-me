@@ -71,7 +71,7 @@ export default function AdminProductPage() {
             }}
           >
             {state.mainList.map((u) => (
-              <div key={u.id} className="rounded-lg bg-white mb-2">
+              <div key={u.id} className="rounded-lg bg-white p-4 mb-2">
                 {u.name}
               </div>
             ))}

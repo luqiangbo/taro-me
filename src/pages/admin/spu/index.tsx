@@ -96,7 +96,7 @@ export default function AdminProductPage() {
                         })
                       }}
                     >
-                      添加型号规格
+                      型号规格
                     </Button>
                   </Col>
                   <Col span="8">

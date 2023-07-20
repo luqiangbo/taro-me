@@ -59,7 +59,7 @@ export default function AdminSkuPage() {
         </div>
         <div style={{ height: '100%' }}>
           {state.mainList.map((u) => (
-            <div key={u.id} className="rounded-lg bg-white p-2 mb-2">
+            <div key={u.id} className="rounded-lg bg-white p-4 mb-2">
               <div className="flex mb-2">
                 <div className="h-v13 w-v13 bg-gray-400 overflow-hidden rounded-lg ">
                   <Image src={u.imageMain[0]} mode="widthFix" />

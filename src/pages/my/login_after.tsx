@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Button, Picker, Cell, Tag } from '@nutui/nutui-react-taro'
+import { Button, Picker, Image, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, get, find } from 'lodash-es'
 import qs from 'qs'
@@ -44,11 +44,11 @@ export default function CLoginAfter() {
   }
 
   const onRenderLit = (list) => (
-    <div className="px-1 rounded-lg bg-white mb-4">
+    <div className="px-3 rounded-lg bg-white">
       {list.map((u) => (
         <div
           key={u.key}
-          className="flex justify-between items-center items-centet py-2"
+          className="flex justify-between items-center items-centet py-4"
           style={{ borderBottom: '1px solid #eee' }}
           onClick={() => {
             if (u.type === 'router') {
@@ -64,7 +64,7 @@ export default function CLoginAfter() {
           }}
         >
           <div className="flex items-center">
-            <IconFont name={u.icon} color="#666" size={12} className="mr-1" />
+            <IconFont name={u.icon} color="#666" size={14} className="mr-2" />
             <div className="text-sm">{u.value}</div>
           </div>
           <IconFont name="right" color="#ccc" size={12} />
@@ -75,16 +75,19 @@ export default function CLoginAfter() {
 
   return (
     <div className="c-login-after">
-      <div className="flex justify-center">
-        <IconFont size={150} name="https://qiniu.commok.com/pcigo/undraw_happy_music_g6wc.png" />
+      <div className="pt-10 flex justify-center">
+        <div className="w-v100">
+          <Image mode="widthFix" src={'https://qiniu.commok.com/pcigo/202307201630985.svg'} />
+        </div>
       </div>
-
       <div className="p-2">
         <div className="flex justify-between items-center px-2 py-3 bg-white text-gray-400 mb-2 rounded-lg">
           <div className="flex items-center">
             <div className="navtion-image">
               {mUser.custom.image ? (
-                <IconFont size={45} name={mUser.custom.image} />
+                <div className="w-v12">
+                  <Image mode="widthFix" src={mUser.custom.image} />
+                </div>
               ) : (
                 mUser.custom.nickName.substring(0, 1)
               )}

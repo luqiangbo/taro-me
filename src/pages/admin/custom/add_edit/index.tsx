@@ -32,7 +32,7 @@ export default function AddEditPage(props) {
         type: 'uploader',
         required: true,
         maxLength: 1,
-        maxSize: 200,
+        maxSize: 10 * 1024,
       },
     ],
     resValue: {},

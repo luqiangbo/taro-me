@@ -8,6 +8,7 @@ import { isEmpty, get, find } from 'lodash-es'
 
 import { mCommon } from '@/store'
 import { urlUpload, fetchAddressPcas } from '@/apis'
+import { compressor } from '@/utils'
 
 export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
@@ -101,15 +102,16 @@ export default function FormComp(props) {
               sizeType: ['original'],
               success(v) {
                 const filePath = v.tempFilePaths[0]
+
                 Taro.getFileInfo({
                   filePath,
-                  success(fileInfo) {
+                  success: async (fileInfo) => {
                     console.log({ fileInfo })
                     const fileSize = fileInfo.size
                     const max = maxSize * 1024 // 200k
                     if (fileSize > max) {
                       Taro.showToast({
-                        title: '文件大小超过限制',
+                        title: `文件大小超过限制,${fileSize / 1024} > ${maxSize}  `,
                         icon: 'none',
                       })
                       return
@@ -218,7 +220,7 @@ export default function FormComp(props) {
                   <div
                     className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
                     onClick={() => {
-                      onUpload({ key: u.key, type: 'image', maxSize: u.maxSize || 200 })
+                      onUpload({ key: u.key, type: 'image', maxSize: u.maxSize || 10 * 1024 })
                     }}
                   >
                     <IconFont name="image" />
@@ -309,8 +311,10 @@ export default function FormComp(props) {
           )
         }
       })}
+      <div className="h-v100 text-yellow-50 flex justify-center items-center">111</div>
+      <div className="h-v100 text-yellow-50 flex justify-center items-center">111</div>
 
-      <div className="pt-3">
+      <div className="safe-area fixed z-10 left-0 bottom-4 px-3 w-full">
         <Button block type="primary" onClick={onSubmit}>
           提交
         </Button>
