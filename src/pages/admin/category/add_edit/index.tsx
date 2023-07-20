@@ -58,6 +58,7 @@ export default function AddEditPage(props) {
     if (err) {
       return
     }
+    mUser.custom = res
     Taro.navigateBack()
   }
 

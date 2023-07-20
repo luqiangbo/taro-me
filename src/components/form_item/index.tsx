@@ -107,11 +107,11 @@ export default function FormComp(props) {
                   filePath,
                   success: async (fileInfo) => {
                     console.log({ fileInfo })
-                    const fileSize = fileInfo.size
-                    const max = maxSize * 1024 // 200k
-                    if (fileSize > max) {
+                    const fileSize = parseInt(fileInfo.size / 1024)
+                    console.log({ fileSize, maxSize })
+                    if (fileSize > maxSize) {
                       Taro.showToast({
-                        title: `文件大小超过限制,${fileSize / 1024} > ${maxSize}  `,
+                        title: `文件大小超过限制, 最大10M`,
                         icon: 'none',
                       })
                       return
@@ -220,7 +220,7 @@ export default function FormComp(props) {
                   <div
                     className="w-20 h-20 rounded overflow-hidden flex flex-col items-center justify-center bg-slate-200 mr-2"
                     onClick={() => {
-                      onUpload({ key: u.key, type: 'image', maxSize: u.maxSize || 10 * 1024 })
+                      onUpload({ key: u.key, type: 'image', maxSize: u.maxSize })
                     }}
                   >
                     <IconFont name="image" />

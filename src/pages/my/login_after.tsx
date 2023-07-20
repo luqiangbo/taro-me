@@ -1,10 +1,9 @@
-import Taro from '@tarojs/taro'
-import { useEffect } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Button, Picker, Image, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
-import { isEmpty, get, find } from 'lodash-es'
+import { isEmpty, find } from 'lodash-es'
 import qs from 'qs'
 
 import { mUser } from '@/store'
@@ -17,9 +16,9 @@ export default function CLoginAfter() {
     shopList: [],
     isOpenShop: false,
   })
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {
     console.log('after init')

@@ -1,7 +1,4 @@
-import Taro, { useDidShow, useDidHide } from '@tarojs/taro'
-import { useEffect } from 'react'
-import { useSetState } from 'ahooks'
-import { useSnapshot } from 'valtio'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { Button } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 
@@ -9,9 +6,9 @@ import { mUser } from '@/store'
 import { fetchCustomLogin } from '@/apis'
 
 export default function CLoginBefore() {
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {}
 
