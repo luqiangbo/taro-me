@@ -1,5 +1,5 @@
 import Taro, { useDidShow } from '@tarojs/taro'
-import { useSetState } from 'ahooks'
+import { useSetState, useUpdateEffect } from 'ahooks'
 import { Input, Swipe, Price, Tag, InfiniteLoading, Button } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
@@ -15,7 +15,7 @@ export default function SearchListComp(props) {
     total: 0,
     req: {
       current: 1,
-      pageSize: 100,
+      pageSize: 10,
     },
     hasMore: true,
     params: {},
@@ -24,12 +24,17 @@ export default function SearchListComp(props) {
     init()
   })
 
+  useUpdateEffect(() => {
+    fetchList()
+  }, [JSON.stringify(state.req)])
+
   const init = () => {
+    fetchList()
+  }
+
+  const fetchList = () => {
     const params = getParams()
-    setState({
-      params,
-    })
-    console.log('search-list init', { params })
+    console.log('search-list init', { params: getParams() })
     if (params.key === 'category') {
       onFetchCategoryList()
     }
@@ -42,10 +47,12 @@ export default function SearchListComp(props) {
     }
     const [err, res] = await fetchCategoryList(req)
     if (err) return
+    const mainList = [...state.mainList, ...res.list]
+    const hasMore = mainList.length !== res.total
+    console.log({ hasMore, mainList })
     setState({
-      mainList: res.list,
-      total: res.total,
-      hasMore: true,
+      mainList,
+      hasMore,
     })
   }
 
@@ -61,7 +68,12 @@ export default function SearchListComp(props) {
           pullRefresh={false}
           hasMore={state.hasMore}
           onLoadMore={() => {
-            console.log('onLoadMore')
+            setState({
+              req: {
+                ...state.req,
+                current: state.req.current + 1,
+              },
+            })
           }}
         >
           <div className="page-list-main">

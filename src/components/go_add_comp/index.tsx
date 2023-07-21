@@ -1,8 +1,7 @@
-import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useEffect } from 'react'
 import { IconFont } from '@nutui/icons-react-taro'
 
-import { goto } from '@/utils'
+import { goto, getParams } from '@/utils'
 
 export default function GoAddComp(props) {
   useEffect(() => {
@@ -16,8 +15,7 @@ export default function GoAddComp(props) {
       <div
         className="w-16 h-16 rounded-full bg-main text-white flex items-center justify-center"
         onClick={() => {
-          const router = getCurrentInstance().router
-          const routerMain = router.path.split('/')[3]
+          const routerMain = getParams().key
           goto({
             url: `/pages/admin/${routerMain}/add_edit/index`,
             data: { key: routerMain, type: 'add', ...props.qs },
