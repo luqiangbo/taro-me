@@ -19,12 +19,20 @@ $br: 20px;
   overflow: hidden;
   border-radius: 5px;
 }
+.nut-button__warp {
+  .h5-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 /////
 .all-comp-tabbar {
   width: 100%;
   z-index: 1000;
   position: relative;
 }
+
 .safe-area {
   padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
   padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
@@ -42,6 +50,40 @@ $br: 20px;
   min-height: 100vh;
   padding-bottom: 200px;
 }
+
+.all-search {
+  padding: 2vmin;
+  width: 100vmin;
+  .nut-input {
+    height: 11vmin;
+    border-radius: 100px;
+    overflow: hidden;
+    border: 2px solid #f5f5f5;
+    width: 100%;
+    input {
+      color: #808080 !important;
+    }
+  }
+}
+
+.page-list {
+  background-color: $colorBg;
+  min-height: 100vh;
+  .page-list-search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vmin;
+  }
+  .page-list-body {
+    height: 100vh;
+    .page-list-main {
+      padding: 15vmin 3vmin 10vmin 3vmin;
+    }
+  }
+}
+
 .title-comp-main {
   position: fixed;
   left: 0;
@@ -69,17 +111,6 @@ $br: 20px;
   }
   .nut-tabs__titles--scrollable {
     padding-bottom: 60px !important;
-  }
-}
-.all-search {
-  padding: 20px 0;
-  .nut-input {
-    height: 38px;
-    border-radius: 100px;
-    overflow: hidden;
-    input {
-      color: #808080 !important;
-    }
   }
 }
 

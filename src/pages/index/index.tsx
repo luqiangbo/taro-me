@@ -10,6 +10,7 @@ import CTitle from '@/components/title_comp'
 import CTabber from '@/components/tabbar_comp'
 import { fetchShopOpenList } from '@/apis/index'
 import { mUser, mCommon } from '@/store'
+import { goto } from '@/utils'
 import { bannerList } from './data'
 
 definePageConfig({
@@ -56,9 +57,7 @@ export default function HomePage() {
         <div
           className="flex items-center"
           onClick={() => {
-            Taro.navigateTo({
-              url: `/pages/admin/shop/open/index`,
-            })
+            goto({ url: `/pages/admin/shop/open/index`, data: { key: 'shop' } })
           }}
         >
           <IconFont name="shop" className="mr-1" />

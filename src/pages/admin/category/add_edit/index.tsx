@@ -20,7 +20,7 @@ export default function AddEditPage(props) {
   const [state, setState] = useSetState({
     formList: [
       {
-        key: 'value',
+        key: 'name',
         label: '名称',
         placeholder: '请输入',
         type: 'input',

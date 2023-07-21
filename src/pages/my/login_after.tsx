@@ -4,11 +4,11 @@ import { useSnapshot } from 'valtio'
 import { Button, Picker, Image, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, find } from 'lodash-es'
-import qs from 'qs'
 
 import { mUser } from '@/store'
 import { fetchShopList } from '@/apis'
 import { adminList, basicList } from './data'
+import { goto } from '@/utils'
 
 export default function CLoginAfter() {
   const snapUser = useSnapshot(mUser)
@@ -51,9 +51,7 @@ export default function CLoginAfter() {
           style={{ borderBottom: '1px solid #eee' }}
           onClick={() => {
             if (u.type === 'router') {
-              Taro.navigateTo({
-                url: `/pages/admin/${u.key}/index`,
-              })
+              goto({ url: `/pages/admin/${u.key}/index`, data: { key: u.key } })
             } else if (u.type === 'func') {
               if (u.key === 'logout') {
                 mUser.custom = {}
@@ -74,9 +72,9 @@ export default function CLoginAfter() {
 
   return (
     <div className="c-login-after">
-      <div className="pt-10 flex justify-center">
-        <div className="w-v100">
-          <Image mode="widthFix" src={'https://qiniu.commok.com/pcigo/202307201630985.svg'} />
+      <div className="pt-10 flex justify-center items-end">
+        <div className="w-v100 min-h-v80">
+          <Image mode="widthFix" src={'https://qiniu.commok.com/pcigo/202307211657147.svg'} />
         </div>
       </div>
       <div className="p-2">
@@ -99,13 +97,15 @@ export default function CLoginAfter() {
             name="setting"
             color="#ccc"
             onClick={() => {
-              Taro.navigateTo({
-                url: `/pages/admin/custom/add_edit/index?${qs.stringify({
+              goto({
+                url: '/pages/admin/custom/add_edit/index',
+                data: {
+                  key: 'custom',
                   type: 'edit',
                   id: mUser.custom?.id,
                   nickName: mUser.custom?.nickName,
                   image: mUser.custom?.image,
-                })}`,
+                },
               })
             }}
           />

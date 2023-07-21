@@ -172,6 +172,7 @@ export default function FormComp(props) {
               </div>
               <Input
                 type={u.inputType || 'text'}
+                maxLength="20"
                 placeholder={u.placeholder}
                 value={state.resValue[u.key]}
                 onChange={(val) => {
@@ -311,8 +312,6 @@ export default function FormComp(props) {
           )
         }
       })}
-      <div className="h-v100 text-yellow-50 flex justify-center items-center">111</div>
-      <div className="h-v100 text-yellow-50 flex justify-center items-center">111</div>
 
       <div className="safe-area fixed z-10 left-0 bottom-4 px-3 w-full">
         <Button block type="primary" onClick={onSubmit}>

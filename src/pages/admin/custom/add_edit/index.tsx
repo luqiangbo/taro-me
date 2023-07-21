@@ -21,7 +21,7 @@ export default function AddEditPage(props) {
     formList: [
       {
         key: 'nickName',
-        label: '昵称',
+        label: '名称',
         placeholder: '请输入',
         type: 'input',
         required: true,

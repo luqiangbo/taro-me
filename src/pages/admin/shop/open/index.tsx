@@ -40,7 +40,7 @@ export default function ShopOpenPage(props) {
         >
           {snapCommon.shopOpenList.map((u) => (
             <div className="bg-white rounded mb-2">
-              <Radio key={u.id} value={u.id} className="p-2">
+              <Radio key={u.id} value={u.id} className="p-4">
                 {u.name}
               </Radio>
             </div>

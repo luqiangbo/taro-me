@@ -2,12 +2,12 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Input, Button, Image, Tag, InfiniteLoading, Row, Col } from '@nutui/nutui-react-taro'
 import { useSnapshot } from 'valtio'
-import qs from 'qs'
 
 import CAll from '@/components/all_comp'
 import { fetchSpuList } from '@/apis/index'
 import { mUser } from '@/store'
 import CGoAdd from '@/components/go_add_comp'
+import { goto } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '商品管理',
@@ -89,11 +89,7 @@ export default function AdminProductPage() {
                       shape="square"
                       type="default"
                       onClick={() => {
-                        Taro.navigateTo({
-                          url: `/pages/admin/sku/index?${qs.stringify({
-                            id: u.id,
-                          })}`,
-                        })
+                        goto({ url: `/pages/admin/sku/index`, data: { key: 'sku', id: u.id } })
                       }}
                     >
                       型号规格
