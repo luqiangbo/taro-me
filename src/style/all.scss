@@ -53,13 +53,21 @@ $br: 20px;
 
 .all-search {
   padding: 2vmin;
-  width: 100vmin;
+  width: 100%;
   .nut-input {
+    border: 2px solid #f5f5f5;
+    border-radius: 100px;
+  }
+  .nut-searchbar {
     height: 11vmin;
     border-radius: 100px;
     overflow: hidden;
     border: 2px solid #f5f5f5;
     width: 100%;
+    opacity: 1;
+    .nut-searchbar__content {
+      background-color: #fff;
+    }
     input {
       color: #808080 !important;
     }
@@ -78,6 +86,9 @@ $br: 20px;
   }
   .page-list-body {
     height: 100vh;
+    .nut-infiniteloading {
+      // padding-bottom: 10vmin;
+    }
     .page-list-main {
       padding: 15vmin 3vmin 10vmin 3vmin;
     }
@@ -99,8 +110,9 @@ $br: 20px;
   line-height: 100px;
   overflow: hidden;
   border-radius: 20px;
-  border: 8px solid #f5f5f5;
+  border: 2px solid #ccb99b;
   text-align: center;
+  border-radius: 100px;
 }
 
 .page-category {
@@ -118,7 +130,7 @@ $br: 20px;
   padding: 0 0 200px 0;
   .page-home-header {
     position: relative;
-    padding: 20px 10px 20px 10px;
+    padding: 20px 10px 5px 10px;
     margin-bottom: 30px;
     .bg {
       position: absolute;

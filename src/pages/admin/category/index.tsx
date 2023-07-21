@@ -7,7 +7,6 @@ import { useSnapshot } from 'valtio'
 import CAll from '@/components/all_comp'
 import CGoAdd from '@/components/go_add_comp'
 import CSearchList from '@/components/search_list_comp'
-
 import { mUser } from '@/store'
 import { goto, getParams } from '@/utils'
 
@@ -37,7 +36,7 @@ export default function AdminProductPage() {
             onClick={() => {
               goto({
                 url: `/pages/admin/${getParams().key}/add_edit/index`,
-                data: { key: getParams().key },
+                data: { key: getParams().key, type: 'edit', id: u.id, name: u.name },
               })
             }}
           >

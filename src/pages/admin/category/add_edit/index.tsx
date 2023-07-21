@@ -1,5 +1,5 @@
 //  新增 编辑
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { getCurrentInstance } from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
@@ -7,8 +7,9 @@ import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchCategoryAdd } from '@/apis'
+import { fetchCategoryAdd, fetchCategoryUpdate } from '@/apis'
 import { mUser } from '@/store'
+import { getParams } from '../../../../utils'
 
 definePageConfig({
   navigationBarTitleText: '添加/编辑 分类',
@@ -31,26 +32,36 @@ export default function AddEditPage(props) {
     type: '',
   })
 
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {
-    const router = getCurrentInstance().router
-    const { type } = router?.params
-    if (type) {
+    const params = getParams()
+    console.log('category edit init', { params })
+    if (params.type === 'edit') {
       setState({
-        type,
+        resValue: {
+          name: params.name,
+        },
       })
     }
   }
 
   const onSubmit = (data) => {
-    const req = {
-      shopId: snapUser.shop?.id,
-      ...data,
+    if (getParams().type === 'edit') {
+      const req = {
+        id: getParams().id,
+        ...data,
+      }
+      onFetchCategoryUpdate(req)
+    } else {
+      const req = {
+        shopId: snapUser.shop?.id,
+        ...data,
+      }
+      onFetchCategoryAdd(req)
     }
-    onFetchCategoryAdd(req)
   }
 
   const onFetchCategoryAdd = async (req) => {
@@ -58,7 +69,14 @@ export default function AddEditPage(props) {
     if (err) {
       return
     }
-    mUser.custom = res
+    Taro.navigateBack()
+  }
+
+  const onFetchCategoryUpdate = async (req) => {
+    const [err, res] = await fetchCategoryUpdate(req)
+    if (err) {
+      return
+    }
     Taro.navigateBack()
   }
 

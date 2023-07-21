@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Swiper, SwiperItem, Input, Image } from '@nutui/nutui-react-taro'
+import { Swiper, SwiperItem, SearchBar, Input, Image } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { find } from 'lodash-es'
