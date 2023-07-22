@@ -1,14 +1,15 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Input, Card, Price, Tag, InfiniteLoading } from '@nutui/nutui-react-taro'
-import { Plus } from '@nutui/icons-react-taro'
+import { Button } from '@nutui/nutui-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
-import qs from 'qs'
 
 import CAll from '@/components/all_comp'
 import CGoAdd from '@/components/go_add_comp'
+import CSearchList from '@/components/search_list_comp'
 import { fetchAddressList } from '@/apis/index'
 import { mUser } from '@/store'
+import { getParams, goto } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '地址管理',
@@ -47,24 +48,34 @@ export default function AdminTagPage() {
     })
   }
 
-  return (
-    <div className="page-c page-a-spu">
-      <CAll />
-      <div className="spu-main p-2" id="scrollDemo" style={{ height: '90vh' }}>
-        <div style={{ height: '100%' }}>
-          {state.mainList.map((u) => (
-            <div key={u.id} className="rounded-lg bg-white p-4 mb-2">
-              <div>
-                {u.receiver} :{u.phone}
-              </div>
-              <div>
-                {u.summary} {u.detail}
-              </div>
-            </div>
-          ))}
+  const renderList = (u) => {
+    return (
+      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
+        <div className="flex-1">{u.summary}</div>
+        <div className="h-v8">
+          <Button
+            color="#c5a47a"
+            fill="outline"
+            className="flex items-center"
+            onClick={() => {
+              goto({
+                url: `/pages/admin/${getParams().key}/add_edit/index`,
+                data: { key: getParams().key, type: 'edit', id: u.id, name: u.name },
+              })
+            }}
+          >
+            <IconFont name="edit" size={12}></IconFont>
+          </Button>
         </div>
-        <CGoAdd />
       </div>
+    )
+  }
+
+  return (
+    <div>
+      <CAll />
+      <CGoAdd />
+      <CSearchList renderList={renderList} />
     </div>
   )
 }

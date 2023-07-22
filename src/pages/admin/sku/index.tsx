@@ -1,15 +1,14 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Input, Row, Col, Button, Image } from '@nutui/nutui-react-taro'
+import { Button } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
-import qs from 'qs'
 
 import CAll from '@/components/all_comp'
-import { fetchSkuList } from '@/apis/index'
-import { mUser } from '@/store'
+import CSearchList from '@/components/search_list_comp'
 import CGoAdd from '@/components/go_add_comp'
-import { getParams } from '@/utils'
+import { mUser } from '@/store'
+import { getParams, goto } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '型号规格管理',
@@ -17,73 +16,51 @@ definePageConfig({
 
 export default function AdminSkuPage() {
   const snapUser = useSnapshot(mUser)
-
-  const [state, setState] = useSetState({
-    mainList: [],
-    total: 0,
-    reqList: {
-      current: 1,
-      pageSize: 10,
-    },
-    hasMore: true,
-  })
+  const [state, setState] = useSetState({})
 
   useDidShow(() => {
     init()
   })
 
-  const init = () => {
-    onFetchSkuList()
-  }
+  const init = () => {}
 
-  const onFetchSkuList = async () => {
-    const params = getParams()
-    const req = {
-      spuId: params.id,
-      ...state.reqList,
-    }
-    const [err, res] = await fetchSkuList(req)
-    if (err) return
-    setState({
-      mainList: res.list,
-      total: res.total,
-    })
+  const renderList = (u) => {
+    return (
+      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
+        <div className="flex-1">{u.name}</div>
+        <div className="h-v8">
+          <Button
+            color="#c5a47a"
+            fill="outline"
+            className="flex items-center"
+            onClick={() => {
+              goto({
+                url: `/pages/admin/${getParams().key}/add_edit/index`,
+                data: {
+                  key: getParams().key,
+                  type: 'edit',
+                  id: u.id,
+                  spuId: getParams().spuId,
+                  name: u.name,
+                  price: u.price,
+                  inventory: u.inventory,
+                  imageMain: u.imageMain[0],
+                },
+              })
+            }}
+          >
+            <IconFont name="edit" size={12}></IconFont>
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="page-c page-a-spu">
+    <div>
       <CAll />
-      <div className="spu-main p-2" id="scrollDemo" style={{ height: '90vh' }}>
-        <div className="all-search">
-          <Input placeholder="搜索您想要的内容~" />
-        </div>
-        <div style={{ height: '100%' }}>
-          {state.mainList.map((u) => (
-            <div key={u.id} className="rounded-lg bg-white p-4 mb-2">
-              <div className="flex mb-2">
-                <div className="h-v13 w-v13 bg-gray-400 overflow-hidden rounded-lg ">
-                  <Image src={u.imageMain[0]} mode="widthFix" />
-                </div>
-                <div>{u.name}</div>
-              </div>
-              <Row>
-                <Col span="12">
-                  <Button block shape="square" type="default">
-                    删除
-                  </Button>
-                </Col>
-
-                <Col span="12">
-                  <Button block shape="square" type="default">
-                    编辑
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-          ))}
-        </div>
-        <CGoAdd qs={{ id: getParams().id }} />
-      </div>
+      <CGoAdd />
+      <CSearchList renderList={renderList} />
     </div>
   )
 }

@@ -7,8 +7,9 @@ import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchTagAdd } from '@/apis'
+import { fetchTagAdd, fetchTagUpdate } from '@/apis'
 import { mUser } from '@/store'
+import { getParams } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '添加/编辑 标签',
@@ -20,7 +21,7 @@ export default function AddEditPage(props) {
   const [state, setState] = useSetState({
     formList: [
       {
-        key: 'value',
+        key: 'name',
         label: '名称',
         placeholder: '请输入',
         type: 'input',
@@ -36,25 +37,34 @@ export default function AddEditPage(props) {
   }, [])
 
   const init = () => {
-    const router = getCurrentInstance().router
-    const { type } = router?.params
-    if (type) {
+    const params = getParams()
+    if (params.type === 'edit') {
       setState({
-        type,
+        resValue: {
+          name: params.name,
+        },
       })
     }
   }
 
-  const onSubmit = (data) => {
-    const req = {
-      shopId: snapUser.shop?.id,
-      ...data,
+  const onFetchAddEdit = async (data) => {
+    const params = getParams()
+    let req
+    let fetchUrl
+    if (params.type === 'edit') {
+      req = {
+        id: params.id,
+        ...data,
+      }
+      fetchUrl = fetchTagUpdate
+    } else {
+      req = {
+        shopId: snapUser.shop?.id,
+        ...data,
+      }
+      fetchUrl = fetchTagAdd
     }
-    onFetchTagAdd(req)
-  }
-
-  const onFetchTagAdd = async (req) => {
-    const [err, res] = await fetchTagAdd(req)
+    const [err, res] = await fetchUrl(req)
     if (err) {
       return
     }
@@ -65,7 +75,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onFetchAddEdit} />
       </div>
     </div>
   )

@@ -1,13 +1,11 @@
 //  新增 编辑
-import Taro from '@tarojs/taro'
-import { getCurrentInstance } from '@tarojs/taro'
-import { useEffect } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchSpuAdd, fetchCategoryList } from '@/apis'
+import { fetchSpuAdd, fetchSpuUpdate, fetchCategoryList } from '@/apis'
 import { mUser } from '@/store'
 import { getParams } from '@/utils'
 import { find } from 'lodash-es'
@@ -56,14 +54,24 @@ export default function AddEditPage(props) {
     type: '',
   })
 
-  useEffect(() => {
+  useDidShow(() => {
     init()
-  }, [])
+  })
 
   const init = () => {
     const params = getParams()
-
     console.log({ params })
+
+    if (params.type === 'edit') {
+      setState({
+        resValue: {
+          name: params.name,
+          imageMain: [params.imageMain],
+          categoryId: params.categoryId,
+          describe: params.describe,
+        },
+      })
+    }
     onFetchCategoryList()
   }
 
@@ -83,16 +91,24 @@ export default function AddEditPage(props) {
     })
   }
 
-  const onSubmit = (data) => {
-    const req = {
-      shopId: snapUser.shop?.id,
-      ...data,
+  const onFetchAddEdit = async (data) => {
+    const params = getParams()
+    let req
+    let fetchUrl
+    if (params.type === 'edit') {
+      req = {
+        id: params.id,
+        ...data,
+      }
+      fetchUrl = fetchSpuUpdate
+    } else {
+      req = {
+        shopId: snapUser.shop?.id,
+        ...data,
+      }
+      fetchUrl = fetchSpuAdd
     }
-    onFetchSpuAdd(req)
-  }
-
-  const onFetchSpuAdd = async (req) => {
-    const [err, res] = await fetchSpuAdd(req)
+    const [err, res] = await fetchUrl(req)
     if (err) {
       return
     }
@@ -103,7 +119,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onFetchAddEdit} />
       </div>
     </div>
   )

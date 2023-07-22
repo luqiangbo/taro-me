@@ -4,7 +4,7 @@
   "description": "taro-me",
   "appid": "wxbfd98820a92fedac",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,

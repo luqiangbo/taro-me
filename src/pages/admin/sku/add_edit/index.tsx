@@ -1,22 +1,20 @@
 //  新增 编辑
 import Taro from '@tarojs/taro'
-import { getCurrentInstance } from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchSkuAdd, fetchCategoryList } from '@/apis'
+import { fetchSkuAdd, fetchSkuUpdate } from '@/apis'
 import { mUser } from '@/store'
 import { getParams } from '@/utils'
-import { find } from 'lodash-es'
 
 definePageConfig({
   navigationBarTitleText: '添加/编辑 型号规格',
 })
 
-export default function AddEditPage(props) {
+export default function AddEditPage() {
   const snapUser = useSnapshot(mUser)
 
   const [state, setState] = useSetState({
@@ -62,23 +60,40 @@ export default function AddEditPage(props) {
   }, [])
 
   const init = () => {
-    console.log({ getParams: getParams() })
-  }
-
-  const onSubmit = (data) => {
     const params = getParams()
-    const req = {
-      shopId: snapUser.shop?.id,
-      spuId: params.id,
-      ...data,
-      price: data.price * 1,
-      inventory: data.inventory * 1,
+    console.log('sku addeedit', { params })
+    if (params.type === 'edit') {
+      setState({
+        resValue: {
+          name: params.name,
+          price: params.price,
+          inventory: params.inventory,
+          imageMain: params.imageMain ? [params.imageMain] : [],
+        },
+      })
     }
-    onFetchSkuAdd(req)
   }
 
-  const onFetchSkuAdd = async (req) => {
-    const [err, res] = await fetchSkuAdd(req)
+  const onFetchAddEdit = async (data) => {
+    const params = getParams()
+    let req
+    let fetchUrl
+    if (params.type === 'edit') {
+      req = {
+        id: params.id,
+        ...data,
+      }
+      fetchUrl = fetchSkuUpdate
+    }
+    if (params.type === 'add') {
+      req = {
+        shopId: snapUser.shop?.id,
+        spuId: params.spuId,
+        ...data,
+      }
+      fetchUrl = fetchSkuAdd
+    }
+    const [err, res] = await fetchUrl(req)
     if (err) {
       return
     }
@@ -89,7 +104,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onFetchAddEdit} />
       </div>
     </div>
   )

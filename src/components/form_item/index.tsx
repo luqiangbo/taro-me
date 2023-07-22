@@ -27,6 +27,7 @@ export default function FormComp(props) {
     setState({
       resValue: props.resValue,
     })
+    console.log('comp-from-list', { props })
   }, [JSON.stringify(props)])
 
   const init = () => {

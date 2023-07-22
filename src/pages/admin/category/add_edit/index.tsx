@@ -38,7 +38,6 @@ export default function AddEditPage(props) {
 
   const init = () => {
     const params = getParams()
-    console.log('category edit init', { params })
     if (params.type === 'edit') {
       setState({
         resValue: {
@@ -48,32 +47,24 @@ export default function AddEditPage(props) {
     }
   }
 
-  const onSubmit = (data) => {
-    if (getParams().type === 'edit') {
-      const req = {
-        id: getParams().id,
+  const onFetchAddEdit = async (data) => {
+    const params = getParams()
+    let req
+    let fetchUrl
+    if (params.type === 'edit') {
+      req = {
+        id: params.id,
         ...data,
       }
-      onFetchCategoryUpdate(req)
+      fetchUrl = fetchCategoryUpdate
     } else {
-      const req = {
+      req = {
         shopId: snapUser.shop?.id,
         ...data,
       }
-      onFetchCategoryAdd(req)
+      fetchUrl = fetchCategoryAdd
     }
-  }
-
-  const onFetchCategoryAdd = async (req) => {
-    const [err, res] = await fetchCategoryAdd(req)
-    if (err) {
-      return
-    }
-    Taro.navigateBack()
-  }
-
-  const onFetchCategoryUpdate = async (req) => {
-    const [err, res] = await fetchCategoryUpdate(req)
+    const [err, res] = await fetchUrl(req)
     if (err) {
       return
     }
@@ -84,7 +75,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onFetchAddEdit} />
       </div>
     </div>
   )

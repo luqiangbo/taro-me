@@ -1,13 +1,14 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Input, Button, Image, Tag, InfiniteLoading, Row, Col } from '@nutui/nutui-react-taro'
+import { Button } from '@nutui/nutui-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
-import { fetchSpuList } from '@/apis/index'
-import { mUser } from '@/store'
+import CSearchList from '@/components/search_list_comp'
 import CGoAdd from '@/components/go_add_comp'
-import { goto } from '@/utils'
+import { mUser } from '@/store'
+import { goto, getParams } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '商品管理',
@@ -16,97 +17,63 @@ definePageConfig({
 export default function AdminProductPage() {
   const snapUser = useSnapshot(mUser)
 
-  const [state, setState] = useSetState({
-    mainList: [],
-    total: 0,
-    reqList: {
-      current: 1,
-      pageSize: 10,
-    },
-    hasMore: true,
-  })
+  const [state, setState] = useSetState({})
 
   useDidShow(() => {
     init()
   })
 
-  const init = () => {
-    onFetchSpuList()
-  }
+  const init = () => {}
 
-  const onFetchSpuList = async () => {
-    const req = {
-      shopId: snapUser.shop?.id,
-      ...state.reqList,
-    }
-    const [err, res] = await fetchSpuList(req)
-    if (err) return
-    setState({
-      mainList: res.list,
-      total: res.total,
-      hasMore: true,
-    })
+  const renderList = (u) => {
+    return (
+      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
+        <div className="flex-1">{u.name}</div>
+        <div className="h-v8">
+          <Button
+            color="#c5a47a"
+            fill="outline"
+            className="flex items-center m-1"
+            onClick={() => {
+              goto({
+                url: `/pages/admin/sku/index`,
+                data: { key: 'sku', type: 'edit', spuId: u.id },
+              })
+            }}
+          >
+            <IconFont name="uploader" size={12}></IconFont>
+          </Button>
+          <Button
+            color="#c5a47a"
+            fill="outline"
+            className="flex items-center m-1"
+            onClick={() => {
+              goto({
+                url: `/pages/admin/${getParams().key}/add_edit/index`,
+                data: {
+                  key: getParams().key,
+                  type: 'edit',
+                  id: u.id,
+                  name: u.name,
+                  imageMain: u.imageMain[0],
+                  categoryId: u.categoryId,
+                  describe: u.describe,
+                },
+              })
+            }}
+          >
+            <IconFont name="edit" size={12}></IconFont>
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="page-c page-a-spu">
+    <div>
       <CAll />
-      <div className="spu-main p-2" id="scrollDemo" style={{ height: '90vh' }}>
-        <div className="all-search">
-          <Input placeholder="搜索您想要的内容~" />
-        </div>
-        <div style={{ height: '100%' }}>
-          <InfiniteLoading
-            loadingText="加载中···"
-            loadMoreText="没有啦～"
-            pullRefresh
-            target="scrollDemo"
-            hasMore={state.hasMore}
-            onLoadMore={() => {
-              console.log('onLoadMore')
-            }}
-            onRefresh={() => {
-              console.log('onRefresh')
-            }}
-          >
-            {state.mainList.map((u) => (
-              <div key={u.id} className="rounded-lg bg-white mb-2 pt-2 px-2">
-                <div className=" flex mb-1">
-                  <div className="h-v13 w-v13 bg-gray-400 overflow-hidden rounded-lg ">
-                    <Image src={u.imageMain[0]} mode="widthFix" />
-                  </div>
-                  <div className="p-1">{u.name}</div>
-                </div>
-                <Row>
-                  <Col span="8">
-                    <Button block shape="square" type="default">
-                      删除
-                    </Button>
-                  </Col>
-                  <Col span="8">
-                    <Button
-                      block
-                      shape="square"
-                      type="default"
-                      onClick={() => {
-                        goto({ url: `/pages/admin/sku/index`, data: { key: 'sku', id: u.id } })
-                      }}
-                    >
-                      型号规格
-                    </Button>
-                  </Col>
-                  <Col span="8">
-                    <Button block shape="square" type="default">
-                      编辑
-                    </Button>
-                  </Col>
-                </Row>
-              </div>
-            ))}
-          </InfiniteLoading>
-        </div>
-        <CGoAdd />
-      </div>
+      <CGoAdd />
+      <CSearchList renderList={renderList} />
     </div>
   )
 }

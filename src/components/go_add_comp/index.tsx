@@ -3,7 +3,7 @@ import { IconFont } from '@nutui/icons-react-taro'
 
 import { goto, getParams } from '@/utils'
 
-export default function GoAddComp(props) {
+export default function GoAddComp() {
   useEffect(() => {
     init()
   }, [])
@@ -18,7 +18,7 @@ export default function GoAddComp(props) {
           const routerMain = getParams().key
           goto({
             url: `/pages/admin/${routerMain}/add_edit/index`,
-            data: { key: routerMain, type: 'add', ...props.qs },
+            data: { key: routerMain, ...getParams(), type: 'add' },
           })
         }}
       >

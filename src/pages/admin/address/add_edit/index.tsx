@@ -1,20 +1,20 @@
 //  新增 编辑
 import Taro from '@tarojs/taro'
-import { getCurrentInstance } from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CForm from '@/components/form_item'
-import { fetchAddressAdd } from '@/apis'
+import { fetchAddressAdd, fetchAddressUpdate } from '@/apis'
 import { mUser } from '@/store'
+import { getParams } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '添加/编辑 地址',
 })
 
-export default function AddEditPage(props) {
+export default function AddEditPage() {
   const snapUser = useSnapshot(mUser)
 
   const [state, setState] = useSetState({
@@ -57,18 +57,19 @@ export default function AddEditPage(props) {
   }, [])
 
   const init = () => {
-    const router = getCurrentInstance().router
-    const { type } = router?.params
-    if (type) {
+    const params = getParams()
+    if (params.type === 'edit') {
       setState({
-        type,
+        resValue: {
+          name: params.name,
+        },
       })
     }
   }
 
-  const onSubmit = (data) => {
-    const req = {
-      customId: snapUser.custom?.id,
+  const onFetchAddEdit = async (data) => {
+    const params = getParams()
+    let req = {
       province: data.pcas[0],
       city: data.pcas[1],
       area: data.pcas[2],
@@ -77,11 +78,16 @@ export default function AddEditPage(props) {
       phone: data.phone,
       detail: data.detail,
     }
-    onFetchAddressAdd(req)
-  }
-
-  const onFetchAddressAdd = async (req) => {
-    const [err, res] = await fetchAddressAdd(req)
+    let fetchUrl
+    if (params.type === 'edit') {
+      req.id = params.id
+      fetchUrl = fetchAddressUpdate
+    }
+    if (params.type === 'add') {
+      req.customId = snapUser.custom?.id
+      fetchUrl = fetchAddressAdd
+    }
+    const [err, res] = await fetchUrl(req)
     if (err) {
       return
     }
@@ -92,7 +98,7 @@ export default function AddEditPage(props) {
     <div className="page-c page-a-spu-ae">
       <CAll />
       <div className="spu-main p-2">
-        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onSubmit} />
+        <CForm formList={state.formList} resValue={state.resValue} onSubmit={onFetchAddEdit} />
       </div>
     </div>
   )
