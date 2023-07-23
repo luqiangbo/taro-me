@@ -35,7 +35,7 @@ export default function EssayPage() {
 
   useUpdateEffect(() => {
     onPrice()
-  }, [JSON.stringify(state.skuIdListActive)])
+  }, [JSON.stringify(state.skuIdListActive), JSON.stringify(snapUser.cart)])
 
   const init = () => {
     onFetchSpuCart()
@@ -159,7 +159,7 @@ export default function EssayPage() {
           </Radio.Group>
         </div>
       </Popup>
-      <div className="fixed top-0 left-0 w-full bg-white h-v8">
+      <div className="fixed top-0 left-0 z-50 w-full bg-white h-v8">
         <div className="px-3 flex justify-between items-center">
           <div
             className="flex-1 flex items-center text-sm text-gray-400"
@@ -255,7 +255,7 @@ export default function EssayPage() {
           )}
         </Checkbox.Group>
       </div>
-      <div className="safe-area fixed left-0 w-full  bg-white" style={{ bottom: '50px' }}>
+      <div className="safe-area fixed z-50 left-0 w-full  bg-white" style={{ bottom: '50px' }}>
         <div className="flex justify-between items-center p-2 h-v15">
           <div>
             <Checkbox
@@ -272,7 +272,7 @@ export default function EssayPage() {
           </div>
           {state.isAdministration ? (
             <div>
-              <Button className="w-v20" color="linear-gradient(to right, #cf471e, #e24e58)">
+              <Button className="w-v25" color="linear-gradient(to right, #cf471e, #e24e58)">
                 删除
               </Button>
             </div>
@@ -281,7 +281,7 @@ export default function EssayPage() {
               <div className="mr-2">
                 总价: <Price price={state.priceActive} size="large"></Price>
               </div>
-              <Button className="w-v20" color="linear-gradient(to right, #5bae6f, #249543)">
+              <Button className="w-v25" color="linear-gradient(to right, #5bae6f, #249543)">
                 结算
               </Button>
             </div>
