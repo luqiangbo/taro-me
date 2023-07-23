@@ -2,9 +2,9 @@ import { proxy } from 'valtio'
 
 export const mCommon = proxy({
   toastMsg: '',
-  toastOpen: false,
+  toastOpen: true,
   toastType: 'text',
-  toast(text) {
+  onToast(text) {
     if (text === 'loading') {
       mCommon.toastMsg = 'loading....'
     } else {

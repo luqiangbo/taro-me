@@ -1,8 +1,8 @@
 import { pickBy } from 'lodash-es'
 import request from '@/utils/request'
 
-// const baseUrl = 'http://localhost:7001/mm'
-const baseUrl = 'https://api-mm-dev.commok.com/mm'
+const baseUrl = 'http://localhost:7001/mm'
+// const baseUrl = 'https://api-mm-dev.commok.com/mm'
 
 export const urlUpload = `${baseUrl}/base/upload`
 
@@ -59,6 +59,9 @@ export const fetchSpuUpdate = (data) => request({ url: `${baseUrl}/spu/update`, 
 
 // 添加商品
 export const fetchSpuDelete = (data) => request({ url: `${baseUrl}/spu/delete`, data: pickBy(data) })
+
+// 添加商品
+export const fetchSpuCart = (data) => request({ url: `${baseUrl}/spu/cart`, data: pickBy(data) })
 
 // 商品规格列表
 export const fetchSkuList = (data) => request({ url: `${baseUrl}/sku/list`, data: pickBy(data) })

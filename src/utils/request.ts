@@ -9,7 +9,7 @@ import { to } from './index'
 function request(all) {
   return to(
     new Promise(function (resolve, reject) {
-      mCommon.toast('loading')
+      mCommon.onToast('loading')
       if (mUser.token) {
       }
       Taro.request({
@@ -27,17 +27,17 @@ function request(all) {
             if (res.data.code === 0) {
               resolve(res.data.data)
             } else {
-              mCommon.toast(`${res.data.code} ! ${res.data.message}`)
+              mCommon.onToast(`${res.data.code} ! ${res.data.message}`)
               reject(res.data)
             }
           } else {
-            mCommon.toast(`${res.statusCode} ! ${res.data.message}`)
+            mCommon.onToast(`${res.statusCode} ! ${res.data.message}`)
             reject(res)
           }
         },
         fail: function (err) {
           mCommon.toastOpen = false
-          mCommon.toast(err.errMsg)
+          mCommon.onToast(err.errMsg)
           console.log('request', { err })
           reject(err)
         },

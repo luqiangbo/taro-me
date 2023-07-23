@@ -59,7 +59,7 @@ export default function CLoginAfter() {
               }
               if (u.key === 'clear') {
                 mUser.cart = []
-                mCommon.toast('清除完成')
+                mCommon.onToast('清除完成')
               }
             }
           }}

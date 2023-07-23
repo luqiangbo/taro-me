@@ -1,14 +1,14 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Tabs, Image, Popup, Radio, Divider, Button, InputNumber, Price, Tag } from '@nutui/nutui-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { get, find, filter, cloneDeep, sumBy } from 'lodash-es'
 
 import CAll from '@/components/all_comp'
 import CTabber from '@/components/tabbar_comp'
 import { fetchCategoryList, fetchSpuList } from '@/apis'
-import { mUser } from '@/store'
-import { IconFont } from '@nutui/icons-react-taro'
+import { mUser, mCommon } from '@/store'
 
 definePageConfig({
   navigationBarTitleText: '分类',
@@ -58,8 +58,18 @@ export default function EssayPage() {
     }
     const [err, res] = await fetchSpuList(req)
     if (err) return
+    let spuList = []
+    res.list.forEach((u) => {
+      if (u.sku.length) {
+        spuList.push({
+          ...u,
+          price: u.sku[0].price,
+        })
+      }
+    })
+    console.log({ spuList })
     setState({
-      spuList: res.list.filter((u) => u.sku.length),
+      spuList,
     })
   }
 
@@ -84,13 +94,27 @@ export default function EssayPage() {
   const onAddCart = () => {
     const { skuActive, skuQuantity } = state
     const cart = cloneDeep(snapUser.cart)
+    const shopOpen = snapUser.shopOpen
     const sole = find(cart, { id: skuActive.id })
     if (sole) {
-      sole.quantity = sole.quantity + skuQuantity
+      const quantityRes = sole.quantity + skuQuantity
+      if (quantityRes > skuActive.inventory) {
+        mCommon.onToast('超出库存了')
+        return
+      }
+      sole.quantity = quantityRes
+      console.log('库存1', { cart, quantityRes, sole })
       mUser.cart = cart
     } else {
+      console.log('库存2', { skuActive, sole })
+      if (skuQuantity > skuActive.inventory) {
+        mCommon.onToast('超出库存了')
+        return
+      }
       cart.push({
-        ...skuActive,
+        shopId: shopOpen.id,
+        spuId: skuActive.spuId,
+        id: skuActive.id,
         quantity: skuQuantity,
       })
       mUser.cart = cart
@@ -120,18 +144,24 @@ export default function EssayPage() {
           {state.categoryList.map((u) => (
             <Tabs.TabPane key={u.id} title={u.name}>
               {state.spuList.map((h) => (
-                <div key={h.id} className="mb-2 flex overflow-hidden rounded-lg px-1">
+                <div key={h.id} className="mb-2 flex overflow-hidden items-center rounded-lg px-1">
                   <div className="w-v20 h-v20  bg-gray-400 overflow-hidden rounded-lg ">
                     <Image src={h.imageMain[0]} mode="widthFix" />
                   </div>
                   <div className="flex-1 pl-1 flex flex-col justify-between relative">
                     <div>
                       <div>{h.name}</div>
-                      <div>{u.tilte}</div>
+                      <div>
+                        {h.sku.map((h) => (
+                          <Tag type="warning" className="mr-1">
+                            {h.name}
+                          </Tag>
+                        ))}
+                      </div>
                     </div>
                     <div className="h-v12 flex justify-between items-end overflow-hidden rounded ">
                       <div>
-                        <Price price={123.1} size="normal" thousands></Price>
+                        <Price price={h.price} size="normal" thousands></Price>
                       </div>
                       <div
                         className="w-v12 h-v12 rounded-full button-add flex justify-center items-center "
@@ -171,6 +201,7 @@ export default function EssayPage() {
                 <div className="flex-1 pl-3">
                   <div>{get(state.spuDetail, 'name', '')}</div>
                   <div>{get(state.spuDetail, 'detail', '')}</div>
+                  <div className="pt-2 text-sm text-gray-400">库存: {get(state.skuActive, 'inventory', '')}</div>
                 </div>
               </div>
               <div className="pt-1">
@@ -205,7 +236,6 @@ export default function EssayPage() {
                     defaultValue={state.skuQuantity}
                     value={state.skuQuantity}
                     min={1}
-                    max={state.skuActive.inventory}
                     onChange={(v) => {
                       setState({
                         skuQuantity: v * 1,

@@ -46,6 +46,7 @@ export default function AllComp() {
     <div className="all-comp">
       <Toast
         size="small"
+        position={'top'}
         msg={snapCommon.toastMsg}
         visible={snapCommon.toastOpen}
         type={snapCommon.toastType}

@@ -44,7 +44,6 @@ export default function SearchListComp(props) {
   }, [JSON.stringify(state.req), state.hash])
 
   const init = () => {
-    console.log(2)
     fetchList()
   }
 
