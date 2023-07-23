@@ -1,6 +1,6 @@
 import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Button } from '@nutui/nutui-react-taro'
+import { Button, Image, Price } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
@@ -26,8 +26,22 @@ export default function AdminSkuPage() {
 
   const renderList = (u) => {
     return (
-      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
-        <div className="flex-1">{u.name}</div>
+      <div className="flex justify-between items-center rounded-lg bg-white h-v20 p-4 mb-3">
+        <div className="flex-1 flex">
+          <div className="w-v12 h-v12 mr-1">
+            <Image mode="widthFix" src={u.imageMain[0]} />
+          </div>
+          <div className="flex flex-col justify-between">
+            <div>{u.name}</div>
+            <div className="flex text-gray-400 text-sm">
+              <div className="mr-2 flex">
+                <div className="">价格:</div>
+                <Price price={u.price} size="normal" thousands />
+              </div>
+              <div className="">库存:{u.inventory}</div>
+            </div>
+          </div>
+        </div>
         <div className="h-v8">
           <Button
             color="#c5a47a"

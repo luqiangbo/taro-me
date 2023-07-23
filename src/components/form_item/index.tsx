@@ -8,7 +8,7 @@ import { isEmpty, get, find } from 'lodash-es'
 
 import { mCommon } from '@/store'
 import { urlUpload, fetchAddressPcas } from '@/apis'
-import { compressor } from '@/utils'
+import { getParams } from '@/utils'
 
 export default function FormComp(props) {
   const snapCommon = useSnapshot(mCommon)
@@ -27,23 +27,28 @@ export default function FormComp(props) {
     setState({
       resValue: props.resValue,
     })
-    console.log('comp-from-list', { props })
   }, [JSON.stringify(props)])
 
   const init = () => {
     const sole = find(props.formList, { type: 'address' })
     if (sole) {
-      onFetchAddressPcas()
+      onFetchAddressPcas(sole)
     }
   }
 
-  const onFetchAddressPcas = async () => {
+  const onFetchAddressPcas = async (sole) => {
     const [err, res] = await fetchAddressPcas()
     if (err) return
     setState({
       addressList: res,
-      resValue: {},
     })
+    // const params = getParams()
+    // if (params.type === 'edit') {
+    //   const pcas = state.resValue[sole.key]
+    //   console.log({ sole, pcas, state, props })
+
+    //   // onGetAddress(state.resValue[sole.key])
+    // }
   }
 
   const onGetAddress = (list) => {
@@ -53,9 +58,11 @@ export default function FormComp(props) {
     const sole3 = find(sole2.children, { code: list[2] })
     const sole4 = find(sole3.children, { code: list[3] })
 
-    setState({
-      addressText: `${sole1.name}-${sole2.name}-${sole3.name}-${sole4.name}`,
-    })
+    return `${sole1.name}-${sole2.name}-${sole3.name}-${sole4.name}`
+
+    // setState({
+    //   addressText: `${sole1.name}-${sole2.name}-${sole3.name}-${sole4.name}`,
+    // })
   }
 
   const onSubmit = () => {
@@ -162,6 +169,17 @@ export default function FormComp(props) {
     }
   }
 
+  const onShowAddressText = (u) => {
+    let res = '请填写地址'
+    const { resValue } = state
+    const pcas = resValue[u.key]
+    if (pcas) {
+      res = onGetAddress(pcas)
+    }
+
+    return res
+  }
+
   return (
     <div className="comp-form">
       {props.formList.map((u) => {
@@ -173,7 +191,7 @@ export default function FormComp(props) {
               </div>
               <Input
                 type={u.inputType || 'text'}
-                maxLength="20"
+                maxLength={20}
                 placeholder={u.placeholder}
                 value={state.resValue[u.key]}
                 onChange={(val) => {
@@ -253,7 +271,7 @@ export default function FormComp(props) {
                 }}
               >
                 {u.list.map((u) => (
-                  <div className="bg-white rounded mb-2">
+                  <div className=" rounded mb-2">
                     <Radio key={u.id} value={u.id} className="p-2">
                       {u.name}
                     </Radio>
@@ -278,36 +296,39 @@ export default function FormComp(props) {
                   })
                 }}
               >
-                {state.addressText || '请选择地址'}
+                {state.addressList.length ? onShowAddressText(u) : '请选择地址1'}
               </div>
               <div>
-                <Cascader
-                  closeable
-                  title="地址选择"
-                  optionKey={{
-                    textKey: 'name',
-                    valueKey: 'code',
-                    childrenKey: 'children',
-                  }}
-                  visible={state.isOpenAddrsss}
-                  options={state.addressList}
-                  onClose={() => {
-                    setState({
-                      isOpenAddrsss: false,
-                    })
-                  }}
-                  onChange={(v) => {
-                    if (state.isOpenAddrsss) {
-                      onGetAddress(v)
+                {state.addressList.length ? (
+                  <Cascader
+                    closeable
+                    title="地址选择"
+                    optionKey={{
+                      textKey: 'name',
+                      valueKey: 'code',
+                      childrenKey: 'children',
+                    }}
+                    defaultValue={state.resValue[u.key]}
+                    value={state.resValue[u.key]}
+                    visible={state.isOpenAddrsss}
+                    options={state.addressList}
+                    onClose={() => {
                       setState({
-                        resValue: {
-                          ...state.resValue,
-                          [u.key]: v,
-                        },
+                        isOpenAddrsss: false,
                       })
-                    }
-                  }}
-                />
+                    }}
+                    onChange={(v) => {
+                      if (state.isOpenAddrsss) {
+                        setState({
+                          resValue: {
+                            ...state.resValue,
+                            [u.key]: v,
+                          },
+                        })
+                      }
+                    }}
+                  />
+                ) : null}
               </div>
             </div>
           )

@@ -1,6 +1,6 @@
 import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Button } from '@nutui/nutui-react-taro'
+import { Button, Image, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
@@ -27,8 +27,22 @@ export default function AdminProductPage() {
 
   const renderList = (u) => {
     return (
-      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
-        <div className="flex-1">{u.name}</div>
+      <div className="flex justify-between items-center rounded-lg bg-white h-v14 px-2 py-4 mb-3">
+        <div className="flex-1 flex">
+          <div className="w-v12 h-v12 mr-1">
+            <Image mode="widthFix" src={u.imageMain[0]} />
+          </div>
+          <div>
+            <div>{u.name}</div>
+            <div>
+              {u.sku.map((h) => (
+                <Tag type="warning" className="mr-1">
+                  {h.name}
+                </Tag>
+              ))}
+            </div>
+          </div>
+        </div>
         <div className="h-v8">
           <Button
             color="#c5a47a"

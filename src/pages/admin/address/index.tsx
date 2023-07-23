@@ -50,8 +50,21 @@ export default function AdminTagPage() {
 
   const renderList = (u) => {
     return (
-      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
-        <div className="flex-1">{u.summary}</div>
+      <div className="flex justify-between items-center rounded-lg bg-white h-v18 px-2 py-4 mb-3">
+        <div className="flex-1 flex items-center">
+          <div className=" w-v10 h-v10 rounded-full bg-red-300 text-white flex justify-center items-center mr-2 ">
+            {u.receiver.charAt(0)}
+          </div>
+          <div>
+            <div>
+              {u.receiver}-{u.phone}
+            </div>
+            <div className="text-gray-400 text-sm">
+              <div>{u.summary}</div>
+              <div>{u.detail}</div>
+            </div>
+          </div>
+        </div>
         <div className="h-v8">
           <Button
             color="#c5a47a"
@@ -60,7 +73,19 @@ export default function AdminTagPage() {
             onClick={() => {
               goto({
                 url: `/pages/admin/${getParams().key}/add_edit/index`,
-                data: { key: getParams().key, type: 'edit', id: u.id, name: u.name },
+                data: {
+                  key: getParams().key,
+                  type: 'edit',
+                  id: u.id,
+                  receiver: u.receiver,
+                  phone: u.phone,
+                  summary: u.summary,
+                  detail: u.detail,
+                  province: u.province,
+                  city: u.city,
+                  area: u.area,
+                  street: u.street,
+                },
               })
             }}
           >

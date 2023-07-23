@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
-import { Button } from '@nutui/nutui-react-taro'
+import { Button, Tag } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
@@ -26,7 +26,10 @@ export default function AdminProductPage() {
 
   const renderList = (u) => {
     return (
-      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3">
+      <div className="flex justify-between items-center rounded-lg bg-white h-v14 p-4 mb-3 relative">
+        <div className="fixed top-0 left-0">
+          <Tag type="warning">{u.sort}</Tag>
+        </div>
         <div className="flex-1">{u.name}</div>
         <div className="h-v8">
           <Button
@@ -36,7 +39,7 @@ export default function AdminProductPage() {
             onClick={() => {
               goto({
                 url: `/pages/admin/${getParams().key}/add_edit/index`,
-                data: { key: getParams().key, type: 'edit', id: u.id, name: u.name },
+                data: { key: getParams().key, type: 'edit', id: u.id, name: u.name, sort: u.sort },
               })
             }}
           >

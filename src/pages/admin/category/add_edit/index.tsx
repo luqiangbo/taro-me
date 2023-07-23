@@ -27,6 +27,13 @@ export default function AddEditPage(props) {
         type: 'input',
         required: true,
       },
+      {
+        key: 'sort',
+        label: '排序',
+        placeholder: '请输入',
+        type: 'input',
+        required: false,
+      },
     ],
     resValue: {},
     type: '',
@@ -42,6 +49,7 @@ export default function AddEditPage(props) {
       setState({
         resValue: {
           name: params.name,
+          sort: params.sort,
         },
       })
     }

@@ -59,9 +59,15 @@ export default function AddEditPage() {
   const init = () => {
     const params = getParams()
     if (params.type === 'edit') {
+      const pcas = [params.province, params.city, params.area, params.street]
+      console.log('edit', { pcas })
       setState({
         resValue: {
-          name: params.name,
+          receiver: params.receiver,
+          phone: params.phone,
+          summary: params.summary,
+          detail: params.detail,
+          pcas,
         },
       })
     }
