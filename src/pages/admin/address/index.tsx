@@ -50,7 +50,7 @@ export default function AdminTagPage() {
 
   const renderList = (u) => {
     return (
-      <div className="flex justify-between items-center rounded-lg bg-white h-v18 px-2 py-4 mb-3">
+      <div className="flex justify-between items-center rounded-lg bg-white h-v22 px-2 py-2 mb-3">
         <div className="flex-1 flex items-center">
           <div className=" w-v10 h-v10 rounded-full bg-red-300 text-white flex justify-center items-center mr-2 ">
             {u.receiver.charAt(0)}

@@ -8,6 +8,6 @@ export const basicList = [
   { key: 'address', value: '我的收货地址', icon: 'find', type: 'router' },
   { key: 'agreement', value: '隐私协议说明', icon: 'link', type: 'router' },
   { key: 'about', value: '关于程序', icon: 'link', type: 'router' },
-  // { key: 'clear', value: '清除缓存', icon: 'link', type: 'func' },
+  { key: 'clear', value: '清除缓存', icon: 'link', type: 'func' },
   { key: 'logout', value: '退出登录', icon: 'footprint', type: 'func' },
 ]

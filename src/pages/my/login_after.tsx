@@ -1,11 +1,11 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Button, Picker, Image, Tag } from '@nutui/nutui-react-taro'
+import { Button, Picker, Image, Tag, Toast } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, find } from 'lodash-es'
 
-import { mUser } from '@/store'
+import { mUser, mCommon } from '@/store'
 import { fetchShopList } from '@/apis'
 import { adminList, basicList } from './data'
 import { goto } from '@/utils'
@@ -56,6 +56,10 @@ export default function CLoginAfter() {
               if (u.key === 'logout') {
                 mUser.custom = {}
                 mUser.user = {}
+              }
+              if (u.key === 'clear') {
+                mUser.cart = []
+                mCommon.toast('清除完成')
               }
             }
           }}
