@@ -57,6 +57,7 @@
     "@tarojs/shared": "3.6.4",
     "@tarojs/taro": "3.6.4",
     "ahooks": "^3.7.5",
+    "decimal.js": "^10.4.3",
     "lodash-es": "^4.17.21",
     "postcss-loader": "^7.1.0",
     "qs": "^6.11.2",
