@@ -16,6 +16,7 @@ definePageConfig({
 
 export default function EssayPage() {
   const snapUser = useSnapshot(mUser)
+
   const [state, setState] = useSetState({
     mainList: [],
     isAdministration: false,
@@ -27,6 +28,7 @@ export default function EssayPage() {
     isAllSkuId: false,
     skuPriceObj: {},
     priceActive: '0',
+    resList: [],
   })
 
   useDidShow(() => {
@@ -37,9 +39,29 @@ export default function EssayPage() {
     onPrice()
   }, [JSON.stringify(state.skuIdListActive), JSON.stringify(snapUser.cart)])
 
-  const init = () => {
+  useUpdateEffect(() => {
     onFetchSpuCart()
-    onFetchAddressList()
+  }, [JSON.stringify(snapUser.cart)])
+
+  const init = () => {
+    setState({
+      mainList: [],
+      isAdministration: false,
+      addressList: [],
+      addressActive: {},
+      isOpenAddress: false,
+      skuIdListActive: [],
+      skuIdList: [],
+      isAllSkuId: false,
+      skuPriceObj: {},
+      priceActive: '0',
+      resList: [],
+    })
+    onFetchSpuCart()
+    if (snapUser.custom?.id) {
+      onFetchAddressList()
+    } else {
+    }
   }
 
   const onPrice = () => {
@@ -47,7 +69,10 @@ export default function EssayPage() {
     const { skuPriceObj, skuIdListActive } = state
     let priceActive = '0'
     skuIdListActive.forEach((id) => {
-      priceActive = add(priceActive, multiply(skuPriceObj[id], find(localSku, { id: id }).quantity))
+      const sole = find(localSku, { id: id })
+      if (sole) {
+        priceActive = add(priceActive, multiply(skuPriceObj[id], sole.quantity))
+      }
     })
     setState({
       priceActive,
@@ -56,7 +81,9 @@ export default function EssayPage() {
 
   const onFetchSpuCart = async () => {
     const shopOpen = snapUser.shopOpen
-    const localSkuList = filter(snapUser.cart, (u) => u.shopId === shopOpen.id)
+    const listClone = cloneDeep(snapUser.cart)
+    const localSkuList = filter(listClone, (u) => u.shopId === shopOpen.id)
+    console.log({ listClone, localSkuList })
     const req = {
       spuIds: localSkuList.map((u) => u.spuId),
     }
@@ -66,8 +93,6 @@ export default function EssayPage() {
     const skuPriceObj = {}
     const resTrim = res.list.map((u) => {
       let sku = []
-
-      console.log({ u })
       u.sku.forEach((h) => {
         const sole = find(localSkuList, { id: h.id })
         if (sole) {
@@ -118,6 +143,7 @@ export default function EssayPage() {
     <div className="page-c page-cat">
       <CAll />
       <CTabber />
+
       <Popup
         visible={state.isOpenAddress}
         style={{ height: '70%' }}
@@ -129,36 +155,39 @@ export default function EssayPage() {
           })
         }}
       >
-        <div className="px-4 py-8">
-          <Radio.Group
-            defaultValue={state.addressActive.id}
-            onChange={(id) => {
-              const sole = find(state.addressList, { id: id })
-              setState({
-                addressActive: sole,
-                isOpenAddress: false,
-              })
-            }}
-          >
-            {state.addressList.map((u) => (
-              <div className="flex items-center py-3">
-                <div className="w-v10 flex items-center justify-center">
-                  <Radio value={u.id}></Radio>
-                </div>
-                <div>
+        {state.addressList?.length !== 0 ? (
+          <div className="px-4 py-8">
+            <Radio.Group
+              defaultValue={state.addressActive.id}
+              onChange={(id) => {
+                const sole = find(state.addressList, { id: id })
+                setState({
+                  addressActive: sole,
+                  isOpenAddress: false,
+                })
+              }}
+            >
+              {state.addressList.map((u) => (
+                <div className="flex items-center py-3">
+                  <div className="w-v10 flex items-center justify-center">
+                    <Radio value={u.id}></Radio>
+                  </div>
                   <div>
-                    {u.receiver}-{u.phone}
-                  </div>
-                  <div className="text-gray-400 text-sm">
-                    <div>{u.summary}</div>
-                    <div>{u.detail}</div>
+                    <div>
+                      {u.receiver}-{u.phone}
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      <div>{u.summary}</div>
+                      <div>{u.detail}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </Radio.Group>
-        </div>
+              ))}
+            </Radio.Group>
+          </div>
+        ) : null}
       </Popup>
+
       <div className="fixed top-0 left-0 z-50 w-full bg-white h-v8">
         <div className="px-3 flex justify-between items-center">
           <div
@@ -169,7 +198,11 @@ export default function EssayPage() {
                   isOpenAddress: true,
                 })
               } else {
-                mCommon.onToast('请添加地址')
+                if (mUser.custom?.id) {
+                  mCommon.onToast('请添加地址')
+                } else {
+                  mCommon.onToast('请登录')
+                }
               }
             }}
           >
@@ -227,7 +260,7 @@ export default function EssayPage() {
                             <div>
                               <InputNumber
                                 defaultValue={h.quantity}
-                                min={0}
+                                min={1}
                                 max={h.inventory}
                                 onChange={(v) => {
                                   onSetCart(h.id, v)
@@ -272,7 +305,16 @@ export default function EssayPage() {
           </div>
           {state.isAdministration ? (
             <div>
-              <Button className="w-v25" color="linear-gradient(to right, #cf471e, #e24e58)">
+              <Button
+                className="w-v25"
+                color="linear-gradient(to right, #cf471e, #e24e58)"
+                onClick={() => {
+                  const { skuIdListActive } = state
+                  const cart = snapUser.cart
+                  const list = filter(cart, (u) => skuIdListActive.indexOf(u.id) === -1)
+                  mUser.cart = list
+                }}
+              >
                 删除
               </Button>
             </div>
@@ -281,7 +323,20 @@ export default function EssayPage() {
               <div className="mr-2">
                 总价: <Price price={state.priceActive} size="large"></Price>
               </div>
-              <Button className="w-v25" color="linear-gradient(to right, #5bae6f, #249543)">
+              <Button
+                className="w-v25"
+                color="linear-gradient(to right, #5bae6f, #249543)"
+                onClick={() => {
+                  if (!mUser.custom?.id) {
+                    mCommon.onToast('请登录')
+                    return
+                  }
+                  if (state.skuIdListActive.length === 0) {
+                    mCommon.onToast('请选择商品')
+                    return
+                  }
+                }}
+              >
                 结算
               </Button>
             </div>
