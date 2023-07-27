@@ -18,6 +18,7 @@ export default defineAppConfig({
         'spu/add_edit/index',
         'sku/index',
         'sku/add_edit/index',
+        'order/index',
       ],
     },
   ],

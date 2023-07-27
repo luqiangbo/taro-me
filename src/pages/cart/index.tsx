@@ -8,7 +8,7 @@ import CAll from '@/components/all_comp'
 import CTabber from '@/components/tabbar_comp'
 import { mUser, mCommon } from '@/store'
 import { fetchSpuCart, fetchAddressList } from '@/apis'
-import { add, multiply } from '@/utils'
+import { add, goto, multiply } from '@/utils'
 
 definePageConfig({
   navigationBarTitleText: '购物车',
@@ -58,10 +58,6 @@ export default function EssayPage() {
       resList: [],
     })
     onFetchSpuCart()
-    if (snapUser.custom?.id) {
-      onFetchAddressList()
-    } else {
-    }
   }
 
   const onPrice = () => {
@@ -116,22 +112,6 @@ export default function EssayPage() {
     })
   }
 
-  const onFetchAddressList = async () => {
-    const req = {
-      current: 1,
-      pageSize: 100,
-      customId: snapUser.custom?.id,
-    }
-    const [err, res] = await fetchAddressList(req)
-    if (err) return
-    if (res.list.length) {
-      setState({
-        addressList: res.list,
-        addressActive: res.list[0],
-      })
-    }
-  }
-
   const onSetCart = (skuId, v) => {
     const cart = cloneDeep(snapUser.cart)
     const sole = find(cart, { id: skuId })
@@ -143,72 +123,9 @@ export default function EssayPage() {
     <div className="page-c page-cat">
       <CAll />
       <CTabber />
-
-      <Popup
-        visible={state.isOpenAddress}
-        style={{ height: '70%' }}
-        position="bottom"
-        round
-        onClose={() => {
-          setState({
-            isOpenAddress: false,
-          })
-        }}
-      >
-        {state.addressList?.length !== 0 ? (
-          <div className="px-4 py-8">
-            <Radio.Group
-              defaultValue={state.addressActive.id}
-              onChange={(id) => {
-                const sole = find(state.addressList, { id: id })
-                setState({
-                  addressActive: sole,
-                  isOpenAddress: false,
-                })
-              }}
-            >
-              {state.addressList.map((u) => (
-                <div className="flex items-center py-3">
-                  <div className="w-v10 flex items-center justify-center">
-                    <Radio value={u.id}></Radio>
-                  </div>
-                  <div>
-                    <div>
-                      {u.receiver}-{u.phone}
-                    </div>
-                    <div className="text-gray-400 text-sm">
-                      <div>{u.summary}</div>
-                      <div>{u.detail}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </Radio.Group>
-          </div>
-        ) : null}
-      </Popup>
-
-      <div className="fixed top-0 left-0 z-50 w-full bg-white h-v8">
-        <div className="px-3 flex justify-between items-center">
-          <div
-            className="flex-1 flex items-center text-sm text-gray-400"
-            onClick={() => {
-              if (state.addressList.length) {
-                setState({
-                  isOpenAddress: true,
-                })
-              } else {
-                if (mUser.custom?.id) {
-                  mCommon.onToast('请添加地址')
-                } else {
-                  mCommon.onToast('请登录')
-                }
-              }
-            }}
-          >
-            <div>地址:</div>
-            <div>{state.addressActive.id ? state.addressActive.summary : '无'}</div>
-          </div>
+      <div className="fixed top-0 left-0 z-50 w-full bg-white h-v10">
+        <div className="px-3 h-v10 flex justify-between items-center">
+          <div></div>
           <div
             className=""
             onClick={() => {
@@ -221,7 +138,7 @@ export default function EssayPage() {
           </div>
         </div>
       </div>
-      <div className="h-v8"></div>
+      <div className="h-v10"></div>
       <div className="p-3">
         <Checkbox.Group
           value={state.skuIdListActive}
@@ -247,7 +164,7 @@ export default function EssayPage() {
                 <div className="py-2">
                   {u.sku.map((h) => (
                     <div key={h.id} className="flex justify-between items-center py-2">
-                      <div className="w-v10 flex justify-center items-center">
+                      <div className="w-v10 pl-2 flex justify-center items-center">
                         <Checkbox value={h.id}></Checkbox>
                       </div>
                       <div className="flex-1 flex">
@@ -290,7 +207,7 @@ export default function EssayPage() {
       </div>
       <div className="safe-area fixed z-50 left-0 w-full  bg-white" style={{ bottom: '50px' }}>
         <div className="flex justify-between items-center p-2 h-v15">
-          <div>
+          <div className="pl-2">
             <Checkbox
               checked={state.isAllSkuId}
               onChange={(v) => {
@@ -335,6 +252,14 @@ export default function EssayPage() {
                     mCommon.onToast('请选择商品')
                     return
                   }
+                  const cartList = snapUser.cart
+                  const { skuIdListActive } = state
+                  const soleList = filter(cartList, (u) => skuIdListActive.indexOf(u.id) !== -1)
+                  mUser.order = soleList
+                  goto({
+                    url: `/pages/admin/order/index`,
+                    data: { key: 'order' },
+                  })
                 }}
               >
                 结算

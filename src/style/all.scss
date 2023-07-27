@@ -47,6 +47,13 @@ $br: 20px;
   border-bottom: 2px solid #f5f5f5;
 }
 
+.textarea-my {
+  border: 3px solid #f5f5f5;
+}
+.nut-textarea {
+  background: #f5f5f5 !important;
+}
+
 .safe-area {
   padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
   padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/

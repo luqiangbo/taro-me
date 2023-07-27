@@ -44,11 +44,11 @@ export default function TabbarComp() {
   const init = () => {}
 
   const onGetQuantity = () => {
-    let res = 0
-    snapUser.cart.forEach((u) => {
-      res = res + u.quantity
-    })
-    return res
+    // let res = 0
+    // snapUser.cart.forEach((u) => {
+    //   res = res + u.quantity
+    // })
+    return snapUser.cart.length
   }
 
   return (
