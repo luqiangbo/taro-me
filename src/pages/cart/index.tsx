@@ -257,7 +257,7 @@ export default function EssayPage() {
                   const soleList = filter(cartList, (u) => skuIdListActive.indexOf(u.id) !== -1)
                   mUser.order = soleList
                   goto({
-                    url: `/pages/admin/order/index`,
+                    url: `/pages/admin/order_add/index`,
                     data: { key: 'order' },
                   })
                 }}

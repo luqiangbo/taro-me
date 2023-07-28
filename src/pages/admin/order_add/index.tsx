@@ -1,13 +1,14 @@
+import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
-import { Popup, Radio, Image, Price, TextArea, Button, Ellipsis } from '@nutui/nutui-react-taro'
+import { Popup, Radio, Image, Price, TextArea, Button, Dialog } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { find, cloneDeep, filter } from 'lodash-es'
 
 import CAll from '@/components/all_comp'
-import { fetchAddressList, fetchSpuCart } from '@/apis/index'
-import { goto, getParams } from '@/utils'
+import { fetchAddressList, fetchSpuCart, fetchOrderAdd } from '@/apis/index'
+import { goto, getParams, add, multiply } from '@/utils'
 import { mUser, mCommon } from '@/store'
 
 definePageConfig({
@@ -25,6 +26,8 @@ export default function AdminOrderPage() {
     isOpenNotes: false,
     notes: '',
     skuActive: '',
+    priceAll: 0,
+    isOpenOrderSuccess: false,
   })
 
   useEffect(() => {
@@ -68,10 +71,12 @@ export default function AdminOrderPage() {
     const [err, res] = await fetchSpuCart(req)
     if (err) return
     const skuList = []
+    let priceAll = '0'
     res.list.forEach((u) => {
       u.sku.forEach((h) => {
         const sole = find(localSkuList, { id: h.id })
         if (sole) {
+          priceAll = add(priceAll, multiply(h.price, sole.quantity))
           skuList.push({
             ...h,
             quantity: sole.quantity,
@@ -87,14 +92,46 @@ export default function AdminOrderPage() {
     console.log({ skuList })
     setState({
       skuList,
+      priceAll: priceAll * 1,
+    })
+  }
+
+  const onOrderAdd = () => {
+    const customId = mUser.custom.id
+    const shopId = mUser.shopOpen.id
+    const addressId = state.addressActive.id
+    const skuList = []
+
+    state.skuList.forEach((u) => {
+      skuList.push({
+        id: u.id,
+        quantity: u.quantity,
+        notes: u.notes,
+      })
+    })
+
+    const req = {
+      customId,
+      shopId,
+      addressId,
+      skuList,
+    }
+    console.log({ req })
+    onFetchOrderAdd(req)
+  }
+
+  const onFetchOrderAdd = async (req) => {
+    const [err, res] = await fetchOrderAdd(req)
+    if (err) return
+    setState({
+      isOpenOrderSuccess: true,
     })
   }
 
   return (
     <div className="page-c">
       <CAll />
-
-      <div className="fixed top-0 left-0 z-50 w-full h-v20 p-3">
+      <div className="fixed top-0 left-0 z-50 w-full h-v20 py-2 px-3">
         <div
           className="flex items-center bg-white px-4 h-full rounded-lg "
           onClick={() => {
@@ -172,16 +209,35 @@ export default function AdminOrderPage() {
       </div>
       <div className="safe-area fixed z-50 left-0 w-full px-2" style={{ bottom: '30px' }}>
         <div className="w-full text-white rounded-full flex items-stretch">
-          <div className="flex flex-1  bg-gray-600 py-2 px-6 h-auto rounded-l-full">
-            <div>
-              <div>合计:</div>
-              <div>共1件</div>
+          <div className="flex-1 bg-gray-600 py-2 px-6 h-auto rounded-l-full">
+            <div className="text-lg  flex items-center">
+              <div style={{ color: '#bda57e' }}>合计:</div>
+              <Price price={state.priceAll} size="large" className="text-white"></Price>
             </div>
-            <Price price={432} size="normal"></Price>
+            <div className="text-sm text-gray-400">共{state.skuList.length}件</div>
           </div>
-          <div className="py-2 px-6 flex items-center justify-center h-auto bg-red-500 rounded-r-full">提交订单</div>
+          <div
+            className="py-2 px-6 flex items-center justify-center h-auto bg-red-500 rounded-r-full"
+            onClick={() => {
+              onOrderAdd()
+            }}
+          >
+            提交订单
+          </div>
         </div>
       </div>
+
+      <Dialog
+        title="订单"
+        visible={state.isOpenOrderSuccess}
+        confirmText="确认"
+        hideCancelButton
+        onConfirm={() => {
+          Taro.navigateBack()
+        }}
+      >
+        添加订单成功
+      </Dialog>
 
       <Popup
         visible={state.isOpenAddress}

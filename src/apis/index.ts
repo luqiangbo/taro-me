@@ -104,3 +104,6 @@ export const fetchAddressDivision = (data) => request({ url: `${baseUrl}/address
 
 // 地址
 export const fetchAddressPcas = () => request({ url: `${baseUrl}/address/pcas` })
+
+// 添加订单
+export const fetchOrderAdd = (data) => request({ url: `${baseUrl}/order/add`, data: pickBy(data) })

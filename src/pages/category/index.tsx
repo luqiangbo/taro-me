@@ -35,7 +35,7 @@ export default function EssayPage() {
 
   const onFetchList = async () => {
     const req = {
-      shopId: snapUser.shopOpen?.id,
+      shopId: mUser.shopOpen?.id,
       current: 1,
       pageSize: 100,
     }
@@ -51,7 +51,7 @@ export default function EssayPage() {
 
   const onFetchSpuList = async (categoryId) => {
     const req = {
-      shopId: snapUser.shopOpen?.id,
+      shopId: mUser.shopOpen?.id,
       categoryId,
       current: 1,
       pageSize: 100,
@@ -75,7 +75,7 @@ export default function EssayPage() {
 
   const onGetSkuQuantity = (spuId) => {
     let quantity = 0
-    const skuList = cloneDeep(snapUser.cart)
+    const skuList = cloneDeep(mUser.cart)
     const soleList = filter(skuList, (u) => u.spuId === spuId)
     if (soleList.length) {
       quantity = sumBy(soleList, (u) => u.quantity)
@@ -93,8 +93,8 @@ export default function EssayPage() {
 
   const onAddCart = () => {
     const { skuActive, skuQuantity } = state
-    const cart = cloneDeep(snapUser.cart)
-    const shopOpen = snapUser.shopOpen
+    const cart = cloneDeep(mUser.cart)
+    const shopOpen = mUser.shopOpen
     const sole = find(cart, { id: skuActive.id })
     if (sole) {
       const quantityRes = sole.quantity + skuQuantity
