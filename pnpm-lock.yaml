@@ -12,8 +12,8 @@ dependencies:
     specifier: 0.0.1
     version: 0.0.1
   '@nutui/nutui-react-taro':
-    specifier: 2.0.7
-    version: 2.0.7(react-dom@18.2.0)(react@18.2.0)
+    specifier: 2.0.8
+    version: 2.0.8(react-dom@18.2.0)(react@18.2.0)
   '@tarojs/components':
     specifier: 3.6.4
     version: 3.6.4(@types/react@18.0.0)(react@18.2.0)
@@ -2766,8 +2766,8 @@ packages:
       classnames: 2.3.2
     dev: false
 
-  /@nutui/nutui-react-taro@2.0.7(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-GGcRBUdrKAIyz/WVXP/cCN4fj7XrmztODMF70W68pcw64D0VeHuG+Fl6KObkVbF/B6F/7dEOoSGEV9/xeDxxFA==}
+  /@nutui/nutui-react-taro@2.0.8(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-RU1EH0wjFxG8VnQ6Or5faVa1p2nzkM0Z9z6k4HzkwbIUoxK7gsY4qdldnvW4e2q3FWbeYOoK7qg3VxQelB/8nA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:

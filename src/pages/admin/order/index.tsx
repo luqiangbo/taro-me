@@ -95,23 +95,23 @@ export default function AdminOrderPage() {
       <CAll />
 
       <div className="fixed top-0 left-0 z-50 w-full h-v20 p-3">
-        <div className="flex items-center rounded bg-white px-4 h-full">
-          <div
-            className=" flex items-center text-sm text-gray-400"
-            onClick={() => {
-              if (state.addressList.length) {
-                setState({
-                  isOpenAddress: true,
-                })
+        <div
+          className="flex items-center bg-white px-4 h-full rounded-lg "
+          onClick={() => {
+            if (state.addressList.length) {
+              setState({
+                isOpenAddress: true,
+              })
+            } else {
+              if (mUser.custom?.id) {
+                mCommon.onToast('请添加地址')
               } else {
-                if (mUser.custom?.id) {
-                  mCommon.onToast('请添加地址')
-                } else {
-                  mCommon.onToast('请登录')
-                }
+                mCommon.onToast('请登录')
               }
-            }}
-          >
+            }
+          }}
+        >
+          <div className=" flex items-center text-sm text-gray-400">
             <IconFont name="location2" size={18} className="mr-2"></IconFont>
             {state.addressActive.id ? (
               <div>
@@ -130,9 +130,9 @@ export default function AdminOrderPage() {
         </div>
       </div>
       <div className="h-v20"></div>
-      <div className="px-2 py-2">
+      <div className="px-2">
         {state.skuList.map((u) => (
-          <div className=" bg-white rounded mb-2 p-2" key={u.key}>
+          <div className=" bg-white rounded-lg mb-2 p-2" key={u.key}>
             <div className="flex">
               <div className="h-v15 w-v15 bg-gray-400 overflow-hidden rounded-lg mr-3">
                 <Image src={u.imageMain[0]} mode="widthFix" />
@@ -151,10 +151,10 @@ export default function AdminOrderPage() {
                 <div className="pt-2"></div>
               </div>
             </div>
-            <div className="flex justify-between items-center text-gray-600 pt-2">
+            <div className="flex justify-between items-center text-gray-600 pt-2 text-sm">
               <div className="w-v18">订单备注</div>
               <div
-                className=" flex items-end"
+                className="flex items-center"
                 onClick={() => {
                   setState({
                     isOpenNotes: true,
@@ -164,12 +164,25 @@ export default function AdminOrderPage() {
               >
                 {/* <Ellipsis content={u.notes ? u.notes : '无备注'} direction="end" /> */}
                 <div className="mr-2 w-v50 text-right overflow-hidden">{u.notes ? u.notes : '无备注'}</div>
-                <IconFont name="edit" size={14} className="mr-2" color="#4e5562"></IconFont>
+                <IconFont name="edit" size={14} className="mr-2 flex" color="#4e5562"></IconFont>
               </div>
             </div>
           </div>
         ))}
       </div>
+      <div className="safe-area fixed z-50 left-0 w-full px-2" style={{ bottom: '30px' }}>
+        <div className="w-full text-white rounded-full flex items-stretch">
+          <div className="flex flex-1  bg-gray-600 py-2 px-6 h-auto rounded-l-full">
+            <div>
+              <div>合计:</div>
+              <div>共1件</div>
+            </div>
+            <Price price={432} size="normal"></Price>
+          </div>
+          <div className="py-2 px-6 flex items-center justify-center h-auto bg-red-500 rounded-r-full">提交订单</div>
+        </div>
+      </div>
+
       <Popup
         visible={state.isOpenAddress}
         style={{ height: '70%' }}

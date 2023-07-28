@@ -12,3 +12,7 @@ $ taro update project
 # 使用Taro 升级命令将项目依赖升级到指定版本
 $ taro update project [版本号]
 ```
+
+## 设置setting
+
+<https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html>
