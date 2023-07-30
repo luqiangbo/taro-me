@@ -80,7 +80,7 @@ export default function HomePage() {
           <div className="page-home-header px-2 py-2">
             <div className="bg"></div>
             <div className="page-home-banner">
-              <Swiper defaultValue={0} loop>
+              <Swiper defaultValue={0} autoPlay={true}>
                 {state.detail?.imageBanner.map((u) => {
                   return (
                     <SwiperItem key={u}>
