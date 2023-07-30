@@ -20,7 +20,6 @@ export default function HomePage() {
   const snapUser = useSnapshot(mUser)
   const [state, setState] = useSetState({
     bannerList: [],
-    height: 200,
     detail: {},
     isOpenContent: false,
   })
@@ -78,9 +77,10 @@ export default function HomePage() {
       <CTabber />
       {state.detail?.id ? (
         <div>
-          <div className="page-home-header">
+          <div className="page-home-header px-2 py-2">
+            <div className="bg"></div>
             <div className="page-home-banner">
-              <Swiper defaultValue={0} height={175} loop>
+              <Swiper defaultValue={0} loop>
                 {state.detail?.imageBanner.map((u) => {
                   return (
                     <SwiperItem key={u}>
