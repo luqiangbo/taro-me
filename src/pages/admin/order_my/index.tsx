@@ -24,7 +24,7 @@ export default function PageOrderMy() {
       <div key={h.id} className="rounded-lg bg-white p-4 mb-3 relative">
         <div className="flex items-center justify-between mb-2 text-gray-500">
           <div>状态:{statusOrder(h.status)}</div>
-          <div>{dayFrmat(h.createdAt)}</div>
+          <div></div>
         </div>
         <div>
           {h.orderItem.map((u) => (
@@ -50,14 +50,36 @@ export default function PageOrderMy() {
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-between">
-          <div></div>
+        <div className="flex items-end justify-between">
+          <div className="text-gray-500 text-sm"></div>
           <div className="text-gray-500 flex items-baseline justify-between">
             <div style={{ color: '#bda57e' }} className="mr-1">
               总价:
             </div>
             <Price price={h.totalPrice} size="large"></Price>
           </div>
+        </div>
+        <div className="flex items-end justify-between mb-1">
+          <div
+            className="text-gray-500 text-sm"
+            onClick={() => {
+              Taro.setClipboardData({
+                data: h.code,
+                success: function () {
+                  Taro.showToast({
+                    title: '复制成功',
+                  })
+                },
+              })
+            }}
+          >
+            订单号: {h.code}
+          </div>
+          <div></div>
+        </div>
+        <div className="flex items-end justify-between">
+          <div className="text-gray-500 text-sm">订单时间: {dayFrmat(h.createdAt)}</div>
+          <div></div>
         </div>
       </div>
     )

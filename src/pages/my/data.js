@@ -5,9 +5,12 @@ export const adminList = [
   { key: 'spu', value: '商品管理', icon: 'success', type: 'router' },
   { key: 'order_manage', value: '订单管理', icon: 'order', type: 'router' },
 ]
-export const basicList = [
+export const myList = [
   { key: 'order_my', value: '我的订单', icon: 'order', type: 'router' },
   { key: 'address', value: '我的收货地址', icon: 'find', type: 'router' },
+]
+
+export const basicList = [
   { key: 'agreement', value: '隐私协议说明', icon: 'ask', type: 'router' },
   { key: 'about', value: '关于程序', icon: 'my2', type: 'router' },
   { key: 'clear', value: '清除缓存', icon: 'refresh2', type: 'func' },

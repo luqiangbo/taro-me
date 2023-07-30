@@ -7,7 +7,7 @@ import { isEmpty, find } from 'lodash-es'
 
 import { mUser, mCommon } from '@/store'
 import { fetchShopList } from '@/apis'
-import { adminList, basicList } from './data'
+import { adminList, basicList, myList } from './data'
 import { goto } from '@/utils'
 
 export default function CLoginAfter() {
@@ -116,7 +116,7 @@ export default function CLoginAfter() {
         </div>
 
         {snapUser.user?.openId ? (
-          <div className="bg-white overflow-hidden rounded-lg mb-5">
+          <div className="bg-white overflow-hidden rounded-lg mb-4">
             <div className="px-2 pt-2">
               <Button
                 block
@@ -152,7 +152,8 @@ export default function CLoginAfter() {
             {onRenderLit(adminList)}
           </div>
         ) : null}
-        {onRenderLit(basicList)}
+        <div className="mb-4">{onRenderLit(myList)}</div>
+        <div className="mb-4">{onRenderLit(basicList)}</div>
       </div>
     </div>
   )

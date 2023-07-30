@@ -18,6 +18,13 @@ $br: 20px;
   line-height: 1 !important;
   display: flex !important;
 }
+.nut-collapse-item__header {
+  padding-left: 0 !important;
+}
+.nut-collapse-item__content-text {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 .comp-form {
   .nut-radiogroup {
     background-color: #f5f5f5 !important;
@@ -49,6 +56,9 @@ $br: 20px;
 
 .border-b2 {
   border-bottom: 2px solid #f5f5f5;
+}
+.border-comp {
+  border: 2px solid #f5f5f5;
 }
 
 .textarea-my {

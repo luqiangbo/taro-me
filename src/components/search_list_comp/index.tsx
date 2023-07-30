@@ -1,5 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState, useUpdateEffect } from 'ahooks'
+import { useEffect } from 'react'
 import { SearchBar, Swipe, Price, Tag, InfiniteLoading, Button } from '@nutui/nutui-react-taro'
 import { useSnapshot } from 'valtio'
 import { trim } from 'lodash-es'
@@ -20,6 +21,8 @@ import {
   fetchAddressList,
   fetchAddressDelete,
   fetchOrderListCustom,
+  fetchOrderUpdate,
+  fetchOrderListShop,
 } from '@/apis/index'
 
 export default function SearchListComp(props) {
@@ -36,9 +39,9 @@ export default function SearchListComp(props) {
     hash: '',
     isOpenSwipe: false,
   })
-  useDidShow(() => {
+  useEffect(() => {
     init()
-  })
+  }, [])
 
   useUpdateEffect(() => {
     console.log(1)
@@ -56,19 +59,19 @@ export default function SearchListComp(props) {
     let fetchUrl
     if (params.key === 'category') {
       req = {
-        shopId: snapUser.shop?.id,
+        shopId: mUser.shop?.id,
         ...state.req,
       }
       fetchUrl = fetchCategoryList
     } else if (params.key === 'shop') {
       req = {
-        userId: snapUser.user?.id,
+        userId: mUser.user?.id,
         ...state.req,
       }
       fetchUrl = fetchShopList
     } else if (params.key === 'spu') {
       req = {
-        shopId: snapUser.shop?.id,
+        shopId: mUser.shop?.id,
         ...state.req,
       }
       fetchUrl = fetchSpuList
@@ -80,25 +83,32 @@ export default function SearchListComp(props) {
       fetchUrl = fetchSkuList
     } else if (params.key === 'tag') {
       req = {
-        shopId: snapUser.shop?.id,
+        shopId: mUser.shop?.id,
         ...state.req,
       }
       fetchUrl = fetchTagList
     } else if (params.key === 'address') {
       req = {
-        customId: snapUser.custom?.id,
+        customId: mUser.custom?.id,
         summary: state.req.name,
         current: 1,
         pageSize: 20,
       }
       fetchUrl = fetchAddressList
     } else if (params.key === 'order_my') {
-      setState({ isOpenSwipe: true })
+      // setState({ isOpenSwipe: true })
       req = {
-        customId: snapUser.custom?.id,
+        customId: mUser.custom?.id,
         ...state.req,
       }
       fetchUrl = fetchOrderListCustom
+    } else if (params.key === 'order_manage') {
+      setState({ isOpenSwipe: true })
+      req = {
+        shopId: mUser.shop?.id,
+        ...state.req,
+      }
+      fetchUrl = fetchOrderListShop
     } else {
       return
     }
@@ -132,6 +142,12 @@ export default function SearchListComp(props) {
       fetchUrl = fetchTagDelete
     } else if (params.key === 'address') {
       fetchUrl = fetchAddressDelete
+    } else if (params.key === 'order_my') {
+      req = {
+        ...req,
+        status: -1,
+      }
+      fetchUrl = fetchOrderUpdate
     } else {
       return
     }
@@ -149,6 +165,35 @@ export default function SearchListComp(props) {
         pageSize: 20,
       },
     })
+  }
+
+  const onShowSwipe = (u) => {
+    const params = getParams()
+    let res = (
+      <Button
+        type="danger"
+        shape="square"
+        onClick={() => {
+          onFetchDelete({ id: u.id })
+        }}
+      >
+        删除
+      </Button>
+    )
+    if (params.key === 'order_my') {
+      res = (
+        <Button
+          type="warning"
+          shape="square"
+          onClick={() => {
+            onFetchDelete({ id: u.id })
+          }}
+        >
+          取消订单
+        </Button>
+      )
+    }
+    return res
   }
 
   return (
@@ -186,21 +231,7 @@ export default function SearchListComp(props) {
         >
           <div className="page-list-main">
             {state.mainList.map((u) => (
-              <Swipe
-                key={u.id}
-                disabled={state.isOpenSwipe}
-                rightAction={
-                  <Button
-                    type="danger"
-                    shape="square"
-                    onClick={() => {
-                      onFetchDelete({ id: u.id })
-                    }}
-                  >
-                    删除
-                  </Button>
-                }
-              >
+              <Swipe key={u.id} disabled={state.isOpenSwipe} rightAction={onShowSwipe(u)}>
                 {props.renderList(u)}
               </Swipe>
             ))}

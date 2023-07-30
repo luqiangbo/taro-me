@@ -3,7 +3,7 @@ import Taro, { getCurrentInstance } from '@tarojs/taro'
 import qs from 'qs'
 import Decimal from 'decimal.js'
 import dayjs from 'dayjs'
-import { get, find } from 'lodash-es'
+import { get, find, pickBy } from 'lodash-es'
 
 export const to = (promise) => promise.then((res) => [null, res]).catch((err) => [err, null])
 
@@ -48,7 +48,7 @@ export const dayFrmat = (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss')
 export const statusList = [
   {
     key: -1,
-    value: '删除',
+    value: '取消',
   },
   {
     key: 0,
@@ -58,9 +58,18 @@ export const statusList = [
     key: 1,
     value: '已支付',
   },
+  {
+    key: 2,
+    value: '已完成',
+  },
 ]
 
 export const statusOrder = (key) => {
   // -1:删除 0:未支付 1:已支付
   return get(find(statusList, { key }), 'value', '空')
 }
+
+export const picked = (data) =>
+  pickBy(data, (value, key) => {
+    return value != null
+  })
