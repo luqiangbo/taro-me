@@ -115,3 +115,12 @@ export const fetchOrderUpdate = (data) => request({ url: `${baseUrl}/order/updat
 
 // 订单管理列表
 export const fetchOrderListShop = (data) => request({ url: `${baseUrl}/order/list/shop`, data: picked(data) })
+
+// 首页详情
+export const fetchHomeDetail = (data) => request({ url: `${baseUrl}/home/detail`, data: picked(data) })
+
+// 添加首页
+export const fetchHomeAdd = (data) => request({ url: `${baseUrl}/home/add`, data: picked(data) })
+
+// 更新首页
+export const fetchHomeUpdate = (data) => request({ url: `${baseUrl}/home/update`, data: picked(data) })

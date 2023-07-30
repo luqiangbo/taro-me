@@ -4,6 +4,7 @@ import { IconFont } from '@nutui/icons-react-taro'
 
 import { mUser } from '@/store'
 import { fetchCustomLogin } from '@/apis'
+import { goto } from '@/utils'
 
 export default function CLoginBefore() {
   useDidShow(() => {
@@ -35,9 +36,21 @@ export default function CLoginBefore() {
     <div className="c-login-before">
       <div className="flex flex-col justify-center items-center" style={{ height: '80vh' }}>
         <IconFont size={150} name="https://qiniu.commok.com/pcigo/undraw_happy_music_g6wc.png" />
-        <Button onClick={onLogin} color="#c5a47a" fill="outline">
-          一键登录
-        </Button>
+        <div className="mb-3">
+          <Button onClick={onLogin} color="#c5a47a" fill="outline">
+            一键登录
+          </Button>
+        </div>
+        <div
+          className="p-4 text-gray-400"
+          onClick={() => {
+            goto({
+              url: '/pages/admin/agreement/index',
+            })
+          }}
+        >
+          隐私协议说明
+        </div>
       </div>
     </div>
   )

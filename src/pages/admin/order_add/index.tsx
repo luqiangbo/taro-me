@@ -219,6 +219,11 @@ export default function AdminOrderPage() {
           <div
             className="py-2 px-6 flex items-center justify-center h-auto bg-red-500 rounded-r-full"
             onClick={() => {
+              const { skuList } = state
+              const skuIdList = skuList.map((h) => h.id)
+              const cart = mUser.cart
+              const list = filter(cart, (u) => skuIdList.indexOf(u.id) === -1)
+              mUser.cart = list
               onOrderAdd()
             }}
           >

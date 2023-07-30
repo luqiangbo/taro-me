@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Button, Input, Cascader, Radio } from '@nutui/nutui-react-taro'
+import { Button, Input, Cascader, Radio, TextArea } from '@nutui/nutui-react-taro'
 import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, get, find } from 'lodash-es'
 
@@ -141,7 +141,7 @@ export default function FormComp(props) {
                           title: '上传成功',
                           icon: 'none',
                         })
-                        const fileList = get(state, key, [])
+                        const fileList = get(state.resValue, key, [])
                         fileList.push(data.data)
                         setState({
                           resValue: {
@@ -206,6 +206,32 @@ export default function FormComp(props) {
             </div>
           )
         }
+        if (u.type === 'TextArea') {
+          return (
+            <div key={u.key} className="comp-form-item">
+              <div className="comp-form-item-label">
+                <span className="mr-1 text-red-400">{u.required ? '*' : ''} </span> {u.label}
+              </div>
+              <TextArea
+                autoSize
+                rows={5}
+                maxLength={u.maxLength || 5000}
+                showCount
+                placeholder={u.placeholder}
+                defaultValue={state.resValue[u.key]}
+                value={state.resValue[u.key]}
+                onChange={(val) => {
+                  setState({
+                    resValue: {
+                      ...state.resValue,
+                      [u.key]: val,
+                    },
+                  })
+                }}
+              />
+            </div>
+          )
+        }
         if (u.type === 'uploader') {
           return (
             <div key={u.key} className="comp-form-item">
@@ -222,7 +248,8 @@ export default function FormComp(props) {
                     <div
                       className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
                       onClick={() => {
-                        const list = get(state, u.key, [])
+                        const list = get(state.resValue, u.key, [])
+                        console.log('删除图片', { list, i, key: u.key })
                         list.splice(i, 1)
                         setState({
                           resValue: {

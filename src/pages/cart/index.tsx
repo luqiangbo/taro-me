@@ -227,7 +227,7 @@ export default function EssayPage() {
                 color="linear-gradient(to right, #cf471e, #e24e58)"
                 onClick={() => {
                   const { skuIdListActive } = state
-                  const cart = snapUser.cart
+                  const cart = mUser.cart
                   const list = filter(cart, (u) => skuIdListActive.indexOf(u.id) === -1)
                   mUser.cart = list
                 }}
