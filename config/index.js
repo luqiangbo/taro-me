@@ -94,16 +94,16 @@ const config = {
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
   },
-  jsMinimizer: 'esbuild',
-  esbuild: {
-    minify: {
-      enable: true,
-      config: {
-        // 配置项同 https://github.com/privatenumber/esbuild-loader#minifyplugin
-        target: 'esnext', // target 默认值为 es5
-      },
-    },
-  },
+  // jsMinimizer: 'esbuild',
+  // esbuild: {
+  //   minify: {
+  //     enable: true,
+  //     config: {
+  //       // 配置项同 https://github.com/privatenumber/esbuild-loader#minifyplugin
+  //       target: 'esnext', // target 默认值为 es5
+  //     },
+  //   },
+  // },
 }
 
 module.exports = function (merge) {

@@ -106,3 +106,6 @@ export const fetchAddressPcas = () => request({ url: `${baseUrl}/address/pcas` }
 
 // 添加订单
 export const fetchOrderAdd = (data) => request({ url: `${baseUrl}/order/add`, data: pickBy(data) })
+
+// 我的订单
+export const fetchOrderListCustom = (data) => request({ url: `${baseUrl}/order/list/custom`, data: pickBy(data) })

@@ -19,6 +19,7 @@ import {
   fetchTagDelete,
   fetchAddressList,
   fetchAddressDelete,
+  fetchOrderListCustom,
 } from '@/apis/index'
 
 export default function SearchListComp(props) {
@@ -33,6 +34,7 @@ export default function SearchListComp(props) {
     hasMore: true,
     params: {},
     hash: '',
+    isOpenSwipe: false,
   })
   useDidShow(() => {
     init()
@@ -90,6 +92,13 @@ export default function SearchListComp(props) {
         pageSize: 20,
       }
       fetchUrl = fetchAddressList
+    } else if (params.key === 'order_my') {
+      setState({ isOpenSwipe: true })
+      req = {
+        customId: snapUser.custom?.id,
+        ...state.req,
+      }
+      fetchUrl = fetchOrderListCustom
     } else {
       return
     }
@@ -179,6 +188,7 @@ export default function SearchListComp(props) {
             {state.mainList.map((u) => (
               <Swipe
                 key={u.id}
+                disabled={state.isOpenSwipe}
                 rightAction={
                   <Button
                     type="danger"

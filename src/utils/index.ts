@@ -2,6 +2,8 @@ import { mapValues } from 'lodash-es'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import qs from 'qs'
 import Decimal from 'decimal.js'
+import dayjs from 'dayjs'
+import { get, find } from 'lodash-es'
 
 export const to = (promise) => promise.then((res) => [null, res]).catch((err) => [err, null])
 
@@ -37,4 +39,28 @@ export function multiply(num1, num2) {
 // 除
 export function divide(num1, num2) {
   return new Decimal(num1).dividedBy(num2).toString()
+}
+
+// 时间
+export const dayFrmat = (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+
+//
+export const statusList = [
+  {
+    key: -1,
+    value: '删除',
+  },
+  {
+    key: 0,
+    value: '未支付',
+  },
+  {
+    key: 1,
+    value: '已支付',
+  },
+]
+
+export const statusOrder = (key) => {
+  // -1:删除 0:未支付 1:已支付
+  return get(find(statusList, { key }), 'value', '空')
 }

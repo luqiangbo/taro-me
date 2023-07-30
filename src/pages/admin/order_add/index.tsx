@@ -178,7 +178,7 @@ export default function AdminOrderPage() {
                 <div className="pr-2 flex justify-between items-center">
                   <div className="flex-1">
                     <div>{u.spu.name}</div>
-                    <div>{u.name}</div>
+                    <div className="text-gray-400">{u.name}</div>
                   </div>
                   <div className="text-right">
                     <Price price={u.price} size="normal"></Price>
