@@ -59,6 +59,9 @@ export default function CLoginAfter() {
               }
               if (u.key === 'clear') {
                 mUser.cart = []
+                mUser.shop = {}
+                mUser.order = []
+                mUser.shopOpen = {}
                 mCommon.onToast('清除完成')
               }
             }
