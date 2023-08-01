@@ -189,7 +189,7 @@ export default function SearchListComp(props) {
             onFetchDelete({ id: u.id })
           }}
         >
-          取消订单
+          取消汇总
         </Button>
       )
     }

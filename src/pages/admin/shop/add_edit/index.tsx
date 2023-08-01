@@ -12,7 +12,7 @@ import { mUser } from '@/store'
 import { getParams } from '@/utils'
 
 definePageConfig({
-  navigationBarTitleText: '添加/编辑 店铺',
+  navigationBarTitleText: '添加/编辑 小区',
 })
 
 export default function AddEditPage(props) {
@@ -22,14 +22,14 @@ export default function AddEditPage(props) {
     formList: [
       {
         key: 'name',
-        label: '店铺名称',
+        label: '小区名称',
         placeholder: '请输入',
         type: 'input',
         required: true,
       },
       {
         key: 'image',
-        label: '店铺logo',
+        label: '小区logo',
         type: 'uploader',
         required: true,
         maxLength: 1,

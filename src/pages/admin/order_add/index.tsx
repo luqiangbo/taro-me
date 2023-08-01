@@ -12,7 +12,7 @@ import { goto, getParams, add, multiply } from '@/utils'
 import { mUser, mCommon } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '确认订单',
+  navigationBarTitleText: '确认合集',
 })
 
 export default function AdminOrderPage() {
@@ -189,7 +189,7 @@ export default function AdminOrderPage() {
               </div>
             </div>
             <div className="flex justify-between items-center text-gray-600 pt-2 text-sm">
-              <div className="w-v18">订单备注</div>
+              <div className="w-v18">合集备注</div>
               <div
                 className="flex items-center"
                 onClick={() => {
@@ -214,7 +214,7 @@ export default function AdminOrderPage() {
               <div style={{ color: '#bda57e' }}>合计:</div>
               <Price price={state.priceAll} size="large" className="text-white"></Price>
             </div>
-            <div className="text-sm text-gray-400">共{state.skuList.length}件</div>
+            <div className="text-sm text-gray-400">共{state.skuList.length}个</div>
           </div>
           <div
             className="py-2 px-6 flex items-center justify-center h-auto bg-red-500 rounded-r-full"
@@ -227,13 +227,13 @@ export default function AdminOrderPage() {
               onOrderAdd()
             }}
           >
-            提交订单
+            提交汇总
           </div>
         </div>
       </div>
 
       <Dialog
-        title="订单"
+        title="合集"
         visible={state.isOpenOrderSuccess}
         confirmText="确认"
         hideCancelButton
@@ -241,7 +241,7 @@ export default function AdminOrderPage() {
           Taro.navigateBack()
         }}
       >
-        添加订单成功
+        添加合集成功
       </Dialog>
 
       <Popup

@@ -133,7 +133,7 @@ export default function CLoginAfter() {
                   })
                 }}
               >
-                <div>当前店铺 :{snapUser.shop?.name}</div>
+                <div>当前小区 :{snapUser.shop?.name}</div>
               </Button>
             </div>
 

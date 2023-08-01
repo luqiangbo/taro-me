@@ -19,13 +19,13 @@ export default function TabbarComp() {
       },
       {
         key: 'category',
-        value: '分类',
+        value: '作品',
         icon: <IconFont width={18} height={18} name="category" />,
       },
       {
         key: 'cart',
-        value: '购物车',
-        icon: <IconFont width={18} height={18} name="cart" />,
+        value: '收藏',
+        icon: <IconFont width={18} height={18} name="s-follow" />,
       },
       {
         key: 'my',

@@ -18,12 +18,12 @@ export default function AllComp() {
       },
       {
         key: 'category',
-        value: '分类',
+        value: '作品',
         icon: <Category width={18} height={18} />,
       },
       {
         key: 'cart',
-        value: '购物车',
+        value: '收藏',
         icon: <Cart width={18} height={18} />,
       },
       {

@@ -21,14 +21,14 @@ export default function AddEditPage() {
     formList: [
       {
         key: 'receiver',
-        label: '收件人名称',
+        label: '名称',
         placeholder: '请输入',
         type: 'input',
         required: true,
       },
       {
         key: 'phone',
-        label: '手机号',
+        label: 'tel',
         placeholder: '请输入',
         type: 'input',
         required: true,
@@ -42,7 +42,7 @@ export default function AddEditPage() {
       },
       {
         key: 'detail',
-        label: '详细地址',
+        label: '详细',
         placeholder: '请输入',
         type: 'input',
         required: true,

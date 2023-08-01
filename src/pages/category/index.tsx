@@ -11,7 +11,7 @@ import { fetchCategoryList, fetchSpuList } from '@/apis'
 import { mUser, mCommon } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '分类',
+  navigationBarTitleText: '作品',
 })
 
 export default function EssayPage() {
@@ -99,7 +99,7 @@ export default function EssayPage() {
     if (sole) {
       const quantityRes = sole.quantity + skuQuantity
       if (quantityRes > skuActive.inventory) {
-        mCommon.onToast('超出库存了')
+        mCommon.onToast('超出最大了')
         return
       }
       sole.quantity = quantityRes
@@ -108,7 +108,7 @@ export default function EssayPage() {
     } else {
       console.log('库存2', { skuActive, sole })
       if (skuQuantity > skuActive.inventory) {
-        mCommon.onToast('超出库存了')
+        mCommon.onToast('超出最大了')
         return
       }
       cart.push({
@@ -169,7 +169,7 @@ export default function EssayPage() {
                           onOpenAddCart(h)
                         }}
                       >
-                        <IconFont name="cart" color="#fff"></IconFont>
+                        <IconFont name="s-follow" color="#fff"></IconFont>
                       </div>
                     </div>
                     <div className="absolute" style={{ right: '5px', bottom: '30px', zIndex: '10' }}>
@@ -201,13 +201,13 @@ export default function EssayPage() {
                 <div className="flex-1 pl-3">
                   <div>{get(state.spuDetail, 'name', '')}</div>
                   <div>{get(state.spuDetail, 'detail', '')}</div>
-                  <div className="pt-2 text-sm text-gray-400">库存: {get(state.skuActive, 'inventory', '')}</div>
+                  <div className="pt-2 text-sm text-gray-400">数量: {get(state.skuActive, 'inventory', '')}</div>
                 </div>
               </div>
               <div className="pt-1">
                 <div>
                   <Divider contentPosition="left" styles={{ color: '#c5a47a', borderColor: '#c5a47a' }}>
-                    规格型号
+                    规格
                   </Divider>
                 </div>
                 <Radio.Group
@@ -230,7 +230,7 @@ export default function EssayPage() {
                 </Radio.Group>
               </div>
               <div className="flex items-center justify-between">
-                <div>购买数量</div>
+                <div>收藏数量</div>
                 <div>
                   <InputNumber
                     defaultValue={state.skuQuantity}
@@ -246,7 +246,7 @@ export default function EssayPage() {
               </div>
               <div className="safe-area absolute bottom-4 left-0 w-full px-4">
                 <Button block type="primary" onClick={onAddCart}>
-                  加入购物车
+                  收藏
                 </Button>
               </div>
             </div>

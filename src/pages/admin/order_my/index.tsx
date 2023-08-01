@@ -9,7 +9,7 @@ import { mUser } from '@/store'
 import { fetchCustomLogin } from '@/apis'
 
 definePageConfig({
-  navigationBarTitleText: '我的订单',
+  navigationBarTitleText: '我的合集',
 })
 
 export default function PageOrderMy() {
@@ -53,10 +53,10 @@ export default function PageOrderMy() {
         <div className="flex items-end justify-between">
           <div className="text-gray-500 text-sm"></div>
           <div className="text-gray-500 flex items-baseline justify-between">
-            <div style={{ color: '#bda57e' }} className="mr-1">
+            {/* <div style={{ color: '#bda57e' }} className="mr-1">
               总价:
             </div>
-            <Price price={h.totalPrice} size="large"></Price>
+            <Price price={h.totalPrice} size="large"></Price> */}
           </div>
         </div>
         <div className="flex items-end justify-between mb-1">
@@ -73,12 +73,12 @@ export default function PageOrderMy() {
               })
             }}
           >
-            订单号: {h.code}
+            合集号: {h.code}
           </div>
           <div></div>
         </div>
         <div className="flex items-end justify-between">
-          <div className="text-gray-500 text-sm">订单时间: {dayFrmat(h.createdAt)}</div>
+          <div className="text-gray-500 text-sm">时间: {dayFrmat(h.createdAt)}</div>
           <div></div>
         </div>
       </div>

@@ -5,12 +5,12 @@ import { useSetState, useUpdate } from 'ahooks'
 
 import CAll from '@/components/all_comp'
 import CSearchList from '@/components/search_list_comp'
-import { dayFrmat, statusOrder } from '@/utils'
+import { dayFrmat, statusOrder, statusList } from '@/utils'
 import { mUser } from '@/store'
 import { fetchOrderUpdate } from '@/apis'
 
 definePageConfig({
-  navigationBarTitleText: '订单管理',
+  navigationBarTitleText: '合集管理',
 })
 
 export default function PageOrderMy() {
@@ -19,12 +19,7 @@ export default function PageOrderMy() {
     statusActive: [],
     orderId: '',
     isOpenStatus: false,
-    statusList: [
-      { value: -1, text: '取消' },
-      { value: 0, text: '未支付' },
-      { value: 1, text: '已支付' },
-      { value: 2, text: '已完成' },
-    ],
+    statusList: statusList,
     roload: true,
   })
 
@@ -45,10 +40,10 @@ export default function PageOrderMy() {
         <div className="flex items-center justify-between mb-2 text-gray-800">
           <div>客户:{h.custom.nickName}</div>
           <div className="text-gray-500 flex items-baseline justify-between">
-            <div style={{ color: '#bda57e' }} className="mr-1">
+            {/* <div style={{ color: '#bda57e' }} className="mr-1">
               总价:
             </div>
-            <Price price={h.totalPrice} size="large"></Price>
+            <Price price={h.totalPrice} size="large"></Price> */}
           </div>
         </div>
         <div className="flex items-center justify-between mb-2 text-gray-500">
@@ -56,7 +51,7 @@ export default function PageOrderMy() {
           <div>{dayFrmat(h.createdAt)}</div>
         </div>
         <Collapse expandIcon={'🌂'}>
-          <Collapse.Item title={`订单号: ${h.code}`}>
+          <Collapse.Item title={`合集号: ${h.code}`}>
             <div>
               {h.orderItem.map((u) => (
                 <div className=" bg-white rounded-lg mb-1 px-2 py-1" key={u.key}>

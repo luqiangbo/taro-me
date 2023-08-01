@@ -55,7 +55,7 @@ export default function PageAbout() {
           七牛云
         </Tag>
       </div>
-      <div>这个网站是我记录练习一整套店铺的成果展示, 不能付款哈!🤥🤥🤥</div>
+      <div>这个网站是我记录练习和展示🤥🤥🤥</div>
     </div>
   )
 }

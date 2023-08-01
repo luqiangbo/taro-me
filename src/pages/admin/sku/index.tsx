@@ -11,7 +11,7 @@ import { mUser } from '@/store'
 import { getParams, goto } from '@/utils'
 
 definePageConfig({
-  navigationBarTitleText: '型号规格管理',
+  navigationBarTitleText: '规格管理',
 })
 
 export default function AdminSkuPage() {
@@ -38,7 +38,7 @@ export default function AdminSkuPage() {
                 <div className="">价格:</div>
                 <Price price={u.price} size="normal" thousands />
               </div>
-              <div className="">库存:{u.inventory}</div>
+              <div className="">数量:{u.inventory}</div>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ import { mUser } from '@/store'
 import { getParams } from '@/utils'
 
 definePageConfig({
-  navigationBarTitleText: '添加/编辑 型号规格',
+  navigationBarTitleText: '添加/编辑 规格',
 })
 
 export default function AddEditPage() {
@@ -36,7 +36,7 @@ export default function AddEditPage() {
       },
       {
         key: 'inventory',
-        label: '库存',
+        label: '数量',
         placeholder: '请输入',
         type: 'input',
         inputType: 'number',

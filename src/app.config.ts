@@ -47,7 +47,7 @@ export default defineAppConfig({
       },
       {
         pagePath: 'pages/category/index',
-        text: '分类',
+        text: '作品',
       },
       {
         pagePath: 'pages/cart/index',

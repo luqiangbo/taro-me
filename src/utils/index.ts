@@ -48,19 +48,19 @@ export const dayFrmat = (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss')
 export const statusList = [
   {
     key: -1,
-    value: '取消',
+    value: '取消吧',
   },
   {
     key: 0,
-    value: '未支付',
+    value: '默认',
   },
   {
     key: 1,
-    value: '已支付',
+    value: '处理吧',
   },
   {
     key: 2,
-    value: '已完成',
+    value: '结束吧',
   },
 ]
 

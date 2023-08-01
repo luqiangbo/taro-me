@@ -237,9 +237,7 @@ export default function EssayPage() {
             </div>
           ) : (
             <div className="flex items-center">
-              <div className="mr-2">
-                总价: <Price price={state.priceActive} size="large"></Price>
-              </div>
+              <div className="mr-2">{/* 总价: <Price price={state.priceActive} size="large"></Price> */}</div>
               <Button
                 className="w-v25"
                 color="linear-gradient(to right, #5bae6f, #249543)"
@@ -249,7 +247,7 @@ export default function EssayPage() {
                     return
                   }
                   if (state.skuIdListActive.length === 0) {
-                    mCommon.onToast('请选择商品')
+                    mCommon.onToast('请选择作品')
                     return
                   }
                   const cartList = snapUser.cart
@@ -262,7 +260,7 @@ export default function EssayPage() {
                   })
                 }}
               >
-                结算
+                汇总一下
               </Button>
             </div>
           )}
