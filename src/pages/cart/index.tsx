@@ -11,7 +11,7 @@ import { fetchSpuCart, fetchAddressList } from '@/apis'
 import { add, goto, multiply } from '@/utils'
 
 definePageConfig({
-  navigationBarTitleText: '购物车',
+  navigationBarTitleText: '收藏',
 })
 
 export default function EssayPage() {

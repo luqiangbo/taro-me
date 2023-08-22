@@ -51,7 +51,7 @@ export default defineAppConfig({
       },
       {
         pagePath: 'pages/cart/index',
-        text: '购物车',
+        text: '收藏',
       },
       {
         pagePath: 'pages/my/index',
