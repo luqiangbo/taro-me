@@ -260,7 +260,7 @@ export default function EssayPage() {
                   })
                 }}
               >
-                汇总一下
+                保存
               </Button>
             </div>
           )}

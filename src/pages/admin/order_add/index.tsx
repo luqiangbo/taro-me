@@ -227,7 +227,7 @@ export default function AdminOrderPage() {
               onOrderAdd()
             }}
           >
-            提交汇总
+            提交
           </div>
         </div>
       </div>

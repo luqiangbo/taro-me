@@ -60,6 +60,21 @@ export default function HomePage() {
     })
   }
 
+  const onShareAppMessage = (res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: 'AI工作台/比价分享',
+      path: '/pages/index/index',
+    }
+  }
+
+  const onShareTimeline = () => {
+    return {}
+  }
+
   return (
     <div className="page-c page-home">
       <CTitle>
