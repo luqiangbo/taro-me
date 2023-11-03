@@ -1,5 +1,5 @@
 export const adminList = [
-  { key: 'shop', value: '小区管理', icon: 'shop3', type: 'router' },
+  { key: 'shop', value: '管理', icon: 'shop3', type: 'router' },
   { key: 'home', value: '首页管理', icon: 'home', type: 'router' },
   { key: 'category', value: '分类管理', icon: 'category', type: 'router' },
   { key: 'tag', value: '标签管理', icon: 'tips', type: 'router' },

@@ -3,7 +3,7 @@ module.exports = {
     NODE_ENV: '"production"',
   },
   defineConstants: {
-    BaseUrl: '"https://api-mm-dev.commok.com/mm"',
+    BaseUrl: '"https://api-mm-dev.cooog.com/mm"',
   },
   mini: {},
   h5: {

@@ -117,7 +117,7 @@ export default function HomePage() {
               }}
             >
               <div className="w-v12 h-v12 mr-1">
-                <Image mode="widthFix" src={'https://qiniu.commok.com/pcigo/202307201605751.svg'} />
+                <Image mode="widthFix" src={'https://qiniu.cooog.com/pcigo/202307201605751.svg'} />
               </div>
               <div className="right">{state.detail.title}</div>
             </div>

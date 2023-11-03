@@ -12,7 +12,7 @@ import { goto, getParams } from '@/utils'
 import { mUser } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '小区管理',
+  navigationBarTitleText: '管理',
 })
 
 export default function AdminProductPage() {

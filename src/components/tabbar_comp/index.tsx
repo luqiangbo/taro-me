@@ -67,7 +67,12 @@ export default function TabbarComp() {
         }}
       >
         {state.tabbarList.map((u) => (
-          <Tabbar.Item key={u.key} title={u.value} icon={u.icon} value={u.key === 'cart' ? onGetQuantity() : null} />
+          <Tabbar.Item
+            key={u.key}
+            title={u.value}
+            icon={u.icon}
+            value={u.key === 'cart' && onGetQuantity() ? onGetQuantity() : null}
+          />
         ))}
       </Tabbar>
     </div>

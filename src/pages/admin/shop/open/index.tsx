@@ -10,7 +10,7 @@ import CAll from '@/components/all_comp'
 import { mUser, mCommon } from '@/store'
 
 definePageConfig({
-  navigationBarTitleText: '切换小区',
+  navigationBarTitleText: '切换',
 })
 
 export default function ShopOpenPage(props) {

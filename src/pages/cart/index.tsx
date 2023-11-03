@@ -198,7 +198,7 @@ export default function EssayPage() {
           ) : (
             <div>
               <div className="w-v100 min-h-v80">
-                <Image mode="widthFix" src={'https://qiniu.commok.com/picgo/202307231702486.svg'} />
+                <Image mode="widthFix" src={'https://qiniu.cooog.com/picgo/202307231702486.svg'} />
               </div>
               <div className="text-center text-gray-400 py-5">无数据</div>
             </div>

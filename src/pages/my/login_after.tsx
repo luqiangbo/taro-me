@@ -81,7 +81,7 @@ export default function CLoginAfter() {
     <div className="c-login-after">
       <div className="pt-10 flex justify-center items-end">
         <div className="w-v100 min-h-v80">
-          <Image mode="widthFix" src={'https://qiniu.commok.com/pcigo/202307211657147.svg'} />
+          <Image mode="widthFix" src={'https://qiniu.cooog.com/pcigo/202307211657147.svg'} />
         </div>
       </div>
       <div className="p-2">
@@ -133,7 +133,7 @@ export default function CLoginAfter() {
                   })
                 }}
               >
-                <div>当前小区 :{snapUser.shop?.name}</div>
+                <div>当前 :{snapUser.shop?.name}</div>
               </Button>
             </div>
 
