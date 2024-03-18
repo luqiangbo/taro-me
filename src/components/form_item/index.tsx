@@ -3,7 +3,7 @@ import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Button, Input, Cascader, Radio, TextArea } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Image, Del } from '@nutui/icons-react-taro'
 import { isEmpty, get, find } from 'lodash-es'
 
 import { mCommon } from '@/store'
@@ -244,7 +244,6 @@ export default function FormComp(props) {
                     key={h}
                     className="w-20 h-20 rounded overflow-hidden bg-slate-200 border border-gray-300 mr-2 relative"
                   >
-                    <IconFont size="80" name={h} />
                     <div
                       className="absolute bottom-0 right-0 p-1 bg-black bg-opacity-50 rounded"
                       onClick={() => {
@@ -259,7 +258,7 @@ export default function FormComp(props) {
                         })
                       }}
                     >
-                      <IconFont name="del" size="22" color="#fa2c19" />
+                      <Del size="22" color="#fa2c19" />
                     </div>
                   </div>
                 ))}
@@ -270,7 +269,7 @@ export default function FormComp(props) {
                       onUpload({ key: u.key, type: 'image', maxSize: u.maxSize })
                     }}
                   >
-                    <IconFont name="image" />
+                    <Image name="image" />
                     <div> 上传图片</div>
                   </div>
                 ) : null}

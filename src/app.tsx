@@ -8,7 +8,7 @@ import zh from '@nutui/nutui-react-taro/dist/locales/zh-CN'
 import { mUser } from '@/store'
 
 import './style/app.css'
-import './style/theme2.css'
+// import './style/theme2.css'
 import './assets/font/iconfont.css'
 import './style/all.scss'
 

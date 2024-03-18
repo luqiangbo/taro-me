@@ -1,7 +1,7 @@
 import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Button, Image, Tag } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Add, Edit } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
@@ -55,7 +55,7 @@ export default function AdminProductPage() {
               })
             }}
           >
-            <IconFont name="uploader" size={12}></IconFont>
+            <Add name="uploader" size={12} />
           </Button>
           <Button
             color="#c5a47a"
@@ -76,7 +76,7 @@ export default function AdminProductPage() {
               })
             }}
           >
-            <IconFont name="edit" size={12}></IconFont>
+            <Edit name="edit" size={12} />
           </Button>
         </div>
       </div>

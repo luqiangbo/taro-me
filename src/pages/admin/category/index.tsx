@@ -1,7 +1,7 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Button, Tag } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Edit } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
@@ -43,7 +43,7 @@ export default function AdminProductPage() {
               })
             }}
           >
-            <IconFont name="edit" size={12}></IconFont>
+            <Edit name="edit" size={12} />
           </Button>
         </div>
       </div>

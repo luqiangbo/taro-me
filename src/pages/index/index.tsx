@@ -1,7 +1,7 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Swiper, SwiperItem, SearchBar, Popup, Image } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Shop } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { find } from 'lodash-es'
 
@@ -84,7 +84,7 @@ export default function HomePage() {
             goto({ url: `/pages/admin/shop/open/index`, data: { key: 'shop' } })
           }}
         >
-          <IconFont name="shop" className="mr-1" />
+          <Shop className="mr-1" />
           {snapUser.shopOpen?.name}
         </div>
       </CTitle>

@@ -2,7 +2,6 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { Toast, Tabbar } from '@nutui/nutui-react-taro'
-import { Cart, Category, Find, Home, My } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import { mCommon } from '@/store'
@@ -10,28 +9,6 @@ import { mCommon } from '@/store'
 export default function AllComp() {
   const snapCommon = useSnapshot(mCommon)
   const [state, setState] = useSetState({
-    tabbarList: [
-      {
-        key: 'index',
-        value: '首页',
-        icon: <Home width={18} height={18} />,
-      },
-      {
-        key: 'category',
-        value: '作品',
-        icon: <Category width={18} height={18} />,
-      },
-      {
-        key: 'cart',
-        value: '收藏',
-        icon: <Cart width={18} height={18} />,
-      },
-      {
-        key: 'my',
-        value: '我的',
-        icon: <My width={18} height={18} />,
-      },
-    ],
     activeIndex: '',
     activeColor: '#1989fa',
     inactiveColor: '#7d7e80',

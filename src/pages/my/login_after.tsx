@@ -1,8 +1,8 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
-import { Button, Picker, Image, Tag, Toast } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Button, Picker, Image, Tag } from '@nutui/nutui-react-taro'
+import { IconFont, ArrowRight, Setting } from '@nutui/icons-react-taro'
 import { isEmpty, find } from 'lodash-es'
 
 import { mUser, mCommon } from '@/store'
@@ -68,10 +68,10 @@ export default function CLoginAfter() {
           }}
         >
           <div className="flex items-center">
-            <IconFont name={u.icon} color="#666" size={14} className="mr-2" />
+            {u.icon}
             <div className="text-sm">{u.value}</div>
           </div>
-          <IconFont name="right" color="#ccc" size={12} />
+          <ArrowRight color="#ccc" size={12} />
         </div>
       ))}
     </div>
@@ -99,7 +99,7 @@ export default function CLoginAfter() {
             <div className="text-sm mx-2">{mUser.custom.nickName.substring(0, 11)}</div>
             <Tag background="#c5a47a">{snapUser.user?.openId ? '管理员' : 'Vip'}</Tag>
           </div>
-          <IconFont
+          <Setting
             size={20}
             name="setting"
             color="#ccc"

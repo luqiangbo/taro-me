@@ -1,12 +1,9 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { Button, Image, Price } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
 
 import CAll from '@/components/all_comp'
 import CSearchList from '@/components/search_list_comp'
 import { dayFrmat, statusOrder } from '@/utils'
-import { mUser } from '@/store'
-import { fetchCustomLogin } from '@/apis'
 
 definePageConfig({
   navigationBarTitleText: '我的合集',

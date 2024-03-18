@@ -1,7 +1,7 @@
 import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Button, Image, Price } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Edit } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
@@ -63,7 +63,7 @@ export default function AdminSkuPage() {
               })
             }}
           >
-            <IconFont name="edit" size={12}></IconFont>
+            <Edit size={12} />
           </Button>
         </div>
       </div>

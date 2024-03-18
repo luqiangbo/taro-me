@@ -1,7 +1,7 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Tabs, Image, Popup, Radio, Divider, Button, InputNumber, Price, Tag } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Add } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { get, find, filter, cloneDeep, sumBy } from 'lodash-es'
 
@@ -169,7 +169,7 @@ export default function EssayPage() {
                           onOpenAddCart(h)
                         }}
                       >
-                        <IconFont name="s-follow" color="#fff"></IconFont>
+                        <Add color="#fff" />
                       </div>
                     </div>
                     <div className="absolute" style={{ right: '5px', bottom: '30px', zIndex: '10' }}>

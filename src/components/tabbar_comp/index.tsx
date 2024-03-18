@@ -1,8 +1,8 @@
 import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
-import { Toast, Tabbar } from '@nutui/nutui-react-taro'
-import { IconFont } from '@nutui/icons-react-taro'
+import { Tabbar } from '@nutui/nutui-react-taro'
+import { Home, Category, Cart, User } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import { mCommon, mUser } from '@/store'
@@ -15,22 +15,22 @@ export default function TabbarComp() {
       {
         key: 'index',
         value: '首页',
-        icon: <IconFont width={18} height={18} name="home" />,
+        icon: <Home width={18} height={18} />,
       },
       {
         key: 'category',
         value: '作品',
-        icon: <IconFont width={18} height={18} name="category" />,
+        icon: <Category width={18} height={18} />,
       },
       {
         key: 'cart',
         value: '收藏',
-        icon: <IconFont width={18} height={18} name="s-follow" />,
+        icon: <Cart width={18} height={18} />,
       },
       {
         key: 'my',
         value: '我的',
-        icon: <IconFont width={18} height={18} name="my" />,
+        icon: <User width={18} height={18} />,
       },
     ],
     activeIndex: '',
