@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { Popup, Radio, Image, Price, TextArea, Button, Dialog } from '@nutui/nutui-react-taro'
-import { Location, Edit } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { find, cloneDeep, filter } from 'lodash-es'
 
@@ -149,7 +149,7 @@ export default function AdminOrderPage() {
           }}
         >
           <div className=" flex items-center text-sm text-gray-400">
-            <Location size={18} className="mr-2" />
+            <IconFont fontClassName="iconfont" classPrefix="icon" name="locale" size="16" />
             {state.addressActive.id ? (
               <div>
                 <div className="flex items-center">
@@ -201,7 +201,7 @@ export default function AdminOrderPage() {
               >
                 {/* <Ellipsis content={u.notes ? u.notes : '无备注'} direction="end" /> */}
                 <div className="mr-2 w-v50 text-right overflow-hidden">{u.notes ? u.notes : '无备注'}</div>
-                <Edit name="edit" size={14} className="mr-2 flex" color="#4e5562" />
+                <IconFont fontClassName="iconfont" classPrefix="icon" name="post" size="16" />
               </div>
             </div>
           </div>

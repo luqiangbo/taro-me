@@ -3,7 +3,7 @@ import { useEffect, useCallback } from 'react'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Button, Input, Cascader, Radio, TextArea } from '@nutui/nutui-react-taro'
-import { Image, Del } from '@nutui/icons-react-taro'
+import { Image, IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, get, find } from 'lodash-es'
 
 import { mCommon } from '@/store'
@@ -258,7 +258,7 @@ export default function FormComp(props) {
                         })
                       }}
                     >
-                      <Del size="22" color="#fa2c19" />
+                      <IconFont fontClassName="iconfont" classPrefix="icon" name="deletefill" size="16" />
                     </div>
                   </div>
                 ))}

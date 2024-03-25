@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Plus } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 
 import { goto, getParams } from '@/utils'
 
@@ -22,7 +22,7 @@ export default function GoAddComp() {
           })
         }}
       >
-        <Plus color="white" /> 添加
+        <IconFont fontClassName="iconfont" classPrefix="icon" name="add_light" size="16" />
       </div>
     </div>
   )

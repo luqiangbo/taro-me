@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { Tabbar } from '@nutui/nutui-react-taro'
-import { Home, Category, Cart, User } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import { mCommon, mUser } from '@/store'
@@ -15,26 +15,27 @@ export default function TabbarComp() {
       {
         key: 'index',
         value: '首页',
-        icon: <Home width={18} height={18} />,
+        icon: <IconFont fontClassName="iconfont" classPrefix="icon" name="home_light" size="16" />,
       },
+
       {
         key: 'category',
         value: '作品',
-        icon: <Category width={18} height={18} />,
+        icon: <IconFont fontClassName="iconfont" classPrefix="icon" name="sort" size="16" />,
       },
       {
         key: 'cart',
         value: '收藏',
-        icon: <Cart width={18} height={18} />,
+        icon: <IconFont fontClassName="iconfont" classPrefix="icon" name="deliver" size="16" />,
       },
       {
         key: 'my',
         value: '我的',
-        icon: <User width={18} height={18} />,
+        icon: <IconFont fontClassName="iconfont" classPrefix="icon" name="my_light" size="16" />,
       },
     ],
     activeIndex: '',
-    activeColor: '#c5a47a',
+    activeColor: mCommon.colorMain,
     inactiveColor: '#7d7e80',
   })
   useEffect(() => {

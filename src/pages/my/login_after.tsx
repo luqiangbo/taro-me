@@ -2,7 +2,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { useSnapshot } from 'valtio'
 import { Button, Picker, Image, Tag } from '@nutui/nutui-react-taro'
-import { IconFont, ArrowRight, Setting } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { isEmpty, find } from 'lodash-es'
 
 import { mUser, mCommon } from '@/store'
@@ -71,7 +71,7 @@ export default function CLoginAfter() {
             {u.icon}
             <div className="text-sm">{u.value}</div>
           </div>
-          <ArrowRight color="#ccc" size={12} />
+          <IconFont fontClassName="iconfont" classPrefix="icon" name="post" size="16" />
         </div>
       ))}
     </div>
@@ -97,11 +97,13 @@ export default function CLoginAfter() {
               )}
             </div>
             <div className="text-sm mx-2">{mUser.custom.nickName.substring(0, 11)}</div>
-            <Tag background="#c5a47a">{snapUser.user?.openId ? '管理员' : 'Vip'}</Tag>
+            <Tag background={mCommon.colorMain}>{snapUser.user?.openId ? '管理员' : 'Vip'}</Tag>
           </div>
-          <Setting
-            size={20}
-            name="setting"
+          <IconFont
+            fontClassName="iconfont"
+            classPrefix="icon"
+            name="post"
+            size="20"
             color="#ccc"
             onClick={() => {
               goto({

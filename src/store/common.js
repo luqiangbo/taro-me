@@ -14,4 +14,5 @@ export const mCommon = proxy({
   },
   tabbarActiveIndex: 0,
   shopOpenList: [],
+  colorMain: '#009a61',
 })

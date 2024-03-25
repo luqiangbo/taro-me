@@ -46,7 +46,7 @@ module.exports = {
       width: onVminObj(),
       height: onVminObj(),
       backgroundColor: {
-        main: '#c5a47a',
+        // main: '#009a61',
       },
     },
   },

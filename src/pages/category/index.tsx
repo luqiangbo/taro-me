@@ -1,7 +1,7 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Tabs, Image, Popup, Radio, Divider, Button, InputNumber, Price, Tag } from '@nutui/nutui-react-taro'
-import { Add } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 import { get, find, filter, cloneDeep, sumBy } from 'lodash-es'
 
@@ -169,7 +169,7 @@ export default function EssayPage() {
                           onOpenAddCart(h)
                         }}
                       >
-                        <Add color="#fff" />
+                        <IconFont fontClassName="iconfont" classPrefix="icon" name="add" size="16" />
                       </div>
                     </div>
                     <div className="absolute" style={{ right: '5px', bottom: '30px', zIndex: '10' }}>
@@ -206,7 +206,7 @@ export default function EssayPage() {
               </div>
               <div className="pt-1">
                 <div>
-                  <Divider contentPosition="left" styles={{ color: '#c5a47a', borderColor: '#c5a47a' }}>
+                  <Divider contentPosition="left" styles={{ color: mCommon.colorMain, borderColor: mCommon.colorMain }}>
                     规格
                   </Divider>
                 </div>

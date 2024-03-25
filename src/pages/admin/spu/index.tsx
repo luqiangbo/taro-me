@@ -1,13 +1,13 @@
 import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Button, Image, Tag } from '@nutui/nutui-react-taro'
-import { Add, Edit } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CSearchList from '@/components/search_list_comp'
 import CGoAdd from '@/components/go_add_comp'
-import { mUser } from '@/store'
+import { mUser, mCommon } from '@/store'
 import { goto, getParams } from '@/utils'
 
 definePageConfig({
@@ -45,7 +45,7 @@ export default function AdminProductPage() {
         </div>
         <div className="h-v8">
           <Button
-            color="#c5a47a"
+            color={mCommon.colorMain}
             fill="outline"
             className="flex items-center m-1"
             onClick={() => {
@@ -55,10 +55,10 @@ export default function AdminProductPage() {
               })
             }}
           >
-            <Add name="uploader" size={12} />
+            <IconFont fontClassName="iconfont" classPrefix="icon" name="add" size="16" />
           </Button>
           <Button
-            color="#c5a47a"
+            color={mCommon.colorMain}
             fill="outline"
             className="flex items-center m-1"
             onClick={() => {
@@ -76,7 +76,7 @@ export default function AdminProductPage() {
               })
             }}
           >
-            <Edit name="edit" size={12} />
+            <IconFont fontClassName="iconfont" classPrefix="icon" name="post" size="16" />
           </Button>
         </div>
       </div>

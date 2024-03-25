@@ -1,14 +1,14 @@
 import { useDidShow } from '@tarojs/taro'
 import { useSetState } from 'ahooks'
 import { Button } from '@nutui/nutui-react-taro'
-import { Edit } from '@nutui/icons-react-taro'
+import { IconFont } from '@nutui/icons-react-taro'
 import { useSnapshot } from 'valtio'
 
 import CAll from '@/components/all_comp'
 import CGoAdd from '@/components/go_add_comp'
 import CSearchList from '@/components/search_list_comp'
 import { fetchAddressList } from '@/apis/index'
-import { mUser } from '@/store'
+import { mUser, mCommon } from '@/store'
 import { getParams, goto } from '@/utils'
 
 definePageConfig({
@@ -67,7 +67,7 @@ export default function AdminTagPage() {
         </div>
         <div className="h-v8">
           <Button
-            color="#c5a47a"
+            color={mCommon.colorMain}
             fill="outline"
             className="flex items-center"
             onClick={() => {
@@ -89,7 +89,7 @@ export default function AdminTagPage() {
               })
             }}
           >
-            <Edit size={12} />
+            <IconFont fontClassName="iconfont" classPrefix="icon" name="post" size="16" />
           </Button>
         </div>
       </div>

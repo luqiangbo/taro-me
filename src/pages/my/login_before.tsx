@@ -1,7 +1,7 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { Button, Image } from '@nutui/nutui-react-taro'
 
-import { mUser } from '@/store'
+import { mCommon, mUser } from '@/store'
 import { fetchCustomLogin } from '@/apis'
 import { goto } from '@/utils'
 
@@ -36,7 +36,7 @@ export default function CLoginBefore() {
       <div className="flex flex-col justify-center items-center" style={{ height: '80vh' }}>
         <Image width="40%" height="150" src="https://qiniu.cooog.com/pcigo/undraw_happy_music_g6wc.png" />
         <div className="mb-3">
-          <Button onClick={onLogin} color="#c5a47a" fill="outline">
+          <Button onClick={onLogin} color={mCommon.colorMain} fill="outline">
             一键登录
           </Button>
         </div>
